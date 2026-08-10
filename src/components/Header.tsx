@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Desktop & Tablet Navigation (Exactly ABOUT, SOLUTIONS, PROJECTS, CONTACT - No Dropdowns) */}
-        <nav className="hidden lg:flex items-center gap-2 lg:gap-4 xl:gap-6 absolute left-1/2 -translate-x-1/2 z-10">
+        <nav className="hidden lg:flex items-center gap-1 lg:gap-3 xl:gap-6 absolute left-1/2 -translate-x-1/2 z-10">
           {navItems.map((item) => {
             const isActive = activePage === item.id;
             return (
@@ -71,10 +71,10 @@ export const Header: React.FC<HeaderProps> = ({
                 key={item.id}
                 type="button"
                 onClick={() => handleNavClick(item.id, item.subTab)}
-                className={`px-4 py-2 rounded-lg text-sm font-bold tracking-wider transition-all cursor-pointer whitespace-nowrap ${
+                className={`px-3 py-2 text-xs sm:text-sm font-semibold tracking-wider transition-colors cursor-pointer whitespace-nowrap border-b-2 ${
                   isActive
-                    ? 'text-blue-600 font-extrabold bg-blue-50/80 border border-blue-100'
-                    : 'text-slate-800 hover:text-blue-600 hover:bg-slate-100/80'
+                    ? 'text-blue-600 border-blue-600 font-bold'
+                    : 'text-slate-800 border-transparent hover:text-blue-600'
                 }`}
               >
                 {item.label}
@@ -95,11 +95,11 @@ export const Header: React.FC<HeaderProps> = ({
                     e.stopPropagation();
                     setOpenDropdown(openDropdown === 'lang' ? null : 'lang');
                   }}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-800 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                  className="flex items-center gap-1.5 px-2 py-1 rounded-sm border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-medium transition-all cursor-pointer"
                   aria-label="Language Select"
                 >
-                  <Globe className="w-3.5 h-3.5 text-slate-600" />
-                  <span className="uppercase font-mono tracking-wider font-bold text-[11px]">{activeLangObj.code}</span>
+                  <Globe className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="uppercase font-mono tracking-wider font-semibold text-[11px]">{activeLangObj.code}</span>
                   <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${openDropdown === 'lang' ? 'rotate-180' : ''}`} />
                 </button>
 

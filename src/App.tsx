@@ -9,7 +9,6 @@ import { MetricsSection } from './components/MetricsSection';
 import { AboutDiseSection } from './components/AboutDiseSection';
 import { SolutionsSection } from './components/SolutionsSection';
 import { FeaturedProjectsSection } from './components/FeaturedProjectsSection';
-import { WhyDiseSection } from './components/WhyDiseSection';
 import { GlobalProjectSection } from './components/GlobalProjectSection';
 import { ContactCtaSection } from './components/ContactCtaSection';
 import { AboutSection, AboutSubTab } from './components/AboutSection';
@@ -169,15 +168,12 @@ export default function App() {
               onNavigateProjects={() => handlePageChange('portfolio')}
             />
 
-            {/* 7. WHY DISE */}
-            <WhyDiseSection />
-
-            {/* 8. GLOBAL PROJECT */}
+            {/* 7. GLOBAL PROJECT */}
             <GlobalProjectSection
               onNavigateGlobalProjects={() => handlePageChange('portfolio', undefined, 'global')}
             />
 
-            {/* 9. CONTACT CTA */}
+            {/* 8. CONTACT CTA */}
             <ContactCtaSection
               onNavigateContact={() => handlePageChange('contact')}
             />
