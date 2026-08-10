@@ -73,8 +73,8 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => handleNavClick(item.id, item.subTab)}
                 className={`px-3 py-2 text-xs sm:text-sm font-semibold tracking-wider transition-colors cursor-pointer whitespace-nowrap border-b-2 ${
                   isActive
-                    ? 'text-blue-600 border-blue-600 font-bold'
-                    : 'text-slate-800 border-transparent hover:text-blue-600'
+                    ? 'text-[#294A63] border-[#294A63] font-bold'
+                    : 'text-[#222831] border-transparent hover:text-[#294A63]'
                 }`}
               >
                 {item.label}

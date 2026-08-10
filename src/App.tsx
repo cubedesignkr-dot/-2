@@ -8,8 +8,7 @@ import { HeroBanner } from './components/HeroBanner';
 import { MetricsSection } from './components/MetricsSection';
 import { AboutDiseSection } from './components/AboutDiseSection';
 import { SolutionsSection } from './components/SolutionsSection';
-import { FeaturedProjectsSection } from './components/FeaturedProjectsSection';
-import { GlobalProjectSection } from './components/GlobalProjectSection';
+import { SelectedProjectsSection } from './components/SelectedProjectsSection';
 import { ContactCtaSection } from './components/ContactCtaSection';
 import { AboutSection, AboutSubTab } from './components/AboutSection';
 import { BusinessFourPillars } from './components/BusinessFourPillars';
@@ -163,17 +162,12 @@ export default function App() {
               onNavigateSolutions={() => handlePageChange('pillars')}
             />
 
-            {/* 6. FEATURED PROJECTS */}
-            <FeaturedProjectsSection
+            {/* 6. SELECTED PROJECTS (Combines Featured & Global Projects) */}
+            <SelectedProjectsSection
               onNavigateProjects={() => handlePageChange('portfolio')}
             />
 
-            {/* 7. GLOBAL PROJECT */}
-            <GlobalProjectSection
-              onNavigateGlobalProjects={() => handlePageChange('portfolio', undefined, 'global')}
-            />
-
-            {/* 8. CONTACT CTA */}
+            {/* 7. CONTACT CTA */}
             <ContactCtaSection
               onNavigateContact={() => handlePageChange('contact')}
             />
