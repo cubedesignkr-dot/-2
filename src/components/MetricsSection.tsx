@@ -2,36 +2,36 @@ import React from 'react';
 
 export const MetricsSection: React.FC = () => {
   return (
-    <section className="bg-white border-y border-slate-200 py-8 sm:py-12 text-slate-900">
+    <section className="bg-[#18324A] text-white py-8 sm:py-10 border-y border-[#294A63]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200">
-          {/* Item 1 */}
-          <div className="py-6 md:py-2 md:px-8 flex flex-col items-center text-center">
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-2 font-mono">
-              16 YEARS
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/15">
+          {/* Column 1 */}
+          <div className="py-4 md:py-2 md:px-8 first:md:pl-0 flex flex-col items-center md:items-start text-center md:text-left space-y-1">
+            <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white font-mono">
+              SINCE 2010
             </span>
-            <span className="text-sm sm:text-base text-slate-600 font-medium tracking-tight">
-              운영 경험
+            <span className="text-sm sm:text-base text-slate-300 font-normal">
+              16년 운영 경험
             </span>
           </div>
 
-          {/* Item 2 */}
-          <div className="py-6 md:py-2 md:px-8 flex flex-col items-center text-center">
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-2 font-mono">
-              600+ SCREENS
+          {/* Column 2 */}
+          <div className="py-4 md:py-2 md:px-8 flex flex-col items-center md:items-start text-center md:text-left space-y-1">
+            <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white font-mono">
+              600+ MANAGED SCREENS
             </span>
-            <span className="text-sm sm:text-base text-slate-600 font-medium tracking-tight">
+            <span className="text-sm sm:text-base text-slate-300 font-normal">
               인천공항 통합관리
             </span>
           </div>
 
-          {/* Item 3 */}
-          <div className="py-6 md:py-2 md:px-8 flex flex-col items-center text-center">
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-2 font-mono">
-              IN-HOUSE CMS
+          {/* Column 3 */}
+          <div className="py-4 md:py-2 md:px-8 last:md:pr-0 flex flex-col items-center md:items-start text-center md:text-left space-y-1">
+            <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white font-mono">
+              PROPRIETARY CMS
             </span>
-            <span className="text-sm sm:text-base text-slate-600 font-medium tracking-tight">
-              자체 개발 기술
+            <span className="text-sm sm:text-base text-slate-300 font-normal">
+              자체 개발·통합관제 기술
             </span>
           </div>
         </div>
@@ -39,5 +39,3 @@ export const MetricsSection: React.FC = () => {
     </section>
   );
 };
-
-
