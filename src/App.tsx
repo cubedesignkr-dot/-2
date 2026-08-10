@@ -197,18 +197,14 @@ export default function App() {
           </div>
         )}
 
-        {/* 3. TECHNOLOGY TAB */}
+        {/* 3. SOLUTIONS TAB */}
         {activePage === 'pillars' && (
-          <div className="py-10 bg-white min-h-[60vh] animate-fadeIn">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm">
-                <BusinessFourPillars
-                  currentLang={currentLang}
-                  pillars={pillars}
-                  selectedSubTab={techSubTab}
-                />
-              </div>
-            </div>
+          <div className="animate-fadeIn min-h-[60vh]">
+            <BusinessFourPillars
+              currentLang={currentLang}
+              onNavigateContact={() => handlePageChange('contact')}
+              onNavigateProjects={(cat) => handlePageChange('portfolio', 'overview', cat)}
+            />
           </div>
         )}
 
