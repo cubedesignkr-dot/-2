@@ -1,0 +1,8 @@
+{
+  "name": "Remix 다이즈하이미디어 sample 2",
+  "description": "다이즈하이미디어",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

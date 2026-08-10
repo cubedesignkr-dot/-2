@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 280" width="1050" height="280">
+  <style>
+    .bg-dark { fill: #111827; }
+    .bg-light { fill: #FFFFFF; }
+    .text-bold { font-family: 'Montserrat', 'Arial Black', -apple-system, sans-serif; font-weight: 900; }
+    .text-thin { font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; font-weight: 200; }
+    .text-sub { font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; font-weight: 300; letter-spacing: 2px; }
+  </style>
+
+  <g class="bg-dark">
+    <!-- ================= 1. D ================= -->
+    <path d="M 15 15 H 95 C 155 15 195 40 195 140 C 195 240 155 265 95 265 H 15 V 15 Z M 70 65 V 215 H 92 C 126 215 138 190 138 140 C 138 90 126 65 92 65 H 70 Z" />
+
+    <!-- ================= 2. I ================= -->
+    <rect x="212" y="15" width="52" height="250" />
+
+    <!-- ================= 3. S ================= -->
+    <path d="M 425 78 C 410 48 382 32 338 32 C 288 32 258 58 258 92 C 258 124 286 138 328 147 L 348 152 C 388 161 412 178 412 210 C 412 246 374 260 328 260 C 272 260 238 232 224 188 L 276 170 C 284 194 302 212 330 212 C 358 212 368 198 368 184 C 368 166 348 156 312 148 L 292 143 C 248 133 216 112 216 70 C 216 24 262 0 338 0 C 390 0 428 26 448 64 L 425 78 Z" />
+
+    <!-- ================= 4. E (Slanted 3D Box) ================= -->
+    <g>
+      <!-- Main E Container Box -->
+      <rect x="448" y="15" width="148" height="250" />
+      
+      <!-- Slanted White Negative Space Bars slicing through E -->
+      <!-- Top Cut -->
+      <polygon points="448,90 596,30 596,75 448,135" fill="#FFFFFF" />
+      <!-- Middle Cut -->
+      <polygon points="448,160 596,100 596,145 448,205" fill="#FFFFFF" />
+      <!-- Bottom Cut -->
+      <polygon points="448,230 596,170 596,215 448,265" fill="#FFFFFF" />
+    </g>
+
+    <!-- ================= 5. HI MEDIA ================= -->
+    <!-- "HI" (Ultra Bold) -->
+    <text x="625" y="145" class="text-bold" font-size="135" letter-spacing="-3">HI</text>
+    
+    <!-- "MEDIA" (Ultra Thin / Light) -->
+    <text x="765" y="145" class="text-thin" font-size="135" letter-spacing="1">MEDIA</text>
+
+    <!-- ================= 6. Media Glass Art ================= -->
+    <text x="628" y="235" class="text-sub" font-size="68">Media Glass Art</text>
+  </g>
+</svg>

@@ -1,0 +1,259 @@
+import React, { useState, useEffect } from 'react';
+import { Language, GalleryCategory } from './types';
+import { storage } from './services/storage';
+import { t } from './utils/translations';
+
+import { Header, ActivePage } from './components/Header';
+import { HeroBanner } from './components/HeroBanner';
+import { MetricsSection } from './components/MetricsSection';
+import { AboutSection, AboutSubTab } from './components/AboutSection';
+import { BusinessPillars } from './components/BusinessPillars';
+import { BusinessFourPillars } from './components/BusinessFourPillars';
+import { PortfolioGallery } from './components/PortfolioGallery';
+import { PortfolioSlider } from './components/PortfolioSlider';
+import { Footer } from './components/Footer';
+import { AdminDashboard } from './components/AdminDashboard';
+import { ContactModal } from './components/ContactModal';
+import { ContactSection } from './components/ContactSection';
+import { ArrowRight, Building2, Briefcase, Image } from 'lucide-react';
+
+export default function App() {
+  const [currentLang, setCurrentLang] = useState<Language>('ko');
+  const [activePage, setActivePage] = useState<ActivePage>('home');
+
+  // SubTab & SubCategory Navigation States
+  const [aboutSubTab, setAboutSubTab] = useState<AboutSubTab>('overview');
+  const [techSubTab, setTechSubTab] = useState<'fields' | 'core'>('fields');
+  const [galleryCategory, setGalleryCategory] = useState<GalleryCategory>('all');
+
+  // CMS Site States
+  const [hero, setHero] = useState(storage.getHero());
+  const [metrics, setMetrics] = useState(storage.getMetrics());
+  const [pillars, setPillars] = useState(storage.getPillars());
+  const [techs, setTechs] = useState(storage.getTechs());
+  const [portfolio, setPortfolio] = useState(storage.getPortfolio());
+  const [ceoMessages, setCeoMessages] = useState(storage.getCeoMessages());
+  const [orgData, setOrgData] = useState(storage.getOrg());
+  const [theme, setTheme] = useState(storage.getTheme());
+  const [seo, setSeo] = useState(storage.getSeo());
+  const [logoUrl, setLogoUrl] = useState<string | null>(storage.getLogo());
+  const [heroImages, setHeroImages] = useState<string[] | null>(storage.getHeroImages());
+
+  // Modal Controls
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  // Handle RTL for Arabic
+  useEffect(() => {
+    document.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    const titleText = seo.metaTitle[currentLang] || seo.metaTitle.ko;
+    document.title = titleText;
+  }, [currentLang, seo]);
+
+  // Scroll to top automatically when active page or subTab changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activePage, aboutSubTab, techSubTab]);
+
+  const handlePageChange = (page: ActivePage, subTab?: string, portfolioFilter?: string) => {
+    setActivePage(page);
+
+    if (page === 'about') {
+      setAboutSubTab((subTab as AboutSubTab) || 'overview');
+    } else if (page === 'pillars') {
+      if (subTab === 'core' || subTab === 'fields') {
+        setTechSubTab(subTab);
+      } else {
+        setTechSubTab('fields');
+      }
+    }
+    if (portfolioFilter === 'global') {
+      setGalleryCategory('global');
+    } else if (page === 'portfolio' && !portfolioFilter) {
+      setGalleryCategory('all');
+    }
+    window.scrollTo(0, 0);
+  };
+
+  // Save Handlers
+  const handleSaveHero = (data: any) => {
+    setHero(data);
+    storage.saveHero(data);
+  };
+
+  const handleSavePortfolio = (items: any) => {
+    setPortfolio(items);
+    storage.savePortfolio(items);
+  };
+
+  const handleSaveCeoMessages = (items: any) => {
+    setCeoMessages(items);
+    storage.saveCeoMessages(items);
+  };
+
+  const handleSaveTheme = (newTheme: any) => {
+    setTheme(newTheme);
+    storage.saveTheme(newTheme);
+  };
+
+  const handleSaveSeo = (newSeo: any) => {
+    setSeo(newSeo);
+    storage.saveSeo(newSeo);
+  };
+
+  const handleSaveLogo = (newLogoUrl: string | null) => {
+    setLogoUrl(newLogoUrl);
+    storage.saveLogo(newLogoUrl);
+  };
+
+  const handleSaveHeroImages = (newImages: string[] | null) => {
+    setHeroImages(newImages);
+    storage.saveHeroImages(newImages);
+  };
+
+  const handleResetAllData = () => {
+    storage.resetAll();
+    setHero(storage.getHero());
+    setMetrics(storage.getMetrics());
+    setPillars(storage.getPillars());
+    setTechs(storage.getTechs());
+    setPortfolio(storage.getPortfolio());
+    setCeoMessages(storage.getCeoMessages());
+    setOrgData(storage.getOrg());
+    setTheme(storage.getTheme());
+    setSeo(storage.getSeo());
+    setLogoUrl(storage.getLogo());
+    setHeroImages(storage.getHeroImages());
+  };
+
+  return (
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-600 selection:text-white flex flex-col justify-between">
+      {/* Top Fixed Header with Clean GNB & Logo Home Action */}
+      <Header
+        currentLang={currentLang}
+        onLanguageChange={setCurrentLang}
+        theme={theme}
+        activePage={activePage}
+        onPageChange={handlePageChange}
+        customLogo={logoUrl}
+      />
+
+      {/* Main Content Area based on Active Menu */}
+      <main className="flex-1">
+        {/* 1. HOME TAB (Simple Overview & Navigation Landing) */}
+        {activePage === 'home' && (
+          <div className="animate-fadeIn">
+            <HeroBanner
+              onOpenPortfolio={() => handlePageChange('portfolio')}
+            />
+            
+            <MetricsSection />
+
+            {/* Smooth Horizontal Scrolling Portfolio Showcase */}
+            <PortfolioSlider
+              currentLang={currentLang}
+              portfolio={portfolio}
+              onNavigateToGallery={() => handlePageChange('portfolio')}
+            />
+          </div>
+        )}
+
+        {/* 2. ABOUT TAB (Company & Core Tech Integrated) */}
+        {activePage === 'about' && (
+          <div className="animate-fadeIn">
+            <AboutSection
+              currentLang={currentLang}
+              ceoMessages={ceoMessages}
+              orgData={orgData}
+              techs={techs}
+              pillars={pillars}
+              selectedSubTab={aboutSubTab}
+              onSelectSubTab={(tab) => setAboutSubTab(tab)}
+              customLogo={logoUrl}
+              onNavigatePortfolio={(cat) => {
+                if (cat === 'global') {
+                  handlePageChange('portfolio', 'overview', 'global');
+                } else {
+                  handlePageChange('portfolio');
+                }
+              }}
+            />
+          </div>
+        )}
+
+        {/* 3. TECHNOLOGY TAB */}
+        {activePage === 'pillars' && (
+          <div className="py-10 bg-white min-h-[60vh] animate-fadeIn">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm">
+                <BusinessFourPillars
+                  currentLang={currentLang}
+                  pillars={pillars}
+                  selectedSubTab={techSubTab}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 4. GALLERY TAB */}
+        {activePage === 'portfolio' && (
+          <div className="animate-fadeIn">
+            <PortfolioGallery
+              currentLang={currentLang}
+              portfolio={portfolio}
+              onOpenAdminGallery={() => setIsAdminOpen(true)}
+              initialCategory={galleryCategory}
+            />
+          </div>
+        )}
+
+        {/* 5. CONTACT TAB */}
+        {activePage === 'contact' && (
+          <div className="animate-fadeIn">
+            <ContactSection currentLang={currentLang} />
+          </div>
+        )}
+      </main>
+
+      {/* Footer at very bottom */}
+      <Footer
+        theme={theme}
+        onOpenAdmin={() => setIsAdminOpen(true)}
+        onNavigate={handlePageChange}
+        customLogo={logoUrl}
+      />
+
+      {/* Admin Dashboard Overlay Modal */}
+      {isAdminOpen && (
+        <AdminDashboard
+          currentLang={currentLang}
+          onClose={() => setIsAdminOpen(false)}
+          hero={hero}
+          onSaveHero={handleSaveHero}
+          heroImages={heroImages}
+          onSaveHeroImages={handleSaveHeroImages}
+          portfolio={portfolio}
+          onSavePortfolio={handleSavePortfolio}
+          ceoMessages={ceoMessages}
+          onSaveCeoMessages={handleSaveCeoMessages}
+          theme={theme}
+          onSaveTheme={handleSaveTheme}
+          seo={seo}
+          onSaveSeo={handleSaveSeo}
+          customLogo={logoUrl}
+          onSaveLogo={handleSaveLogo}
+          onResetAllData={handleResetAllData}
+        />
+      )}
+
+      {/* Contact Modal */}
+      {isContactOpen && (
+        <ContactModal
+          currentLang={currentLang}
+          onClose={() => setIsContactOpen(false)}
+        />
+      )}
+    </div>
+  );
+}
