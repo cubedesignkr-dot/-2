@@ -6,16 +6,19 @@ import { t } from './utils/translations';
 import { Header, ActivePage } from './components/Header';
 import { HeroBanner } from './components/HeroBanner';
 import { MetricsSection } from './components/MetricsSection';
+import { AboutDiseSection } from './components/AboutDiseSection';
+import { SolutionsSection } from './components/SolutionsSection';
+import { FeaturedProjectsSection } from './components/FeaturedProjectsSection';
+import { WhyDiseSection } from './components/WhyDiseSection';
+import { GlobalProjectSection } from './components/GlobalProjectSection';
+import { ContactCtaSection } from './components/ContactCtaSection';
 import { AboutSection, AboutSubTab } from './components/AboutSection';
-import { BusinessPillars } from './components/BusinessPillars';
 import { BusinessFourPillars } from './components/BusinessFourPillars';
 import { PortfolioGallery } from './components/PortfolioGallery';
-import { PortfolioSlider } from './components/PortfolioSlider';
 import { Footer } from './components/Footer';
 import { AdminDashboard } from './components/AdminDashboard';
 import { ContactModal } from './components/ContactModal';
 import { ContactSection } from './components/ContactSection';
-import { ArrowRight, Building2, Briefcase, Image } from 'lucide-react';
 
 export default function App() {
   const [currentLang, setCurrentLang] = useState<Language>('ko');
@@ -140,20 +143,43 @@ export default function App() {
 
       {/* Main Content Area based on Active Menu */}
       <main className="flex-1">
-        {/* 1. HOME TAB (Simple Overview & Navigation Landing) */}
+        {/* 1. HOME TAB */}
         {activePage === 'home' && (
           <div className="animate-fadeIn">
+            {/* 2. HERO */}
             <HeroBanner
               onOpenPortfolio={() => handlePageChange('portfolio')}
             />
             
+            {/* 3. METRIC STRIP */}
             <MetricsSection />
 
-            {/* Smooth Horizontal Scrolling Portfolio Showcase */}
-            <PortfolioSlider
-              currentLang={currentLang}
-              portfolio={portfolio}
-              onNavigateToGallery={() => handlePageChange('portfolio')}
+            {/* 4. ABOUT DISE */}
+            <AboutDiseSection
+              onNavigateAbout={() => handlePageChange('about', 'overview')}
+            />
+
+            {/* 5. SOLUTIONS */}
+            <SolutionsSection
+              onNavigateSolutions={() => handlePageChange('pillars')}
+            />
+
+            {/* 6. FEATURED PROJECTS */}
+            <FeaturedProjectsSection
+              onNavigateProjects={() => handlePageChange('portfolio')}
+            />
+
+            {/* 7. WHY DISE */}
+            <WhyDiseSection />
+
+            {/* 8. GLOBAL PROJECT */}
+            <GlobalProjectSection
+              onNavigateGlobalProjects={() => handlePageChange('portfolio', undefined, 'global')}
+            />
+
+            {/* 9. CONTACT CTA */}
+            <ContactCtaSection
+              onNavigateContact={() => handlePageChange('contact')}
             />
           </div>
         )}

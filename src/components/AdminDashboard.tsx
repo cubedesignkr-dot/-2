@@ -411,7 +411,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
           <div className="mt-6 pt-4 border-t border-slate-800 text-center">
             <p className="text-[11px] text-slate-500">
-              * 초기 관리자 비밀번호: <span className="font-mono font-bold text-slate-400">daiz2026!</span> (로그인 후 변경 가능)
+              * 인증 후 관리자 대시보드 기능을 이용하실 수 있습니다.
             </p>
           </div>
         </div>

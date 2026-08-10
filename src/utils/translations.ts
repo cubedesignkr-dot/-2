@@ -38,11 +38,11 @@ export const UI_TRANSLATIONS: Record<string, Record<Language, string>> = {
     ar: 'التكنولوجيا',
   },
   nav_technology: {
-    ko: 'TECH',
-    en: 'TECH',
-    vi: 'TECH',
-    zh: 'TECH',
-    ar: 'TECH',
+    ko: 'SOLUTIONS',
+    en: 'SOLUTIONS',
+    vi: 'SOLUTIONS',
+    zh: 'SOLUTIONS',
+    ar: 'SOLUTIONS',
   },
   nav_org: {
     ko: '조직도',
@@ -87,11 +87,11 @@ export const UI_TRANSLATIONS: Record<string, Record<Language, string>> = {
     ar: 'تقنيات AMSIT الخمس',
   },
   nav_gallery: {
-    ko: 'GALLARY',
-    en: 'GALLARY',
-    vi: 'GALLARY',
-    zh: 'GALLARY',
-    ar: 'GALLARY',
+    ko: 'PROJECTS',
+    en: 'PROJECTS',
+    vi: 'PROJECTS',
+    zh: 'PROJECTS',
+    ar: 'PROJECTS',
   },
   nav_contact: {
     ko: 'CONTACT',
