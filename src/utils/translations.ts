@@ -270,11 +270,11 @@ export const UI_TRANSLATIONS: Record<string, Record<Language, string>> = {
     ar: 'المؤسس والرئيس التنفيذي',
   },
   ceo_name: {
-    ko: '원 종 일',
-    en: 'Jong Il Won',
-    vi: 'Won Jong Il',
-    zh: '元 宗 一',
-    ar: 'جونغ إيل وون',
+    ko: '유 정 우',
+    en: 'Joung Woo Yu',
+    vi: 'Yoo Jung Woo',
+    zh: '刘 廷 宇',
+    ar: 'يو جونغ وو',
   },
   ceo_career_title: {
     ko: 'CAREER · 약력',

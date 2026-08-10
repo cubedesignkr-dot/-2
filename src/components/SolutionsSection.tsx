@@ -79,11 +79,12 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
               {solutions.map((item) => (
                 <div
                   key={item.num}
-                  className="py-8.5 sm:py-9 grid grid-cols-1 md:grid-cols-[72px_320px_1fr] gap-4 md:gap-10 items-start md:items-center"
+                  onClick={onNavigateSolutions}
+                  className="py-8 sm:py-9 px-3 sm:px-5 md:px-6 grid grid-cols-1 md:grid-cols-[72px_320px_1fr] gap-4 md:gap-10 items-start md:items-center bg-[#F5F6F7] hover:bg-white transition-colors duration-200 cursor-pointer"
                 >
-                  {/* Column 1: Number */}
+                  {/* Column 1: Number (increased size 34-38px, font-medium, color #294A63) */}
                   <div>
-                    <span className="text-[28px] sm:text-[30px] font-mono font-medium text-[#294A63] leading-none">
+                    <span className="text-[34px] sm:text-[38px] font-mono font-medium text-[#294A63] leading-none tracking-tight">
                       {item.num}
                     </span>
                   </div>
@@ -93,7 +94,7 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
                     <h3 className="text-[20px] sm:text-[22px] font-bold text-[#222831] tracking-tight leading-snug">
                       {item.titleKo}
                     </h3>
-                    <p className="text-[12px] sm:text-[13px] font-mono text-[#66717C]">
+                    <p className="text-[12px] sm:text-[13px] font-mono font-normal text-[#66717C]">
                       {item.titleEn}
                     </p>
                   </div>
@@ -110,14 +111,14 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
           </div>
         </div>
 
-        {/* Integrated Execution Process Area */}
-        <div className="mt-16 sm:mt-20 max-w-[1100px] mx-auto">
+        {/* Integrated Execution Process Area — Dark Navy Technical Panel (#18324A) */}
+        <div className="mt-16 sm:mt-20 max-w-[1100px] mx-auto bg-[#18324A] text-white rounded-[2px] p-7 sm:p-12 lg:p-14 border border-[#18324A]">
           {/* Process Header */}
-          <div className="space-y-3.5 mb-8 sm:mb-10">
-            <h3 className="text-[22px] sm:text-[24px] font-semibold text-[#222831] tracking-tight">
+          <div className="space-y-3.5 mb-10 sm:mb-12">
+            <h3 className="text-[22px] sm:text-[24px] font-semibold text-white tracking-tight">
               프로젝트 수행 프로세스
             </h3>
-            <p className="text-sm sm:text-[15px] text-[#66717C] font-normal leading-[1.65]">
+            <p className="text-sm sm:text-[15px] text-white/70 font-normal leading-[1.65] max-w-2xl">
               프로젝트 상담과 요구사항 분석부터 구축, CMS 연동 및 통합운영까지 다음 4단계로 진행합니다.
             </p>
           </div>
@@ -125,30 +126,30 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
           {/* Process Timeline */}
           <div className="relative pt-2 pb-2">
             {/* Desktop Horizontal Connecting Line */}
-            <div className="hidden md:block absolute top-[19px] left-4 right-4 h-[1px] bg-[#D9DEE3] -z-0" />
+            <div className="hidden md:block absolute top-[18px] left-4 right-4 h-[1px] bg-white/20 -z-0" />
 
             {/* Desktop Grid / Mobile Stack */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-7 md:gap-6 relative z-10">
               {processSteps.map((step) => (
                 <div
                   key={step.step}
-                  className="relative flex flex-col items-start space-y-2 pl-6 md:pl-0 border-l-2 md:border-l-0 border-[#D9DEE3] md:border-transparent py-1 md:py-0"
+                  className="relative flex flex-col items-start space-y-2 pl-6 md:pl-0 border-l border-white/20 md:border-l-0 py-0.5 md:py-0"
                 >
-                  {/* Node Dot */}
-                  <div className="hidden md:flex items-center justify-center w-3 h-3 rounded-full bg-[#294A63] border-2 border-white ring-1 ring-[#D9DEE3] mb-2 -mt-1.5" />
+                  {/* Node Dot Desktop */}
+                  <div className="hidden md:flex items-center justify-center w-2.5 h-2.5 rounded-full bg-white border border-white/40 mb-2 -mt-1.25" />
 
-                  {/* Mobile Node Dot */}
-                  <div className="md:hidden absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#294A63] border-2 border-white ring-1 ring-[#D9DEE3]" />
+                  {/* Node Dot Mobile */}
+                  <div className="md:hidden absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-white border border-white/40" />
 
-                  <span className="text-[12px] sm:text-[13px] font-mono font-semibold text-[#294A63]">
+                  <span className="text-[12px] sm:text-[13px] font-mono font-semibold text-white/60">
                     {step.step}
                   </span>
 
-                  <h4 className="text-[16px] sm:text-[17px] font-semibold text-[#222831] tracking-tight leading-snug">
+                  <h4 className="text-[16px] sm:text-[17px] font-semibold text-white tracking-tight leading-snug">
                     {step.titleKo}
                   </h4>
 
-                  <p className="text-[11px] sm:text-[12px] font-mono text-[#66717C] leading-[1.45]">
+                  <p className="text-[11px] sm:text-[12px] font-mono font-normal text-white/55 leading-[1.45]">
                     {step.titleEn}
                   </p>
                 </div>
@@ -156,12 +157,12 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
             </div>
           </div>
 
-          {/* Explore Solutions Link (~48px spacing) */}
-          <div className="mt-12">
+          {/* Explore Solutions Link inside Navy Panel (~44-52px spacing) */}
+          <div className="mt-11 sm:mt-12 pt-2">
             <button
               type="button"
               onClick={onNavigateSolutions}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#222831] hover:text-[#294A63] transition-colors group cursor-pointer border-b border-[#222831]/30 hover:border-[#294A63] pb-0.5"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-white/80 transition-colors group cursor-pointer border-b border-white/30 hover:border-white pb-0.5"
             >
               <span>EXPLORE SOLUTIONS</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
