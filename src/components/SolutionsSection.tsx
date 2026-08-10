@@ -52,7 +52,7 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
 
   return (
     <section className="py-20 sm:py-28 bg-[#F5F6F7] text-[#222831] border-b border-[#D9DEE3]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header & Solutions Rows */}
         <div className="space-y-10 sm:space-y-12">
           {/* Section Label */}
@@ -108,8 +108,8 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
           </div>
         </div>
 
-        {/* Integrated Execution Process Area */}
-        <div className="space-y-6 pt-4 border-t border-[#D9DEE3]">
+        {/* Integrated Execution Process Area (No top border, 64-80px vertical spacing) */}
+        <div className="mt-16 sm:mt-20 space-y-6">
           <div>
             <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight">
               프로젝트 수행 프로세스

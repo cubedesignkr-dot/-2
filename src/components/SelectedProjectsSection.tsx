@@ -13,7 +13,7 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
     id: 'p1',
     name: 'INCHEON INTERNATIONAL AIRPORT',
     location: 'Incheon, South Korea',
-    category: 'Airport Media Infrastructure',
+    category: 'AIRPORT MEDIA INFRASTRUCTURE',
     scopes: ['600+ Managed Screens', 'In-house CMS', 'Integrated Operation'],
     description: '대규모 디지털 사이니지 환경의 콘텐츠 송출과 통합관제를 안정적으로 운영합니다.',
     image: heroLedGlassBg,
@@ -23,9 +23,8 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
     {
       id: 'p2',
       name: 'INSPIRE ARENA LINK',
-      nameKo: '인스파이어아레나링크',
       location: 'Yeongjongdo, Incheon · 2024',
-      category: 'Integrated Resort Media',
+      category: 'INTEGRATED RESORT MEDIA',
       scopes: ['17 Player Integrated Operation', '16K Synchronization', 'Multi-zone Media Control'],
       description: '외부 LED와 내부 엘리베이터홀, 필로티를 연동하고 공연·이벤트·광고 콘텐츠를 다중 구역에 통합 송출합니다.',
       image: inspireResortImg,
@@ -33,9 +32,8 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
     {
       id: 'p3',
       name: 'HANOI OUTDOOR LED MEDIA',
-      nameKo: '하노이 옥외 LED 미디어',
       location: 'Hanoi, Vietnam',
-      category: 'Outdoor Digital Media',
+      category: 'OUTDOOR DIGITAL MEDIA',
       scopes: ['DISE × MHGROUP'],
       description: '도시 옥외공간을 위한 대형 LED 미디어 구축과 글로벌 사업 확장 사례입니다.',
       image: doohOutdoorMediaImg,
@@ -66,39 +64,41 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
           </div>
         </div>
 
-        {/* Project Layout */}
-        <div className="space-y-10 sm:space-y-12">
-          {/* First Row — Flagship Project: Incheon International Airport */}
+        {/* Flagship Project — Full-Width Image & Information Row */}
+        <div className="space-y-6 sm:space-y-8">
+          {/* Full-width Image */}
           <div
             onClick={onNavigateProjects}
-            className="group cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center border-b border-[#D9DEE3] pb-10"
+            className="group cursor-pointer overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px] w-full aspect-[16/9] sm:aspect-[16/7]"
           >
-            {/* Left Image (~60% / 7 cols) */}
-            <div className="lg:col-span-7 overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px] aspect-[16/9]">
-              <img
-                src={flagshipProject.image}
-                alt={flagshipProject.name}
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-              />
-            </div>
+            <img
+              src={flagshipProject.image}
+              alt={flagshipProject.name}
+              className="w-full h-full object-cover object-center group-hover:scale-[1.015] transition-transform duration-500 ease-out"
+            />
+          </div>
 
-            {/* Right Details (~40% / 5 cols) */}
-            <div className="lg:col-span-5 space-y-3.5">
+          {/* Flagship Information Row */}
+          <div
+            onClick={onNavigateProjects}
+            className="group cursor-pointer pt-6 border-t border-[#D9DEE3] grid grid-cols-1 md:grid-cols-12 gap-6 items-start"
+          >
+            {/* Left Side (~45% / 5 cols) */}
+            <div className="md:col-span-5 space-y-1">
               <div className="text-xs font-mono font-semibold text-[#294A63] uppercase tracking-widest">
                 {flagshipProject.category}
               </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight group-hover:text-[#294A63] transition-colors">
+                {flagshipProject.name}
+              </h3>
+              <p className="text-xs sm:text-sm font-normal text-[#66717C]">
+                {flagshipProject.location}
+              </p>
+            </div>
 
-              <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight group-hover:text-[#294A63] transition-colors">
-                  {flagshipProject.name}
-                </h3>
-                <p className="text-xs font-mono text-[#66717C] mt-1">
-                  {flagshipProject.location}
-                </p>
-              </div>
-
-              {/* Scopes */}
-              <div className="pt-1 flex flex-wrap gap-x-2 gap-y-1 text-xs font-mono font-semibold text-[#222831]">
+            {/* Right Side (~55% / 7 cols) */}
+            <div className="md:col-span-7 space-y-2">
+              <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs sm:text-sm font-semibold text-[#222831]">
                 {flagshipProject.scopes.map((scope, idx) => (
                   <span key={scope} className="inline-flex items-center gap-2">
                     {idx > 0 && <span className="text-[#D9DEE3]">·</span>}
@@ -106,32 +106,33 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
                   </span>
                 ))}
               </div>
-
-              <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-relaxed pt-1">
+              <p className="text-sm sm:text-base text-[#66717C] font-normal leading-[1.7]">
                 {flagshipProject.description}
               </p>
             </div>
           </div>
+        </div>
 
-          {/* Second Row — Equal 2 Columns (Inspire Arena Link & Hanoi) */}
+        {/* Secondary Projects — Two Equal Columns */}
+        <div className="pt-8 sm:pt-12 border-t border-[#D9DEE3]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {secondaryProjects.map((project) => (
               <div
                 key={project.id}
                 onClick={onNavigateProjects}
-                className="group cursor-pointer flex flex-col space-y-3"
+                className="group cursor-pointer flex flex-col space-y-4"
               >
-                {/* Image Container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px]">
+                {/* Image Container (16:10) */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px] w-full">
                   <img
                     src={project.image}
                     alt={project.name}
-                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                    className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 ease-out"
                   />
                 </div>
 
-                {/* Details */}
-                <div className="space-y-1.5">
+                {/* Caption Details */}
+                <div className="space-y-2">
                   <div className="text-xs font-mono font-semibold text-[#294A63] uppercase tracking-widest">
                     {project.category}
                   </div>
@@ -140,12 +141,12 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
                     <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight group-hover:text-[#294A63] transition-colors">
                       {project.name}
                     </h3>
-                    <p className="text-xs font-mono text-[#66717C] mt-0.5">
+                    <p className="text-xs sm:text-sm text-[#66717C] mt-0.5 font-normal">
                       {project.location}
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs font-mono font-semibold text-[#222831] pt-0.5">
+                  <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs sm:text-sm font-semibold text-[#222831] pt-0.5">
                     {project.scopes.map((scope, idx) => (
                       <span key={scope} className="inline-flex items-center gap-2">
                         {idx > 0 && <span className="text-[#D9DEE3]">·</span>}
@@ -154,7 +155,7 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
                     ))}
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-relaxed pt-1">
+                  <p className="text-sm text-[#66717C] font-normal leading-[1.7]">
                     {project.description}
                   </p>
                 </div>
@@ -163,8 +164,8 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
           </div>
         </div>
 
-        {/* View All Projects Link */}
-        <div className="pt-2">
+        {/* View All Projects CTA Link */}
+        <div className="pt-4">
           <button
             type="button"
             onClick={onNavigateProjects}
