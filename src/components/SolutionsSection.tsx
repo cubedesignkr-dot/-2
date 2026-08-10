@@ -53,10 +53,10 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
   return (
     <section className="py-20 sm:py-28 bg-[#F5F6F7] text-[#222831] border-b border-[#D9DEE3]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header & Solutions Rows */}
+        {/* Header & Solutions Rows Container */}
         <div className="space-y-10 sm:space-y-12">
           {/* Section Label */}
-          <div className="mb-4 sm:mb-6">
+          <div>
             <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#294A63] inline-block">
               SOLUTIONS
             </span>
@@ -73,56 +73,59 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
             </p>
           </div>
 
-          {/* Full-width Horizontal Solution Rows */}
+          {/* Centered Solution Rows Grid with max-w-[1100px] */}
           <div className="border-t border-b border-[#D9DEE3] divide-y divide-[#D9DEE3]">
-            {solutions.map((item) => (
-              <div
-                key={item.num}
-                className="py-6 sm:py-8 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start md:items-center"
-              >
-                {/* Column 1: Number (2 cols) */}
-                <div className="md:col-span-2">
-                  <span className="text-2xl sm:text-3xl font-mono font-medium text-[#294A63]">
-                    {item.num}
-                  </span>
-                </div>
+            <div className="max-w-[1100px] mx-auto">
+              {solutions.map((item) => (
+                <div
+                  key={item.num}
+                  className="py-8.5 sm:py-9 grid grid-cols-1 md:grid-cols-[72px_320px_1fr] gap-4 md:gap-10 items-start md:items-center"
+                >
+                  {/* Column 1: Number */}
+                  <div>
+                    <span className="text-[28px] sm:text-[30px] font-mono font-medium text-[#294A63] leading-none">
+                      {item.num}
+                    </span>
+                  </div>
 
-                {/* Column 2: Titles (5 cols) */}
-                <div className="md:col-span-5 space-y-0.5">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight">
-                    {item.titleKo}
-                  </h3>
-                  <p className="text-xs sm:text-sm font-mono text-[#66717C]">
-                    {item.titleEn}
-                  </p>
-                </div>
+                  {/* Column 2: Titles */}
+                  <div className="space-y-0.5">
+                    <h3 className="text-[20px] sm:text-[22px] font-bold text-[#222831] tracking-tight leading-snug">
+                      {item.titleKo}
+                    </h3>
+                    <p className="text-[12px] sm:text-[13px] font-mono text-[#66717C]">
+                      {item.titleEn}
+                    </p>
+                  </div>
 
-                {/* Column 3: Description (5 cols) */}
-                <div className="md:col-span-5">
-                  <p className="text-sm sm:text-base text-[#66717C] font-normal leading-relaxed">
-                    {item.desc}
-                  </p>
+                  {/* Column 3: Description */}
+                  <div className="max-w-[480px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#66717C] font-normal leading-[1.7]">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Integrated Execution Process Area (No top border, 64-80px vertical spacing) */}
-        <div className="mt-16 sm:mt-20 space-y-6">
-          <div>
-            <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight">
+        {/* Integrated Execution Process Area */}
+        <div className="mt-16 sm:mt-20 max-w-[1100px] mx-auto">
+          {/* Process Header */}
+          <div className="space-y-3.5 mb-8 sm:mb-10">
+            <h3 className="text-[22px] sm:text-[24px] font-semibold text-[#222831] tracking-tight">
               프로젝트 수행 프로세스
             </h3>
-            <p className="text-xs sm:text-sm text-[#66717C] mt-1 font-normal">
+            <p className="text-sm sm:text-[15px] text-[#66717C] font-normal leading-[1.65]">
               프로젝트 상담과 요구사항 분석부터 구축, CMS 연동 및 통합운영까지 다음 4단계로 진행합니다.
             </p>
           </div>
 
           {/* Process Timeline */}
-          <div className="relative pt-4 pb-2">
+          <div className="relative pt-2 pb-2">
             {/* Desktop Horizontal Connecting Line */}
-            <div className="hidden md:block absolute top-[21px] left-4 right-4 h-[1px] bg-[#D9DEE3] -z-0" />
+            <div className="hidden md:block absolute top-[19px] left-4 right-4 h-[1px] bg-[#D9DEE3] -z-0" />
 
             {/* Desktop Grid / Mobile Stack */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
@@ -137,15 +140,15 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
                   {/* Mobile Node Dot */}
                   <div className="md:hidden absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#294A63] border-2 border-white ring-1 ring-[#D9DEE3]" />
 
-                  <span className="text-xs font-mono font-bold text-[#294A63]">
+                  <span className="text-[12px] sm:text-[13px] font-mono font-semibold text-[#294A63]">
                     {step.step}
                   </span>
 
-                  <h4 className="text-sm font-bold text-[#222831] tracking-tight leading-snug">
+                  <h4 className="text-[16px] sm:text-[17px] font-semibold text-[#222831] tracking-tight leading-snug">
                     {step.titleKo}
                   </h4>
 
-                  <p className="text-[11px] font-mono text-[#66717C] leading-snug">
+                  <p className="text-[11px] sm:text-[12px] font-mono text-[#66717C] leading-[1.45]">
                     {step.titleEn}
                   </p>
                 </div>
@@ -153,8 +156,8 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
             </div>
           </div>
 
-          {/* Explore Solutions Link */}
-          <div className="pt-4">
+          {/* Explore Solutions Link (~48px spacing) */}
+          <div className="mt-12">
             <button
               type="button"
               onClick={onNavigateSolutions}
