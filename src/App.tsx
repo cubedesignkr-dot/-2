@@ -51,6 +51,43 @@ export default function App() {
     document.title = titleText;
   }, [currentLang, seo]);
 
+  // Global Hash Router Synchronizer
+  useEffect(() => {
+    const syncRouteWithHash = () => {
+      const hash = window.location.hash.replace(/^#/, '').trim().toLowerCase();
+      if (!hash) return;
+
+      if (['about', 'company', 'overview'].includes(hash)) {
+        setActivePage('about');
+        setAboutSubTab('company');
+      } else if (hash === 'history') {
+        setActivePage('about');
+        setAboutSubTab('history');
+      } else if (['ceo', 'ceo-message', 'ceomessage'].includes(hash)) {
+        setActivePage('about');
+        setAboutSubTab('ceo-message');
+      } else if (['org', 'organization'].includes(hash)) {
+        setActivePage('about');
+        setAboutSubTab('organization');
+      } else if (['solutions', 'pillars', 'led-media', 'control-system', 'cms-operation', 'ai-interactive', 'solution-01', 'solution-02', 'solution-03'].includes(hash)) {
+        setActivePage('pillars');
+      } else if (['projects', 'portfolio', 'gallery'].includes(hash)) {
+        setActivePage('portfolio');
+      } else if (hash === 'contact') {
+        setActivePage('contact');
+      } else if (hash === 'home') {
+        setActivePage('home');
+      }
+    };
+
+    // Sync on initial load
+    syncRouteWithHash();
+
+    // Sync on hash change
+    window.addEventListener('hashchange', syncRouteWithHash);
+    return () => window.removeEventListener('hashchange', syncRouteWithHash);
+  }, []);
+
   // Scroll to top automatically when active page or subTab changes
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,18 +97,38 @@ export default function App() {
     setActivePage(page);
 
     if (page === 'about') {
-      setAboutSubTab((subTab as AboutSubTab) || 'overview');
+      const normalizedSubTab = (subTab as AboutSubTab) || 'company';
+      setAboutSubTab(normalizedSubTab);
+      if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+        const targetHash = normalizedSubTab === 'overview' ? 'company' : normalizedSubTab;
+        window.history.replaceState(null, '', `#${targetHash}`);
+      }
     } else if (page === 'pillars') {
       if (subTab === 'core' || subTab === 'fields') {
         setTechSubTab(subTab);
       } else {
         setTechSubTab('fields');
       }
-    }
-    if (portfolioFilter === 'global') {
-      setGalleryCategory('global');
-    } else if (page === 'portfolio' && !portfolioFilter) {
-      setGalleryCategory('all');
+      if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', `#solutions`);
+      }
+    } else if (page === 'portfolio') {
+      if (portfolioFilter === 'global') {
+        setGalleryCategory('global');
+      } else if (!portfolioFilter) {
+        setGalleryCategory('all');
+      }
+      if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', `#projects`);
+      }
+    } else if (page === 'contact') {
+      if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', `#contact`);
+      }
+    } else if (page === 'home') {
+      if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', `#home`);
+      }
     }
     window.scrollTo(0, 0);
   };
@@ -159,7 +216,7 @@ export default function App() {
 
             {/* 5. SOLUTIONS */}
             <SolutionsSection
-              onNavigateSolutions={() => handlePageChange('pillars')}
+              onNavigateSolutions={(subTab) => handlePageChange('pillars', subTab)}
             />
 
             {/* 6. SELECTED PROJECTS (Combines Featured & Global Projects) */}

@@ -21,18 +21,19 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
   const secondaryProjects = [
     {
       id: 'p2',
-      name: 'HANOI OUTDOOR LED MEDIA',
+      name: 'VIETNAM OUTDOOR LED BUSINESS',
       location: 'Hanoi, Vietnam',
-      category: 'Outdoor Digital Media',
-      scope: 'Outdoor Digital Media · DISE × MHGROUP',
+      category: 'GLOBAL BUSINESS · IN PROGRESS',
+      scope: 'DISE × MHGROUP · STRATEGIC PARTNERSHIP · PROJECT IN PROGRESS',
       image: doohOutdoorMediaImg,
+      badge: 'IN PROGRESS',
     },
     {
       id: 'p3',
-      name: 'NOI BAI INTERNATIONAL AIRPORT',
-      location: 'Hanoi, Vietnam',
-      category: 'Airport LED Media',
-      scope: 'Airport LED Media · DISE · R2V · BIC · AXIS',
+      name: 'YEOUIDO IFC MALL MEDIA TOWER',
+      location: 'Seoul, South Korea',
+      category: 'Commercial Landmark Media',
+      scope: 'Vertical LED Tower · Commercial CMS · Atrium Display',
       image: heroLedCityBg,
     },
   ];

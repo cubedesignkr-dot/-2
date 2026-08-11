@@ -1,32 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Language } from '../types';
 
-import imgLedMedia from '../assets/images/led_display_bg_1785990073226.jpg';
-import imgControl from '../assets/images/hardware_controller_1785989182277.jpg';
-import imgCms from '../assets/images/software_cms_monitor_1785989194504.jpg';
-import imgAi from '../assets/images/ai_doorlock_face_1785989205164.jpg';
-import imgIntro from '../assets/images/hero_led_glass_bg_1786019620069.jpg';
+export const controlSystemImage = "/images/solutions/control-system-placeholder.webp";
+export const cmsImage = "/images/solutions/cms-screen-placeholder.webp";
 
 export const SOLUTION_TABS = [
   {
-    id: 'led-media',
+    id: 'solution-01',
     label: 'LED MEDIA',
-    koreanLabel: 'LED 미디어',
+    koreanLabel: '01 LED 미디어 기획·구축',
   },
   {
-    id: 'control-system',
+    id: 'solution-02',
     label: 'CONTROL SYSTEM',
-    koreanLabel: '제어 시스템',
+    koreanLabel: '02 디스플레이·제어 시스템',
   },
   {
-    id: 'cms-operation',
+    id: 'solution-03',
     label: 'CMS & OPERATION',
-    koreanLabel: 'CMS·통합운영',
-  },
-  {
-    id: 'ai-interactive',
-    label: 'AI & INTERACTIVE',
-    koreanLabel: 'AI·인터랙티브',
+    koreanLabel: '03 CMS·통합관제 및 운영',
   },
 ] as const;
 
@@ -39,838 +31,444 @@ interface BusinessFourPillarsProps {
   [key: string]: any;
 }
 
+interface SolutionImageProps {
+  src: string;
+  alt: string;
+  placeholderTitle: string;
+  placeholderSub?: string;
+  aspectRatio?: string;
+}
+
+const SolutionImage: React.FC<SolutionImageProps> = ({
+  src,
+  alt,
+  placeholderTitle,
+  placeholderSub = 'IMAGE TO BE UPDATED',
+  aspectRatio = 'aspect-[16/10]',
+}) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError || !src) {
+    return (
+      <div className={`w-full ${aspectRatio} bg-[#102B42] border border-[#294A63] rounded-[2px] flex flex-col items-center justify-center p-6 text-center space-y-2 relative overflow-hidden`}>
+        {/* Subtle grid pattern background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        <div className="relative z-10 space-y-1.5">
+          <span className="text-xs font-mono font-bold text-[#D0BE7D] tracking-widest uppercase block">
+            {placeholderTitle}
+          </span>
+          <span className="text-[10px] font-mono font-medium text-white/60 tracking-wider uppercase block">
+            {placeholderSub}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`w-full ${aspectRatio} overflow-hidden rounded-[2px] bg-[#102B42] border border-[#D9DEE3]`}>
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onError={() => setHasError(true)}
+        className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.01]"
+      />
+    </div>
+  );
+};
+
 export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
   currentLang,
-  onNavigateContact,
-  onNavigateProjects,
 }) => {
-  const [activeSolutionTab, setActiveSolutionTab] = useState<SolutionTabId>('led-media');
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const isKo = currentLang === 'ko';
 
-  const handleKeyDown = (e: React.KeyboardEvent, currentId: SolutionTabId) => {
-    const currentIndex = SOLUTION_TABS.findIndex((t) => t.id === currentId);
-    if (currentIndex === -1) return;
-
-    let nextIndex = -1;
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      nextIndex = (currentIndex + 1) % SOLUTION_TABS.length;
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      nextIndex = (currentIndex - 1 + SOLUTION_TABS.length) % SOLUTION_TABS.length;
-    } else if (e.key === 'Home') {
-      e.preventDefault();
-      nextIndex = 0;
-    } else if (e.key === 'End') {
-      e.preventDefault();
-      nextIndex = SOLUTION_TABS.length - 1;
-    }
-
-    if (nextIndex !== -1) {
-      const nextTab = SOLUTION_TABS[nextIndex];
-      setActiveSolutionTab(nextTab.id);
-      tabRefs.current[nextIndex]?.focus();
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <div className="bg-white text-[#222831]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12 sm:space-y-16">
-        {/* 1. SOLUTIONS INTRO */}
-        <div className="space-y-6 pb-8 border-b border-[#D9DEE3]">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#D9DEE3]">
-            <span className="text-xs font-mono font-bold text-[#294A63] tracking-[0.2em] uppercase">
+    <div className="bg-white text-[#222831] font-sans selection:bg-[#294A63] selection:text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-16 sm:space-y-24">
+        
+        {/* 1. PAGE INTRO (페이지 인트로) */}
+        <div className="space-y-6 pb-6 border-b border-[#D9DEE3]">
+          <div className="space-y-3 text-left">
+            <span className="text-xs font-mono font-bold text-[#294A63] tracking-[0.2em] uppercase block">
               SOLUTIONS
             </span>
-            <span className="text-xs font-mono font-medium uppercase tracking-widest text-[#66717C]">
-              FROM DISPLAY TO INTEGRATED OPERATION
-            </span>
+
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-mono font-bold text-[#18324A] tracking-tight leading-[1.2]">
+              FROM MEDIA INSTALLATION TO INTEGRATED OPERATION
+            </h1>
+
+            <p className="text-sm sm:text-base text-[#4A5568] font-normal leading-relaxed max-w-2xl pt-1">
+              {isKo
+                ? '기획과 구축부터 디스플레이 제어, 콘텐츠 송출과 통합운영까지 하나의 기술 체계로 연결합니다.'
+                : 'Connecting planning, installation, display control, content playout, and integrated operations in a unified technology system.'}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-2">
-            <div className="lg:col-span-7 space-y-4">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#222831] tracking-tight leading-[1.25] font-sans">
-                {isKo ? (
-                  <>
-                    구축부터 통합관제까지,<br />
-                    하나의 시스템으로 연결합니다.
-                  </>
-                ) : (
-                  'Connecting media construction to integrated control in one unified system.'
-                )}
-              </h1>
-              <p className="text-sm sm:text-base text-[#66717C] font-normal leading-[1.8] font-sans max-w-2xl">
-                {isKo
-                  ? 'DISE는 LED 미디어 하드웨어와 디스플레이 제어 기술, 자체 CMS 및 통합운영 시스템을 통해 대규모 미디어 환경을 안정적으로 구축하고 운영합니다.'
-                  : 'DISE reliably constructs and operates large-scale media environments through LED media hardware, display control technology, in-house CMS, and integrated management systems.'}
-              </p>
+          {/* INDEX MENU (가로형 메뉴) */}
+          <div className="pt-4">
+            <nav
+              className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#D9DEE3] border-y border-[#D9DEE3]"
+              aria-label="Solutions Index"
+            >
+              <button
+                type="button"
+                onClick={() => scrollToSection('solution-01')}
+                className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
+              >
+                <div className="space-y-0.5">
+                  <span className="text-[11px] font-mono text-[#D97706] font-bold block">01</span>
+                  <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
+                    {isKo ? 'LED 미디어 기획·구축' : 'LED Media Planning & Installation'}
+                  </span>
+                </div>
+                <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => scrollToSection('solution-02')}
+                className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
+              >
+                <div className="space-y-0.5">
+                  <span className="text-[11px] font-mono text-[#D97706] font-bold block">02</span>
+                  <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
+                    {isKo ? '디스플레이·제어 시스템' : 'Display & Control System'}
+                  </span>
+                </div>
+                <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => scrollToSection('solution-03')}
+                className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
+              >
+                <div className="space-y-0.5">
+                  <span className="text-[11px] font-mono text-[#D97706] font-bold block">03</span>
+                  <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
+                    {isKo ? 'CMS·통합관제 및 운영' : 'CMS & Integrated Operation'}
+                  </span>
+                </div>
+                <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        {/* 2. CORE SOLUTIONS (3 INDEPENDENT SECTIONS) */}
+        <div className="space-y-20 sm:space-y-28">
+
+          {/* [01 LED 미디어 기획·구축] */}
+          <section id="solution-01" className="scroll-mt-24 space-y-6 pt-2">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Image Left */}
+              <div className="lg:col-span-6 order-1">
+                <SolutionImage
+                  src="/images/about/history-inspire-arena-v2.webp"
+                  alt="INSPIRE ARENA LED 미디어 프로젝트"
+                  placeholderTitle="LED MEDIA INSTALLATION"
+                />
+              </div>
+
+              {/* Text Right */}
+              <div className="lg:col-span-6 order-2 space-y-5">
+                <div className="space-y-2">
+                  <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
+                    01 SOLUTIONS
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
+                    {isKo ? 'LED 미디어 기획·구축' : 'LED Media Planning & Installation'}
+                  </h2>
+                  <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
+                    LED MEDIA PLANNING &amp; INSTALLATION
+                  </p>
+                </div>
+
+                <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
+                  {isKo
+                    ? '공간과 운영 목적에 맞는 LED 미디어를 기획하고 구축합니다.'
+                    : 'Planning and building LED media customized to space specifications and operational requirements.'}
+                </p>
+
+                {/* Core Items (3 max) */}
+                <div className="pt-3 border-t border-[#E2E8F0] space-y-2.5">
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '공간 및 운영환경 분석' : 'Spatial & Operational Environment Analysis'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '디스플레이 시스템 설계' : 'Display System Engineering & Design'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '현장 시공 및 시스템 구축' : 'On-Site Installation & System Building'}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="lg:col-span-5">
-              <div className="aspect-[16/10] w-full overflow-hidden rounded-[2px] bg-[#F8F9FA] border border-[#D9DEE3]">
-                <img
-                  src={imgIntro}
-                  alt="DISE Integrated Media Environment"
-                  className="w-full h-full object-cover"
+          </section>
+
+          <hr className="border-[#E2E8F0]" />
+
+          {/* [02 디스플레이·제어 시스템] */}
+          <section id="solution-02" className="scroll-mt-24 space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Text Left */}
+              <div className="lg:col-span-6 order-2 lg:order-1 space-y-5">
+                <div className="space-y-2">
+                  <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
+                    02 SOLUTIONS
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
+                    {isKo ? '디스플레이·제어 시스템' : 'Display & Control System'}
+                  </h2>
+                  <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
+                    DISPLAY &amp; CONTROL SYSTEM
+                  </p>
+                </div>
+
+                <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
+                  {isKo
+                    ? '디스플레이와 컨트롤러를 연결해 안정적인 통합 송출 환경을 구성합니다.'
+                    : 'Connecting displays and controllers to configure a stable integrated playout environment.'}
+                </p>
+
+                {/* Core Items (3 max) */}
+                <div className="pt-3 border-t border-[#E2E8F0] space-y-2.5">
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '다중 디스플레이 통합 제어' : 'Multi-Display Integrated Control'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '화면 동기화 송출' : 'Synchronized Video Output'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '외부 시스템 연동' : 'External System Integration'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Image Right */}
+              <div className="lg:col-span-6 order-1 lg:order-2">
+                <SolutionImage
+                  src={controlSystemImage}
+                  alt="디스플레이 제어 시스템"
+                  placeholderTitle="DISPLAY & CONTROL SYSTEM"
+                  placeholderSub="IMAGE TO BE UPDATED"
                 />
               </div>
             </div>
-          </div>
-        </div>
+          </section>
 
-        {/* 2. TAB NAVIGATION */}
-        <div className="sticky top-20 z-30 bg-white/95 backdrop-blur-sm border-b border-[#D9DEE3]">
-          <div
-            className="flex items-center gap-6 sm:gap-8 overflow-x-auto py-3.5 scrollbar-none whitespace-nowrap"
-            role="tablist"
-            aria-label="DISE Solutions Navigation"
-          >
-            {SOLUTION_TABS.map((tab, index) => {
-              const isActive = activeSolutionTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  id={`sol-tab-${tab.id}`}
-                  ref={(el) => {
-                    tabRefs.current[index] = el;
-                  }}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-controls={`sol-panel-${tab.id}`}
-                  tabIndex={isActive ? 0 : -1}
-                  onClick={() => setActiveSolutionTab(tab.id)}
-                  onKeyDown={(e) => handleKeyDown(e, tab.id)}
-                  className={`text-xs sm:text-sm font-mono tracking-wider uppercase pb-2 transition-colors cursor-pointer border-b-2 whitespace-nowrap focus:outline-none focus:ring-1 focus:ring-[#294A63] ${
-                    isActive
-                      ? 'text-[#222831] border-[#294A63] font-bold'
-                      : 'text-[#66717C] border-transparent hover:text-[#222831] font-semibold'
-                  }`}
-                >
-                  {tab.label}
-                  <span className="ml-2 text-[11px] font-sans font-normal opacity-70">
-                    ({tab.koreanLabel})
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+          <hr className="border-[#E2E8F0]" />
 
-        {/* 3. ACTIVE SOLUTION PANEL */}
-        <div
-          id={`sol-panel-${activeSolutionTab}`}
-          role="tabpanel"
-          aria-labelledby={`sol-tab-${activeSolutionTab}`}
-          className="animate-fadeIn space-y-12"
-        >
-          {/* TAB 01: LED MEDIA */}
-          {activeSolutionTab === 'led-media' && (
-            <div className="space-y-10">
-              {/* Header & Main Grid */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-xs font-mono font-bold text-[#294A63]">
-                  <span>01</span>
-                  <span className="uppercase tracking-widest">LED MEDIA PLANNING & INSTALLATION</span>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                  <div className="lg:col-span-7 space-y-6">
-                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#222831] tracking-tight leading-[1.3]">
-                      {isKo ? (
-                        <>
-                          공간의 목적과 환경에 맞는<br />
-                          LED 미디어를 설계하고 구축합니다.
-                        </>
-                      ) : (
-                        'Designing and installing LED media tailored to space purpose and environment.'
-                      )}
-                    </h2>
-                    <p className="text-sm sm:text-base text-[#4A5568] leading-[1.85]">
-                      {isKo
-                        ? 'DISE는 공간 분석과 미디어 기획부터 디스플레이 설계, 현장 시공과 유지관리까지 LED 미디어 구축 전 과정을 수행합니다. 공항과 복합상업시설, 도시 옥외공간 등 다양한 환경에 맞춰 운영 안정성과 공간 경험을 함께 고려합니다.'
-                        : 'DISE executes the entire LED media construction cycle, from spatial analysis and planning to display engineering, field installation, and ongoing maintenance.'}
-                    </p>
-                  </div>
-
-                  <div className="lg:col-span-5">
-                    <div className="aspect-[4/3] w-full overflow-hidden rounded-[2px] bg-[#F8F9FA] border border-[#D9DEE3]">
-                      <img
-                        src={imgLedMedia}
-                        alt="LED Media Installation"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
+          {/* [03 CMS·통합관제 및 운영] */}
+          <section id="solution-03" className="scroll-mt-24 space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Image Left */}
+              <div className="lg:col-span-6 order-1">
+                <SolutionImage
+                  src={cmsImage}
+                  alt="CMS 통합관제 화면"
+                  placeholderTitle="CMS OPERATION SCREEN"
+                  placeholderSub="IMAGE TO BE UPDATED"
+                />
               </div>
 
-              {/* Capabilities Table */}
-              <div className="pt-6 border-t border-[#D9DEE3] space-y-4">
-                <h3 className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-widest">
-                  CAPABILITIES
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      SPACE ANALYSIS
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">공간·동선 및 운영 목적 분석</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      MEDIA PLANNING
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">LED 규격·위치·운영 방식 설계</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      INSTALLATION
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">디스플레이·전원·통신 환경 구축</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      MAINTENANCE
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">현장 점검 및 유지관리</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Core Tech & Proven Application */}
-              <div className="pt-6 border-t border-[#D9DEE3] grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Text Right */}
+              <div className="lg:col-span-6 order-2 space-y-5">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    RELATED CORE TECHNOLOGY
+                  <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
+                    03 SOLUTIONS
                   </span>
-                  <h4 className="text-lg font-bold text-[#222831]">
-                    AFD · AERO-FLEX DISPLAY
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#66717C] leading-relaxed">
-                    개방형 메시 구조를 기반으로 후면 통풍과 장시간 운영 안정성을 고려한 LED 디스플레이 기술
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
+                    {isKo ? 'CMS·통합관제 및 운영' : 'CMS & Integrated Operation'}
+                  </h2>
+                  <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
+                    CMS &amp; INTEGRATED OPERATION
                   </p>
                 </div>
-                <div className="space-y-2 border-t md:border-t-0 md:border-l border-[#D9DEE3] pt-4 md:pt-0 md:pl-8">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    REPRESENTATIVE APPLICATION
-                  </span>
-                  <h4 className="text-lg font-bold text-[#222831]">
-                    INSPIRE ARENA LINK
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#66717C]">
-                    영종도 인스파이어 통합리조트 LED 미디어 구축
-                  </p>
+
+                <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
+                  {isKo
+                    ? '자체 CMS를 기반으로 콘텐츠 송출과 다중 미디어 통합관제를 수행합니다.'
+                    : 'Conducting content playout and multi-media integrated control based on proprietary CMS.'}
+                </p>
+
+                {/* Core Items (3 max) */}
+                <div className="pt-3 border-t border-[#E2E8F0] space-y-2.5">
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '콘텐츠 등록·편성·송출' : 'Content Management, Scheduling & Playout'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '원격 통합관제 및 상태 확인' : 'Remote Integrated Control & Status Monitoring'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                      {isKo ? '운영 로그 및 유지관리 지원' : 'Operation Logs & Maintenance Support'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          )}
+          </section>
 
-          {/* TAB 02: CONTROL SYSTEM */}
-          {activeSolutionTab === 'control-system' && (
-            <div className="space-y-10">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-xs font-mono font-bold text-[#294A63]">
-                  <span>02</span>
-                  <span className="uppercase tracking-widest">CONTROL SYSTEM SYNCHRONIZED DISPLAY CONTROL</span>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                  <div className="lg:col-span-7 space-y-6">
-                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#222831] tracking-tight leading-[1.3]">
-                      {isKo ? (
-                        <>
-                          서로 다른 디스플레이를<br />
-                          하나의 화면처럼 제어합니다.
-                        </>
-                      ) : (
-                        'Controlling multiple distinct displays synchronized as one seamless screen.'
-                      )}
-                    </h2>
-                    <p className="text-sm sm:text-base text-[#4A5568] leading-[1.85]">
-                      {isKo
-                        ? '대형 LED 미디어는 여러 디스플레이와 플레이어가 동일한 콘텐츠를 정확하게 출력할 수 있어야 합니다. DISE는 자체 제어 기술을 통해 다수의 디스플레이와 고해상도 콘텐츠를 안정적으로 동기화합니다.'
-                        : 'Large-scale LED media requires exact playback synchronization across multiple displays and media players. DISE synchronizes high-resolution media seamlessly via proprietary controller tech.'}
-                    </p>
-                  </div>
-
-                  <div className="lg:col-span-5">
-                    <div className="aspect-[4/3] w-full overflow-hidden rounded-[2px] bg-[#F8F9FA] border border-[#D9DEE3]">
-                      <img
-                        src={imgControl}
-                        alt="Hardware Controller System"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Capabilities */}
-              <div className="pt-6 border-t border-[#D9DEE3] space-y-4">
-                <h3 className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-widest">
-                  CAPABILITIES
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      MULTI-DISPLAY CONTROL
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">다중 디스플레이 통합제어</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      FRAME SYNCHRONIZATION
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">프레임 단위 영상 동기화</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      HIGH-RESOLUTION OUTPUT
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">고해상도 콘텐츠 통합 송출</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      SYSTEM INTEGRATION
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">FIDS·운항통신 등 외부 시스템 연동</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Core Tech & Supporting Labels */}
-              <div className="pt-6 border-t border-[#D9DEE3] grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    RELATED CORE TECHNOLOGY
-                  </span>
-                  <h4 className="text-lg font-bold text-[#222831]">
-                    MWC · MW CONTROLLER
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#66717C] leading-relaxed">
-                    다수의 디스플레이와 플레이어를 연결하고 고해상도 콘텐츠를 동기화하는 자체 제어 기술
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      MULTI-WINDOW SYNCHRONIZATION
-                    </span>
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      16K·30K HIGH-RESOLUTION OPERATION
-                    </span>
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      FIDS LINK
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-2 border-t md:border-t-0 md:border-l border-[#D9DEE3] pt-4 md:pt-0 md:pl-8">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    PROVEN APPLICATION
-                  </span>
-                  <h4 className="text-lg font-bold text-[#222831]">
-                    SYNCHRONIZED DISPLAY CONTROL
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#66717C]">
-                    국내 대형 미디어 타워 및 관제 디스플레이 통합 동기화 제어
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 03: CMS & OPERATION */}
-          {activeSolutionTab === 'cms-operation' && (
-            <div className="space-y-10">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-xs font-mono font-bold text-[#294A63]">
-                  <span>03</span>
-                  <span className="uppercase tracking-widest">CMS & OPERATION INTEGRATED MEDIA MANAGEMENT</span>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                  <div className="lg:col-span-7 space-y-6">
-                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#222831] tracking-tight leading-[1.3]">
-                      {isKo ? (
-                        <>
-                          콘텐츠 송출부터 통합관제까지<br />
-                          하나의 플랫폼에서 관리합니다.
-                        </>
-                      ) : (
-                        'Managing from content scheduling to integrated control on a single platform.'
-                      )}
-                    </h2>
-                    <p className="text-sm sm:text-base text-[#4A5568] leading-[1.85]">
-                      {isKo
-                        ? 'DISE의 자체 CMS는 다수의 미디어와 콘텐츠를 하나의 운영 환경에서 편성하고 관리합니다. 콘텐츠 예약 송출과 디스플레이 상태 확인, 긴급 메시지 전환 및 운영 로그 관리를 통해 대규모 미디어 환경의 안정적인 운영을 지원합니다.'
-                        : 'DISE’s proprietary CMS schedules and manages multiple media assets across unified operating environments, handling remote monitoring, emergency overrides, and logging.'}
-                    </p>
-                  </div>
-
-                  <div className="lg:col-span-5">
-                    <div className="aspect-[4/3] w-full overflow-hidden rounded-[2px] bg-[#F8F9FA] border border-[#D9DEE3]">
-                      <img
-                        src={imgCms}
-                        alt="CMS Monitor & Control System"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Capabilities */}
-              <div className="pt-6 border-t border-[#D9DEE3] space-y-4">
-                <h3 className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-widest">
-                  CAPABILITIES
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-3.5 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      SCHEDULING
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">콘텐츠 편성·예약 송출</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-3.5 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      GROUP CONTROL
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">디스플레이 그룹 통합관리</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-3.5 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      MONITORING
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">운영 상태 원격 확인</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-3.5 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      EMERGENCY
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">긴급 콘텐츠 일괄 전환</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-3.5 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      LOG CONTROL
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">표출 이력 및 운영 로그 관리</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* PROOF INFORMATION STRIP (Horizontal Ruled Table) */}
-              <div className="bg-[#0B192C] text-white p-6 rounded-[2px] border-l-4 border-[#294A63] space-y-3">
-                <span className="text-[10px] font-mono font-bold text-[#D97706] uppercase tracking-widest block">
-                  PROVEN DEPLOYMENT PROOF
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1 border-t border-white/10">
-                  <div className="space-y-1">
-                    <span className="text-lg font-mono font-bold text-white">600+ SCREENS</span>
-                    <p className="text-xs text-slate-300">인천공항 통합관리</p>
-                  </div>
-                  <div className="space-y-1 border-t sm:border-t-0 sm:border-l border-white/10 pt-2 sm:pt-0 sm:pl-4">
-                    <span className="text-lg font-mono font-bold text-white">FIDS INTEGRATION</span>
-                    <p className="text-xs text-slate-300">운항정보 실시간 연동</p>
-                  </div>
-                  <div className="space-y-1 border-t sm:border-t-0 sm:border-l border-white/10 pt-2 sm:pt-0 sm:pl-4">
-                    <span className="text-lg font-mono font-bold text-white">INTEGRATED OPERATION</span>
-                    <p className="text-xs text-slate-300">다수 시설 및 미디어 통합운영</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Core Tech & Representative Application */}
-              <div className="pt-6 border-t border-[#D9DEE3] grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    RELATED CORE TECHNOLOGIES
-                  </span>
-                  <h4 className="text-lg font-bold text-[#222831]">
-                    DISE PREMIUM CMS
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      SOF · STACK-ON-FLOW
-                    </span>
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      IMT · IMPERATIVE TRIGGER
-                    </span>
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      FIDS LINK
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-2 border-t md:border-t-0 md:border-l border-[#D9DEE3] pt-4 md:pt-0 md:pl-8">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    REPRESENTATIVE APPLICATION
-                  </span>
-                  <h4 className="text-lg font-bold text-[#222831]">
-                    INCHEON INTERNATIONAL AIRPORT
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#66717C]">
-                    인천국제공항 T1 / T2 600여 개 사이니지 통합관제 및 FIDS 연동 운영
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 04: AI & INTERACTIVE */}
-          {activeSolutionTab === 'ai-interactive' && (
-            <div className="space-y-10">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-xs font-mono font-bold text-[#294A63]">
-                  <span>04</span>
-                  <span className="uppercase tracking-widest">AI & INTERACTIVE RESPONSIVE MEDIA TECHNOLOGY</span>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                  <div className="lg:col-span-7 space-y-6">
-                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#222831] tracking-tight leading-[1.3]">
-                      {isKo ? (
-                        <>
-                          사람과 공간의 반응을 인식하는<br />
-                          지능형 미디어 환경을 만듭니다.
-                        </>
-                      ) : (
-                        'Creating intelligent media environments responsive to people and space.'
-                      )}
-                    </h2>
-                    <p className="text-sm sm:text-base text-[#4A5568] leading-[1.85]">
-                      {isKo
-                        ? 'DISE는 안면과 실루엣, 음성 등 다양한 정보를 인식해 사용자와 공간의 상황에 반응하는 미디어 기술을 개발합니다. 보안과 출입관리, 인터랙티브 콘텐츠와 스마트 공간 시스템에 적용할 수 있습니다.'
-                        : 'DISE develops media technologies recognizing biometric silhouettes and spatial inputs to react interactively for security, access management, and smart space setups.'}
-                    </p>
-                  </div>
-
-                  <div className="lg:col-span-5">
-                    <div className="aspect-[4/3] w-full overflow-hidden rounded-[2px] bg-[#F8F9FA] border border-[#D9DEE3]">
-                      <img
-                        src={imgAi}
-                        alt="AI Biometric Face Recognition"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Capabilities */}
-              <div className="pt-6 border-t border-[#D9DEE3] space-y-4">
-                <h3 className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-widest">
-                  CAPABILITIES
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      BIOMETRIC RECOGNITION
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">안면·실루엣·음성 인식</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      LIVENESS DETECTION
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">위조방지 판별 기술</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      INTERACTIVE MEDIA
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">사용자 반응형 콘텐츠</p>
-                  </div>
-                  <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-4 rounded-[2px] space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase block">
-                      XR PLATFORM
-                    </span>
-                    <p className="text-xs text-[#222831] font-medium">가상공간·미디어 연동</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Core Tech & Verified Applications */}
-              <div className="pt-6 border-t border-[#D9DEE3] grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    RELATED CORE TECHNOLOGY
-                  </span>
-                  <h4 className="text-lg font-bold text-[#222831]">
-                    TED · TARGETING ECHO DETECT
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#66717C] leading-relaxed">
-                    AI 기반 생체 인식, 안면 실루엣 분석 및 사용자 반응 인터랙티브 기술
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      AI BIOMETRIC RECOGNITION
-                    </span>
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      LIVENESS DETECTION
-                    </span>
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      MULTIMODAL RECOGNITION
-                    </span>
-                    <span className="bg-[#F8F9FA] border border-[#D9DEE3] text-[10px] font-mono text-[#294A63] px-2 py-0.5 rounded-[2px]">
-                      XR PLATFORM
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-2 border-t md:border-t-0 md:border-l border-[#D9DEE3] pt-4 md:pt-0 md:pl-8">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    VERIFIED APPLICATIONS
-                  </span>
-                  <ul className="text-xs sm:text-sm text-[#222831] space-y-1 font-medium">
-                    <li>· 포스코ICT AI 안면인식 시스템</li>
-                    <li>· 부산 엘시티 미디어 전시관</li>
-                    <li>· 공공 스마트 솔루션 및 출입통제</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
-        {/* 4. AMSIT CORE TECHNOLOGY (Common Section Below Active Panel) */}
-        <div className="pt-12 border-t border-[#D9DEE3] space-y-8">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-widest bg-[#294A63]/10 px-2 py-0.5 rounded-[2px]">
-                AMSIT CORE TECHNOLOGY
-              </span>
-              <span className="text-xs font-mono font-semibold text-[#66717C] uppercase tracking-wider">
-                5 CORE TECHNOLOGIES
-              </span>
-            </div>
-            <h3 className="text-xl sm:text-2xl font-semibold text-[#222831] tracking-tight">
-              {isKo
-                ? '대규모 미디어 운영 경험을 통해 축적한 DISE의 통합 미디어 기술 체계'
-                : 'DISE integrated media technology framework built through extensive operational experience.'}
-            </h3>
-          </div>
-
-          {/* Connected Linear Matrix on Desktop / Stacked on Mobile */}
-          <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-6 sm:p-8 rounded-[2px]">
-            {/* DESKTOP MATRIX (Hidden on mobile) */}
-            <div className="hidden lg:grid grid-cols-5 gap-4 relative">
-              {/* Connector Line behind nodes */}
-              <div className="absolute top-[28px] left-[10%] right-[10%] h-[1px] bg-[#D9DEE3] z-0" />
-
-              {/* Node 1: AFD */}
-              <div
-                className={`relative z-10 bg-white border p-4 rounded-[2px] space-y-2 text-center transition-all ${
-                  activeSolutionTab === 'led-media'
-                    ? 'border-[#294A63] shadow-xs'
-                    : 'border-[#D9DEE3]'
-                }`}
-              >
-                <span className="text-xs font-mono font-bold text-[#294A63] block">AFD</span>
-                <p className="text-xs font-mono font-semibold text-[#222831]">AERO-FLEX DISPLAY</p>
-                <p className="text-[11px] text-[#66717C] font-sans">개방형 LED 디스플레이 구조</p>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/5 px-1.5 py-0.5 rounded-[2px] block">
-                  DISPLAY
-                </span>
-              </div>
-
-              {/* Node 2: MWC */}
-              <div
-                className={`relative z-10 bg-white border p-4 rounded-[2px] space-y-2 text-center transition-all ${
-                  activeSolutionTab === 'control-system'
-                    ? 'border-[#294A63] shadow-xs'
-                    : 'border-[#D9DEE3]'
-                }`}
-              >
-                <span className="text-xs font-mono font-bold text-[#294A63] block">MWC</span>
-                <p className="text-xs font-mono font-semibold text-[#222831]">MW CONTROLLER</p>
-                <p className="text-[11px] text-[#66717C] font-sans">다중 디스플레이 제어·동기화</p>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/5 px-1.5 py-0.5 rounded-[2px] block">
-                  CONTROL
-                </span>
-              </div>
-
-              {/* Node 3: SOF */}
-              <div
-                className={`relative z-10 bg-white border p-4 rounded-[2px] space-y-2 text-center transition-all ${
-                  activeSolutionTab === 'cms-operation'
-                    ? 'border-[#294A63] shadow-xs'
-                    : 'border-[#D9DEE3]'
-                }`}
-              >
-                <span className="text-xs font-mono font-bold text-[#294A63] block">SOF</span>
-                <p className="text-xs font-mono font-semibold text-[#222831]">STACK-ON-FLOW</p>
-                <p className="text-[11px] text-[#66717C] font-sans">다중 콘텐츠 레이어 편성</p>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/5 px-1.5 py-0.5 rounded-[2px] block">
-                  CONTENT
-                </span>
-              </div>
-
-              {/* Node 4: IMT */}
-              <div
-                className={`relative z-10 bg-white border p-4 rounded-[2px] space-y-2 text-center transition-all ${
-                  activeSolutionTab === 'cms-operation'
-                    ? 'border-[#294A63] shadow-xs'
-                    : 'border-[#D9DEE3]'
-                }`}
-              >
-                <span className="text-xs font-mono font-bold text-[#294A63] block">IMT</span>
-                <p className="text-xs font-mono font-semibold text-[#222831]">IMPERATIVE TRIGGER</p>
-                <p className="text-[11px] text-[#66717C] font-sans">긴급 메시지·일괄 송출</p>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/5 px-1.5 py-0.5 rounded-[2px] block">
-                  TRIGGER
-                </span>
-              </div>
-
-              {/* Node 5: TED */}
-              <div
-                className={`relative z-10 bg-white border p-4 rounded-[2px] space-y-2 text-center transition-all ${
-                  activeSolutionTab === 'ai-interactive'
-                    ? 'border-[#294A63] shadow-xs'
-                    : 'border-[#D9DEE3]'
-                }`}
-              >
-                <span className="text-xs font-mono font-bold text-[#294A63] block">TED</span>
-                <p className="text-xs font-mono font-semibold text-[#222831]">TARGETING ECHO DETECT</p>
-                <p className="text-[11px] text-[#66717C] font-sans">AI 기반 인식·반응 기술</p>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/5 px-1.5 py-0.5 rounded-[2px] block">
-                  INTELLIGENCE
-                </span>
-              </div>
-            </div>
-
-            {/* MOBILE VERTICAL SEQUENCE */}
-            <div className="block lg:hidden space-y-3">
-              <div className="bg-white border border-[#D9DEE3] p-3.5 rounded-[2px] flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-mono font-bold text-[#294A63]">AFD</span>
-                  <p className="text-xs font-mono font-semibold text-[#222831]">AERO-FLEX DISPLAY</p>
-                  <p className="text-[11px] text-[#66717C]">개방형 LED 디스플레이 구조</p>
-                </div>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/10 px-2 py-0.5 rounded-[2px]">DISPLAY</span>
-              </div>
-              <div className="text-center text-xs text-[#294A63]">↓</div>
-
-              <div className="bg-white border border-[#D9DEE3] p-3.5 rounded-[2px] flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-mono font-bold text-[#294A63]">MWC</span>
-                  <p className="text-xs font-mono font-semibold text-[#222831]">MW CONTROLLER</p>
-                  <p className="text-[11px] text-[#66717C]">다중 디스플레이 제어·동기화</p>
-                </div>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/10 px-2 py-0.5 rounded-[2px]">CONTROL</span>
-              </div>
-              <div className="text-center text-xs text-[#294A63]">↓</div>
-
-              <div className="bg-white border border-[#D9DEE3] p-3.5 rounded-[2px] flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-mono font-bold text-[#294A63]">SOF</span>
-                  <p className="text-xs font-mono font-semibold text-[#222831]">STACK-ON-FLOW</p>
-                  <p className="text-[11px] text-[#66717C]">다중 콘텐츠 레이어 편성</p>
-                </div>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/10 px-2 py-0.5 rounded-[2px]">CONTENT</span>
-              </div>
-              <div className="text-center text-xs text-[#294A63]">↓</div>
-
-              <div className="bg-white border border-[#D9DEE3] p-3.5 rounded-[2px] flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-mono font-bold text-[#294A63]">IMT</span>
-                  <p className="text-xs font-mono font-semibold text-[#222831]">IMPERATIVE TRIGGER</p>
-                  <p className="text-[11px] text-[#66717C]">긴급 메시지·일괄 송출</p>
-                </div>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/10 px-2 py-0.5 rounded-[2px]">TRIGGER</span>
-              </div>
-              <div className="text-center text-xs text-[#294A63]">↓</div>
-
-              <div className="bg-white border border-[#D9DEE3] p-3.5 rounded-[2px] flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-mono font-bold text-[#294A63]">TED</span>
-                  <p className="text-xs font-mono font-semibold text-[#222831]">TARGETING ECHO DETECT</p>
-                  <p className="text-[11px] text-[#66717C]">AI 기반 인식·반응 기술</p>
-                </div>
-                <span className="text-[9px] font-mono text-[#294A63] bg-[#294A63]/10 px-2 py-0.5 rounded-[2px]">INTELLIGENCE</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 5. APPLICATION AREAS (Common Section Below AMSIT) */}
-        <div className="pt-10 border-t border-[#D9DEE3] space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-widest block">
-              APPLICATION AREAS
+        {/* 3. PROJECT EXECUTION PROCESS (프로젝트 수행 프로세스) */}
+        <div className="bg-[#102B42] text-white p-6 sm:p-10 rounded-[2px] space-y-8 shadow-sm">
+          <div className="space-y-2 text-left">
+            <span className="text-xs font-mono font-bold text-[#D0BE7D] uppercase tracking-widest block">
+              PROCESS
             </span>
-            <h3 className="text-xl sm:text-2xl font-semibold text-[#222831]">
-              {isKo ? '다양한 공간과 운영 환경에 적용합니다.' : 'Deploying across diverse space & operational environments.'}
+            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              {isKo ? '프로젝트 수행 프로세스' : 'Project Execution Process'}
+            </h2>
+            <p className="text-xs sm:text-sm text-white/70 font-normal">
+              {isKo
+                ? '기획부터 구축, CMS 연동 및 통합운영까지 4단계로 진행합니다.'
+                : 'Executed in 4 streamlined steps from planning to installation, CMS integration, and control.'}
+            </p>
+          </div>
+
+          {/* 4 Steps Horizontal Line (Desktop) / Vertical Timeline (Mobile) */}
+          <div className="hidden md:grid grid-cols-4 gap-4 relative pt-2">
+            {/* Horizontal connecting line */}
+            <div className="absolute top-[28px] left-8 right-8 h-[1px] bg-white/20 pointer-events-none" />
+
+            <div className="relative space-y-2 pr-2">
+              <div className="w-8 h-8 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-xs font-bold flex items-center justify-center relative z-10">
+                01
+              </div>
+              <p className="text-xs sm:text-sm font-bold text-white pt-1">
+                {isKo ? '기획·요구사항 분석' : '01 Planning & Requirements'}
+              </p>
+            </div>
+
+            <div className="relative space-y-2 pr-2">
+              <div className="w-8 h-8 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-xs font-bold flex items-center justify-center relative z-10">
+                02
+              </div>
+              <p className="text-xs sm:text-sm font-bold text-white pt-1">
+                {isKo ? '시스템 설계·구축' : '02 System Design & Installation'}
+              </p>
+            </div>
+
+            <div className="relative space-y-2 pr-2">
+              <div className="w-8 h-8 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-xs font-bold flex items-center justify-center relative z-10">
+                03
+              </div>
+              <p className="text-xs sm:text-sm font-bold text-white pt-1">
+                {isKo ? 'CMS 연동·운영 테스트' : '03 CMS Integration & Testing'}
+              </p>
+            </div>
+
+            <div className="relative space-y-2">
+              <div className="w-8 h-8 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-xs font-bold flex items-center justify-center relative z-10">
+                04
+              </div>
+              <p className="text-xs sm:text-sm font-bold text-white pt-1">
+                {isKo ? '통합관제·운영' : '04 Integrated Control & Operation'}
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile Vertical Timeline */}
+          <div className="block md:hidden space-y-4 pt-2">
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                01
+              </span>
+              <p className="text-xs font-bold text-white">
+                {isKo ? '기획·요구사항 분석' : 'Planning & Requirements'}
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                02
+              </span>
+              <p className="text-xs font-bold text-white">
+                {isKo ? '시스템 설계·구축' : 'System Design & Installation'}
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                03
+              </span>
+              <p className="text-xs font-bold text-white">
+                {isKo ? 'CMS 연동·운영 테스트' : 'CMS Integration & Testing'}
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                04
+              </span>
+              <p className="text-xs font-bold text-white">
+                {isKo ? '통합관제·운영' : 'Integrated Control & Operation'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. EXTENSION TECH AREA (확장 기술) */}
+        <div className="bg-[#F8FAFC] border border-[#E2E8F0] p-6 sm:p-8 rounded-[2px] space-y-4">
+          <div className="space-y-1.5">
+            <span className="text-[11px] font-mono font-bold text-[#64748B] uppercase tracking-wider block">
+              TECHNOLOGY EXTENSION
+            </span>
+            <h3 className="text-lg font-bold text-[#0F172A]">
+              {isKo ? '확장 기술' : 'Extension Technology'}
             </h3>
+            <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
+              {isKo
+                ? '디지털 사이니지와 CMS 기술을 기반으로 AI, XR 및 인터랙티브 미디어 분야로 기술 영역을 확장하고 있습니다.'
+                : 'Expanding technology into AI, XR, and interactive media based on digital signage and CMS technologies.'}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div
-              onClick={() => onNavigateProjects?.('airport')}
-              className="bg-[#F8F9FA] border border-[#D9DEE3] p-5 rounded-[2px] space-y-2 cursor-pointer hover:border-[#294A63] transition-colors"
-            >
-              <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                AREA 01
-              </span>
-              <h4 className="text-base font-bold text-[#222831]">AIRPORT & TRANSPORTATION</h4>
-              <p className="text-xs text-[#66717C] font-medium">공항·교통시설</p>
+          <div className="pt-2 flex flex-wrap gap-2 sm:gap-3">
+            <div className="bg-white border border-[#CBD5E1] px-3.5 py-2 rounded-[2px] text-xs font-semibold text-[#1E293B]">
+              {isKo ? 'AI 인식 기술' : 'AI Recognition Technology'}
             </div>
-
-            <div
-              onClick={() => onNavigateProjects?.('landmark')}
-              className="bg-[#F8F9FA] border border-[#D9DEE3] p-5 rounded-[2px] space-y-2 cursor-pointer hover:border-[#294A63] transition-colors"
-            >
-              <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                AREA 02
-              </span>
-              <h4 className="text-base font-bold text-[#222831]">COMMERCIAL & LANDMARK</h4>
-              <p className="text-xs text-[#66717C] font-medium">복합상업시설·랜드마크</p>
+            <div className="bg-white border border-[#CBD5E1] px-3.5 py-2 rounded-[2px] text-xs font-semibold text-[#1E293B]">
+              {isKo ? 'XR 미디어' : 'XR Media'}
             </div>
-
-            <div
-              onClick={() => onNavigateProjects?.('retail')}
-              className="bg-[#F8F9FA] border border-[#D9DEE3] p-5 rounded-[2px] space-y-2 cursor-pointer hover:border-[#294A63] transition-colors"
-            >
-              <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                AREA 03
-              </span>
-              <h4 className="text-base font-bold text-[#222831]">PUBLIC & FINANCIAL</h4>
-              <p className="text-xs text-[#66717C] font-medium">공공기관·금융·리테일</p>
-            </div>
-
-            <div
-              onClick={() => onNavigateProjects?.('global')}
-              className="bg-[#F8F9FA] border border-[#D9DEE3] p-5 rounded-[2px] space-y-2 cursor-pointer hover:border-[#294A63] transition-colors"
-            >
-              <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                AREA 04
-              </span>
-              <h4 className="text-base font-bold text-[#222831]">GLOBAL MEDIA</h4>
-              <p className="text-xs text-[#66717C] font-medium">해외 LED 미디어 사업</p>
+            <div className="bg-white border border-[#CBD5E1] px-3.5 py-2 rounded-[2px] text-xs font-semibold text-[#1E293B]">
+              {isKo ? '인터랙티브 미디어' : 'Interactive Media'}
             </div>
           </div>
         </div>
 
-        {/* 6. CONTACT CTA (One CTA at bottom) */}
-        <div className="pt-10 border-t border-[#D9DEE3]">
-          <div className="bg-[#0B192C] text-white p-8 sm:p-12 rounded-[2px] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-l-4 border-[#294A63]">
-            <div className="space-y-2 max-w-2xl">
-              <span className="text-xs font-mono font-bold text-[#D97706] uppercase tracking-widest block">
-                BUILD YOUR MEDIA INFRASTRUCTURE WITH DISE
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                {isKo
-                  ? 'LED 미디어 구축과 통합운영 환경에 대해 상담해보세요.'
-                  : 'Consult with DISE for LED media infrastructure & integrated operations.'}
-              </h3>
-            </div>
-            {onNavigateContact && (
-              <button
-                type="button"
-                onClick={onNavigateContact}
-                className="px-6 py-3 bg-[#294A63] hover:bg-[#1f384c] text-white font-mono text-xs sm:text-sm font-bold tracking-wider rounded-[2px] transition-colors whitespace-nowrap cursor-pointer shrink-0 border border-white/10"
-              >
-                CONTACT US →
-              </button>
-            )}
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -8,30 +8,30 @@ export const MetricsSection: React.FC = () => {
           {/* Column 1 */}
           <div className="py-6 md:py-2 px-4 md:px-8 flex flex-col items-center justify-center text-center space-y-1.5">
             <span className="text-[28px] sm:text-[32px] font-semibold tracking-tight text-[#222831] font-sans leading-none">
-              16 YEARS
+              SINCE 2010
             </span>
             <span className="text-sm sm:text-base text-[#66717C] font-normal">
-              운영 경험
+              축적된 기술과 운영 경험
             </span>
           </div>
 
           {/* Column 2 */}
           <div className="py-6 md:py-2 px-4 md:px-8 flex flex-col items-center justify-center text-center space-y-1.5">
             <span className="text-[28px] sm:text-[32px] font-semibold tracking-tight text-[#222831] font-sans leading-none">
-              600+ SCREENS
+              IN-HOUSE CMS
             </span>
             <span className="text-sm sm:text-base text-[#66717C] font-normal">
-              인천공항 통합관리
+              자체 개발 사이니지 솔루션
             </span>
           </div>
 
           {/* Column 3 */}
           <div className="py-6 md:py-2 px-4 md:px-8 flex flex-col items-center justify-center text-center space-y-1.5">
             <span className="text-[28px] sm:text-[32px] font-semibold tracking-tight text-[#222831] font-sans leading-none">
-              IN-HOUSE CMS
+              END-TO-END
             </span>
             <span className="text-sm sm:text-base text-[#66717C] font-normal">
-              자체 개발 기술
+              기획·구축·통합운영
             </span>
           </div>
         </div>

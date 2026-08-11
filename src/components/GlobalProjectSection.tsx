@@ -32,13 +32,13 @@ export const GlobalProjectSection: React.FC<GlobalProjectSectionProps> = ({ onNa
             </div>
 
             <p className="text-sm sm:text-base text-slate-600 leading-[1.75] font-normal">
-              국내 공항급 LED 미디어 구축 및 통합운영 경험을 바탕으로 베트남 주요 도시와 공항으로 사업 영역을 확장하고 있습니다.
+              DISE는 MHGROUP과 전략적 사업제휴를 체결하고, 하노이 후보지를 중심으로 옥외 LED 미디어 사업을 추진하고 있습니다.
             </p>
 
             {/* Short Location Line */}
             <div className="pt-3 border-t border-slate-200">
               <div className="text-xs font-mono font-bold text-slate-900 uppercase tracking-widest">
-                HANOI · NOI BAI INTERNATIONAL AIRPORT
+                HANOI · VIETNAM (CANDIDATE SITE)
               </div>
             </div>
 
@@ -49,7 +49,7 @@ export const GlobalProjectSection: React.FC<GlobalProjectSectionProps> = ({ onNa
                 onClick={onNavigateGlobalProjects}
                 className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors group cursor-pointer border-b border-blue-600/30 hover:border-blue-600 pb-0.5"
               >
-                <span>EXPLORE GLOBAL PROJECTS</span>
+                <span>EXPLORE GLOBAL BUSINESS</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -60,11 +60,14 @@ export const GlobalProjectSection: React.FC<GlobalProjectSectionProps> = ({ onNa
             <div className="relative aspect-[16/10] overflow-hidden border border-slate-200">
               <img
                 src={doohOutdoorMediaImg}
-                alt="DISE Vietnam Outdoor LED Media Project"
+                alt="DISE Vietnam Outdoor LED Media Business"
                 className="w-full h-full object-cover"
               />
+              <div className="absolute top-3 right-3 bg-slate-900/90 text-white text-[10px] font-mono font-semibold px-2.5 py-1 rounded uppercase tracking-wider backdrop-blur-sm border border-white/20">
+                IN PROGRESS
+              </div>
               <div className="absolute bottom-0 left-0 right-0 bg-slate-900/85 text-white px-4 py-2.5 text-xs font-mono">
-                <span className="font-semibold text-amber-300">VIETNAM GLOBAL PROJECT</span> · HANOI OUTDOOR LED MEDIA
+                <span className="font-semibold text-amber-300">VIETNAM GLOBAL BUSINESS</span> · CANDIDATE SITE
               </div>
             </div>
           </div>

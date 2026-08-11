@@ -52,9 +52,15 @@ export const historyItems: HistoryItem[] = [
   },
   {
     year: "2021",
-    category: "ENTERPRISE",
+    category: "AIRPORT CMS",
     title: "인천국제공항 4단계 운항통신시설 CMS 구축",
-    description: "2021.12 구축 · 포스코ICT 협약"
+    description: "2021.12 구축"
+  },
+  {
+    year: "2021",
+    category: "ENTERPRISE",
+    title: "포스코ICT 협약",
+    description: "전략적 사업 협약 체결"
   },
   {
     year: "2022",
@@ -199,7 +205,7 @@ export const HistorySection: React.FC<HistorySectionProps> = () => {
                       {item.title}
                     </h4>
 
-                    <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#4A5568] font-normal leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -207,6 +213,60 @@ export const HistorySection: React.FC<HistorySectionProps> = () => {
               </React.Fragment>
             );
           })}
+        </div>
+      </div>
+
+      {/* KEY PROJECTS / HISTORY PROJECT STRIP */}
+      <div className="lg:col-span-12 pt-12 sm:pt-16 border-t border-[#D9DEE3] space-y-6">
+        <div className="space-y-1">
+          <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#294A63] block">
+            SELECTED MILESTONES
+          </span>
+          <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight font-sans">
+            기술과 운영 경험이 실제 미디어 공간으로 이어집니다.
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+          {/* PROJECT 1: INSPIRE Arena */}
+          <div className="bg-[#F8F9FA] border border-[#D9DEE3] rounded-[2px] overflow-hidden group">
+            <div className="aspect-[16/10] w-full overflow-hidden bg-[#101418] relative">
+              <img
+                src="/images/about/history-inspire-arena-v2.webp"
+                alt="INSPIRE Arena LED 미디어 프로젝트"
+                loading="lazy"
+                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="p-4 sm:p-5 space-y-1 bg-white border-t border-[#D9DEE3]">
+              <span className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider block">
+                INTEGRATED MEDIA
+              </span>
+              <h4 className="text-base font-bold text-[#222831] font-sans">
+                INSPIRE Arena
+              </h4>
+            </div>
+          </div>
+
+          {/* PROJECT 2: 동성로 SPARK */}
+          <div className="bg-[#F8F9FA] border border-[#D9DEE3] rounded-[2px] overflow-hidden group">
+            <div className="aspect-[16/10] w-full overflow-hidden bg-[#101418] relative">
+              <img
+                src="/images/about/history-dongseongro-spark-v2.webp"
+                alt="동성로 SPARK 대형 LED 미디어 프로젝트"
+                loading="lazy"
+                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="p-4 sm:p-5 space-y-1 bg-white border-t border-[#D9DEE3]">
+              <span className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider block">
+                URBAN LED MEDIA
+              </span>
+              <h4 className="text-base font-bold text-[#222831] font-sans">
+                동성로 SPARK
+              </h4>
+            </div>
+          </div>
         </div>
       </div>
     </div>

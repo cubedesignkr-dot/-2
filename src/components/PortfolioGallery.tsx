@@ -1,331 +1,531 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Image as ImageIcon,
-  Search,
-  MapPin,
-  Maximize2,
-  X,
-  PlusCircle,
-} from 'lucide-react';
-import { Language, PortfolioItem, GalleryCategory } from '../types';
-import { t } from '../utils/translations';
+import { Language } from '../types';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { PROJECT_IMAGES } from '../constants/projectImages';
+
+// Assets for Global Business & Activities (kept intact per requirements)
+import doohOutdoorMediaImg from '../assets/images/dooh_outdoor_media_1785989215681.jpg';
+import heroLedCityBg from '../assets/images/hero_led_city_bg_1786006096621.jpg';
+import softwareCmsMonitorImg from '../assets/images/software_cms_monitor_1785989194504.jpg';
+import hardwareControllerImg from '../assets/images/hardware_controller_1785989182277.jpg';
+import heroLedGlassBg from '../assets/images/hero_led_glass_bg_1786019620069.jpg';
+import inspireResortImg from '../assets/images/led_display_bg_1785990073226.jpg';
 
 interface PortfolioGalleryProps {
   currentLang: Language;
-  portfolio: PortfolioItem[];
-  onOpenAdminGallery: () => void;
-  initialCategory?: GalleryCategory;
+  portfolio?: any[];
+  onOpenAdminGallery?: () => void;
+  initialCategory?: string;
 }
 
+export interface MediaProjectItem {
+  id: string;
+  title: string;
+  titleEn: string;
+  image: string;
+  alt: string;
+  category: 'LED MEDIA' | 'DID';
+}
+
+export const mediaProjects: MediaProjectItem[] = [
+  {
+    id: "incheon-airport-media-tower",
+    title: "인천국제공항 미디어타워",
+    titleEn: "Incheon International Airport Media Tower",
+    image: PROJECT_IMAGES.incheonAirport,
+    alt: "인천국제공항 내부 수직 LED 미디어타워",
+    category: "LED MEDIA",
+  },
+  {
+    id: "inspire-arena",
+    title: "인스파이어 아레나",
+    titleEn: "Inspire Arena",
+    image: PROJECT_IMAGES.inspireArena,
+    alt: "인스파이어 아레나 공연장 LED 미디어",
+    category: "LED MEDIA",
+  },
+  {
+    id: "dongseongro-spark",
+    title: "동성로 스파크",
+    titleEn: "Dongseongro Spark",
+    image: PROJECT_IMAGES.dongseongroSpark,
+    alt: "동성로 스파크 외벽 LED 미디어",
+    category: "LED MEDIA",
+  },
+  {
+    id: "ifc-mall",
+    title: "여의도 IFC몰 LED 미디어",
+    titleEn: "Yeouido IFC Mall LED Media",
+    image: PROJECT_IMAGES.ifcMall,
+    alt: "여의도 IFC몰 야간 LED 미디어 파사드",
+    category: "LED MEDIA",
+  },
+  {
+    id: "emart24-did",
+    title: "이마트24 매장 DID",
+    titleEn: "eMart24 Store DID",
+    image: PROJECT_IMAGES.emart24Did,
+    alt: "이마트24 매장 카운터 DID 디스플레이",
+    category: "DID",
+  },
+  {
+    id: "busan-lct-exhibition",
+    title: "부산 엘시티 미디어 전시관",
+    titleEn: "Busan LCT Media Exhibition",
+    image: PROJECT_IMAGES.busanLctExhibition,
+    alt: "부산 엘시티 몰입형 LED 미디어 전시 공간",
+    category: "LED MEDIA",
+  },
+  {
+    id: "tour-bus-shelter-led",
+    title: "투어버스 쉘터 LED 매체",
+    titleEn: "Tour Bus Shelter LED Media",
+    image: PROJECT_IMAGES.tourBusShelterLed,
+    alt: "도심 보행 공간의 투어버스 쉘터 LED 매체",
+    category: "LED MEDIA",
+  },
+  {
+    id: "civil-service-did",
+    title: "양방향 민원 서비스 DID",
+    titleEn: "Interactive Civil Service DID",
+    image: PROJECT_IMAGES.civilServiceDid,
+    alt: "공공기관 민원 창구에 설치된 양방향 DID 단말기",
+    category: "DID",
+  },
+];
+
+interface GlobalGalleryItem {
+  id: string;
+  type: 'GLOBAL' | 'ACTIVITIES';
+  title: string;
+  titleEn: string;
+  category: string;
+  categoryEn: string;
+  image: string;
+  status?: 'CANDIDATE SITE' | 'IN PROGRESS';
+  description: string;
+}
+
+export const globalBusinessItems: GlobalGalleryItem[] = [
+  {
+    id: 'global-01',
+    type: 'GLOBAL',
+    title: '하노이 도심 LED 미디어 사업',
+    titleEn: 'HANOI URBAN LED MEDIA (TRANG TIEN)',
+    category: 'GLOBAL BUSINESS',
+    categoryEn: 'GLOBAL BUSINESS',
+    status: 'CANDIDATE SITE',
+    image: doohOutdoorMediaImg,
+    description: 'DISE는 국내에서 축적한 LED 미디어 구축과 운영 경험을 바탕으로 글로벌 시장으로 사업 영역을 확장하고 있습니다. 하노이 도심 주요 거점(장띠엔) 대상 옥외 LED 미디어 사업 후보지입니다.',
+  },
+  {
+    id: 'global-02',
+    type: 'GLOBAL',
+    title: '하노이 QCD Plaza 후보지',
+    titleEn: 'HANOI QCD PLAZA',
+    category: 'GLOBAL BUSINESS',
+    categoryEn: 'GLOBAL BUSINESS',
+    status: 'CANDIDATE SITE',
+    image: heroLedCityBg,
+    description: '하노이 도심 핵심 상업거점인 QCD Plaza를 대상으로 추진하는 옥외 LED 미디어 사업 후보지입니다.',
+  },
+  {
+    id: 'global-03',
+    type: 'GLOBAL',
+    title: '노이바이국제공항 LED 사업',
+    titleEn: 'NOI BAI INTERNATIONAL AIRPORT LED PROJECT',
+    category: 'GLOBAL BUSINESS',
+    categoryEn: 'GLOBAL BUSINESS',
+    status: 'IN PROGRESS',
+    image: heroLedCityBg,
+    description: '노이바이국제공항 LED 미디어 사업을 위한 현지 협력 체계와 사업 추진 기반을 구축하고 있습니다.',
+  },
+  {
+    id: 'activity-01',
+    type: 'ACTIVITIES',
+    title: '1차 베트남 방문 및 사업 미팅',
+    titleEn: '1ST VIETNAM BUSINESS VISIT',
+    category: 'BUSINESS ACTIVITIES',
+    categoryEn: 'BUSINESS ACTIVITIES',
+    image: hardwareControllerImg,
+    description: '베트남 주요 미디어 및 공항 관계기관과의 1차 현지 사업 협력 미팅 진행.',
+  },
+  {
+    id: 'activity-02',
+    type: 'ACTIVITIES',
+    title: '2차 베트남 방문 및 현장 조사',
+    titleEn: '2ND VIETNAM BUSINESS VISIT',
+    category: 'BUSINESS ACTIVITIES',
+    categoryEn: 'BUSINESS ACTIVITIES',
+    image: softwareCmsMonitorImg,
+    description: '하노이 주요 거점 및 노이바이국제공항 LED 입지 현장 실사 및 기술 조사.',
+  },
+  {
+    id: 'activity-03',
+    type: 'ACTIVITIES',
+    title: '민항회장 한국 방문',
+    titleEn: 'KOREA BUSINESS VISIT',
+    category: 'BUSINESS ACTIVITIES',
+    categoryEn: 'BUSINESS ACTIVITIES',
+    image: doohOutdoorMediaImg,
+    description: '베트남 민항 대표단 한국 본사 방문 및 국내 공항 LED 미디어 현장 시찰.',
+  },
+  {
+    id: 'activity-04',
+    type: 'ACTIVITIES',
+    title: 'DISE–MHGROUP 협력 체결',
+    titleEn: 'VIETNAM BUSINESS PARTNERSHIP',
+    category: 'BUSINESS ACTIVITIES',
+    categoryEn: 'BUSINESS ACTIVITIES',
+    image: heroLedGlassBg,
+    description: '베트남 글로벌 LED 미디어 인프라 사업 추진을 위한 DISE와 MHGROUP 간 상호 협력 체결.',
+  },
+  {
+    id: 'activity-05',
+    type: 'ACTIVITIES',
+    title: 'DISE–MHGROUP 미팅',
+    titleEn: 'VIETNAM BUSINESS MEETING',
+    category: 'BUSINESS ACTIVITIES',
+    categoryEn: 'BUSINESS ACTIVITIES',
+    image: inspireResortImg,
+    description: '베트남 현지 미디어 운영 및 CMS 시스템 구축을 위한 세부 사업 실행 계획 논의.',
+  },
+];
+
 export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
-  currentLang,
-  portfolio,
   onOpenAdminGallery,
-  initialCategory = 'all',
 }) => {
-  const [activeCategory, setActiveCategory] = useState<GalleryCategory>(initialCategory);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [activeMediaFilter, setActiveMediaFilter] = useState<'ALL' | 'LED MEDIA' | 'DID'>('ALL');
+  const [selectedMediaProjectIndex, setSelectedMediaProjectIndex] = useState<number | null>(null);
+  const [selectedGlobalItemIndex, setSelectedGlobalItemIndex] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (initialCategory) {
-      setActiveCategory(initialCategory);
-    }
-  }, [initialCategory]);
-
-  const categories: { id: GalleryCategory; label: Record<Language, string> }[] = [
-    {
-      id: 'all',
-      label: {
-        ko: '전체 보기',
-        en: 'All Projects',
-        vi: 'Tất Cả Dự Án',
-        zh: '全部项目',
-        ar: 'جميع المشاريع',
-      },
-    },
-    {
-      id: 'airport',
-      label: {
-        ko: '공공 · 공항 랜드마크',
-        en: 'Public & Airport',
-        vi: 'Công Cộng & Sân Bay',
-        zh: '公共 · 机场地标',
-        ar: 'المطارات والمرافق',
-      },
-    },
-    {
-      id: 'commercial',
-      label: {
-        ko: '상업 · 엔터테인먼트',
-        en: 'Commercial & Ent',
-        vi: 'Thương Mại & Giải Trí',
-        zh: '商业 · 娱乐地标',
-        ar: 'المراكز التجارية',
-      },
-    },
-    {
-      id: 'retail',
-      label: {
-        ko: '리테일 · B2B',
-        en: 'Retail & B2B',
-        vi: 'Bán Lẻ & B2B',
-        zh: '零售 · B2B',
-        ar: 'شبكات التجزئة',
-      },
-    },
-    {
-      id: 'global',
-      label: {
-        ko: '글로벌 신사업',
-        en: 'Global Expansion',
-        vi: 'Dự Án Toàn Cầu',
-        zh: '全球拓展',
-        ar: 'التوسع العالمي',
-      },
-    },
-  ];
-
-  // Filter Logic
-  const filteredPortfolio = portfolio.filter((item) => {
-    const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
-    const titleText = (typeof item.title === 'object' ? (item.title[currentLang] || item.title.ko || '') : (item.title || '')).toLowerCase();
-    const locationText = (typeof item.location === 'object' ? (item.location[currentLang] || item.location.ko || '') : (item.location || '')).toLowerCase();
-    const specsText = (typeof item.specs === 'object' ? (item.specs[currentLang] || item.specs.ko || '') : (item.specs || '')).toLowerCase();
-    const query = searchQuery.toLowerCase().trim();
-
-    const matchesQuery =
-      !query ||
-      titleText.includes(query) ||
-      locationText.includes(query) ||
-      specsText.includes(query);
-
-    return matchesCategory && matchesQuery;
+  const filteredMediaProjects = mediaProjects.filter((item) => {
+    if (activeMediaFilter === 'ALL') return true;
+    return item.category === activeMediaFilter;
   });
 
+  // Modal keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedMediaProjectIndex !== null) {
+        if (e.key === 'Escape') setSelectedMediaProjectIndex(null);
+        if (e.key === 'ArrowLeft') {
+          setSelectedMediaProjectIndex((prev) =>
+            prev === null ? null : (prev - 1 + filteredMediaProjects.length) % filteredMediaProjects.length
+          );
+        }
+        if (e.key === 'ArrowRight') {
+          setSelectedMediaProjectIndex((prev) =>
+            prev === null ? null : (prev + 1) % filteredMediaProjects.length
+          );
+        }
+      } else if (selectedGlobalItemIndex !== null) {
+        if (e.key === 'Escape') setSelectedGlobalItemIndex(null);
+        if (e.key === 'ArrowLeft') {
+          setSelectedGlobalItemIndex((prev) =>
+            prev === null ? null : (prev - 1 + globalBusinessItems.length) % globalBusinessItems.length
+          );
+        }
+        if (e.key === 'ArrowRight') {
+          setSelectedGlobalItemIndex((prev) =>
+            prev === null ? null : (prev + 1) % globalBusinessItems.length
+          );
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedMediaProjectIndex, selectedGlobalItemIndex, filteredMediaProjects.length]);
+
+  const selectedMediaModal = selectedMediaProjectIndex !== null ? filteredMediaProjects[selectedMediaProjectIndex] : null;
+  const selectedGlobalModal = selectedGlobalItemIndex !== null ? globalBusinessItems[selectedGlobalItemIndex] : null;
+
   return (
-    <section id="portfolio" className="py-20 bg-slate-50 relative border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="text-xs font-bold text-blue-700 uppercase tracking-widest bg-blue-100/80 px-3 py-1 rounded-full border border-blue-200">
-              Representative Case Studies
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3 tracking-tight">
-              {currentLang === 'ko' ? '갤러리 (Gallery & Portfolio)' : 'Gallery & Portfolio'}
-            </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2">
-              {currentLang === 'ko'
-                ? '공공·공항 랜드마크부터 글로벌 독점 매체, B2B 3,000+ 네트워크 구축 현장'
-                : 'From airport landmarks to global media channels and 3,000+ B2B networks.'}
+    <div className="bg-white text-[#222831] font-sans antialiased min-h-screen">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 space-y-16">
+
+        {/* 1. MEDIA PROJECTS SECTION */}
+        <section className="space-y-8">
+          {/* Header */}
+          <div className="border-b border-[#D9DEE3] pb-6 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#294A63] block">
+                MEDIA PROJECTS
+              </span>
+              {onOpenAdminGallery && (
+                <button
+                  onClick={onOpenAdminGallery}
+                  className="text-xs font-mono text-[#66717C] hover:text-[#294A63] transition-colors border-b border-[#D9DEE3] pb-0.5 cursor-pointer"
+                >
+                  ADMIN GALLERY EDIT
+                </button>
+              )}
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-bold text-[#222831] tracking-tight">
+              주요 미디어 구축 프로젝트
+            </h1>
+            <p className="text-sm sm:text-base text-[#66717C] font-normal leading-relaxed pt-1">
+              공간과 운영 목적에 맞춰 구축한 주요 LED 미디어 및 DID 프로젝트입니다.
             </p>
           </div>
 
-          <button
-            onClick={onOpenAdminGallery}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 transition-all cursor-pointer shadow-sm shrink-0"
-          >
-            <PlusCircle className="w-4 h-4 text-blue-600" />
-            <span>{currentLang === 'ko' ? '사진 업로드 / 갤러리 수정' : 'Upload / Edit Gallery'}</span>
-          </button>
-        </div>
-
-        {/* Filter Controls Bar */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 p-3 bg-white rounded-2xl border border-slate-200 mb-10 shadow-sm">
-          {/* Category Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 w-full lg:w-auto">
-            {categories.map((cat) => {
-              const labelText = cat.label[currentLang] || cat.label.ko;
-              const isActive = activeCategory === cat.id;
-
+          {/* Filter Tabs (ALL / LED MEDIA / DID) */}
+          <div className="flex items-center gap-6 border-b border-[#D9DEE3] pb-3 overflow-x-auto">
+            {(['ALL', 'LED MEDIA', 'DID'] as const).map((filter) => {
+              const isActive = activeMediaFilter === filter;
               return (
                 <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  key={filter}
+                  onClick={() => setActiveMediaFilter(filter)}
+                  className={`text-xs sm:text-sm font-mono font-bold tracking-wider uppercase transition-colors relative pb-3 cursor-pointer whitespace-nowrap ${
+                    isActive ? 'text-[#294A63]' : 'text-[#66717C] hover:text-[#222831]'
                   }`}
                 >
-                  {labelText}
+                  <span>{filter}</span>
+                  {isActive && (
+                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#294A63]" />
+                  )}
                 </button>
               );
             })}
           </div>
 
-          {/* Search Input */}
-          <div className="relative w-full lg:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={currentLang === 'ko' ? '현장명, 위치, 스펙 검색...' : 'Search title, location, specs...'}
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+          {/* 2-Column Gallery Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+            {filteredMediaProjects.map((item, idx) => (
+              <div
+                key={item.id}
+                onClick={() => setSelectedMediaProjectIndex(idx)}
+                className="group cursor-pointer space-y-2.5 pb-4 border-b border-[#E2E8F0]"
               >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
+                {/* Image Container (3:2 Aspect Ratio, No Box Frame) */}
+                <div className="relative aspect-[3/2] overflow-hidden rounded-[2px] bg-[#F5F6F7] w-full">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    width={1200}
+                    height={800}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300 ease-out"
+                  />
+                </div>
 
-        {/* Gallery Grid */}
-        {filteredPortfolio.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm">
-            <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-500 font-medium text-sm">
-              {currentLang === 'ko' ? '검색 조건에 맞는 프로젝트가 없습니다.' : 'No projects match your search.'}
+                {/* Text Info Below Image */}
+                <div className="space-y-0.5">
+                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+                    {item.category}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-[#222831] group-hover:text-[#294A63] transition-colors tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs font-mono text-[#66717C]">
+                    {item.titleEn}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 2. GLOBAL BUSINESS GALLERY & BUSINESS ACTIVITIES */}
+        <section className="space-y-8 pt-6 border-t border-[#D9DEE3]">
+          <div className="space-y-2">
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#294A63] block">
+              GLOBAL BUSINESS GALLERY
+            </span>
+            <h2 className="text-xl sm:text-3xl font-bold text-[#222831] tracking-tight">
+              글로벌 사업 및 주요 활동
+            </h2>
+            <p className="text-sm text-[#66717C]">
+              아시아 거점 도시를 중심으로 추진 중인 옥외 미디어 사업과 현지 파트너십 활동입니다.
             </p>
-            <button
-              onClick={() => {
-                setActiveCategory('all');
-                setSearchQuery('');
-              }}
-              className="mt-4 px-4 py-2 rounded-lg bg-slate-100 text-xs text-slate-700 hover:bg-slate-200"
-            >
-              {currentLang === 'ko' ? '필터 초기화' : 'Reset Filters'}
-            </button>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPortfolio.map((item) => {
-              const titleText = typeof item.title === 'object' ? (item.title[currentLang] || item.title.ko || '') : (item.title || '');
-              const categoryLabelText = typeof item.categoryLabel === 'object' ? (item.categoryLabel[currentLang] || item.categoryLabel.ko || '') : (item.categoryLabel || '');
-              const locationText = typeof item.location === 'object' ? (item.location[currentLang] || item.location.ko || '') : (item.location || '');
-              const specsText = typeof item.specs === 'object' ? (item.specs[currentLang] || item.specs.ko || '') : (item.specs || '');
-              const descText = typeof item.description === 'object' ? (item.description[currentLang] || item.description.ko || '') : (item.description || '');
 
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedItem(item)}
-                  className="rounded-2xl bg-white border border-slate-200 overflow-hidden hover:border-blue-500 transition-all duration-300 group cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Image Container with Hover Zoom */}
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                      <img
-                        src={item.imageUrl}
-                        alt={titleText}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60"></div>
-
-                      <div className="absolute top-3 left-3 flex items-center gap-2">
-                        <span className="px-2.5 py-1 rounded-md bg-white/90 border border-slate-200 text-[10px] font-bold text-blue-700 backdrop-blur-md shadow-sm">
-                          {categoryLabelText}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {globalBusinessItems.map((item, idx) => (
+              <div
+                key={item.id}
+                onClick={() => setSelectedGlobalItemIndex(idx)}
+                className="group cursor-pointer space-y-2.5 pb-4 border-b border-[#E2E8F0]"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[2px] bg-[#F5F6F7] w-full">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300 ease-out"
+                  />
+                  {item.status && (
+                    <div className="absolute top-2.5 left-2.5">
+                      {item.status === 'CANDIDATE SITE' ? (
+                        <span className="bg-black/80 text-white text-[9px] font-mono font-bold px-2 py-0.5 rounded-[2px] uppercase tracking-wider">
+                          CANDIDATE SITE
                         </span>
-                        {item.isFeatured && (
-                          <span className="px-2.5 py-1 rounded-md bg-rose-600 text-[10px] font-bold text-white shadow-sm">
-                            FEATURED
-                          </span>
-                        )}
-                      </div>
-
-                      <button className="absolute top-3 right-3 p-2 rounded-lg bg-white/90 border border-slate-200 text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                        <Maximize2 className="w-3.5 h-3.5" />
-                      </button>
-
-                      {item.highlightBadge && (
-                        <div className="absolute bottom-3 left-3 right-3 text-[11px] font-mono text-white bg-slate-900/80 px-2.5 py-1 rounded backdrop-blur-sm truncate">
-                          {item.highlightBadge}
-                        </div>
+                      ) : (
+                        <span className="bg-[#D97706] text-white text-[9px] font-mono font-bold px-2 py-0.5 rounded-[2px] uppercase tracking-wider">
+                          IN PROGRESS
+                        </span>
                       )}
                     </div>
-
-                    <div className="p-5">
-                      <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug mb-2">
-                        {titleText}
-                      </h3>
-
-                      <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
-                        <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                        <span className="truncate">{locationText}</span>
-                      </div>
-
-                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-normal mb-4">
-                        {descText}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                    <span>{item.year}</span>
-                    <span className="text-blue-700 font-bold truncate max-w-[200px]">{specsText}</span>
-                  </div>
+                  )}
                 </div>
-              );
-            })}
-          </div>
-        )}
 
-        {/* Lightbox Modal for Detailed View */}
-        {selectedItem && (
-          <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
-            <div className="bg-white border border-slate-200 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative text-slate-900">
-              <button
-                onClick={() => setSelectedItem(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-white/80 hover:bg-white text-slate-700 border border-slate-200 z-10 cursor-pointer shadow-md"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="relative aspect-video bg-black overflow-hidden rounded-t-3xl">
-                <img
-                  src={selectedItem.imageUrl}
-                  alt={typeof selectedItem.title === 'object' ? (selectedItem.title[currentLang] || selectedItem.title.ko) : selectedItem.title}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 border border-blue-200 text-xs font-bold">
-                    {typeof selectedItem.categoryLabel === 'object' ? (selectedItem.categoryLabel[currentLang] || selectedItem.categoryLabel.ko) : selectedItem.categoryLabel}
+                <div className="space-y-0.5">
+                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+                    {item.categoryEn}
                   </span>
-                  <span className="text-xs font-mono text-slate-500">{selectedItem.year}</span>
-                </div>
-
-                <h3 className="text-2xl font-black text-slate-900 mb-3">
-                  {typeof selectedItem.title === 'object' ? (selectedItem.title[currentLang] || selectedItem.title.ko) : selectedItem.title}
-                </h3>
-
-                <div className="flex items-center gap-2 text-sm text-slate-600 mb-6">
-                  <MapPin className="w-4 h-4 text-rose-500" />
-                  <span>{typeof selectedItem.location === 'object' ? (selectedItem.location[currentLang] || selectedItem.location.ko) : selectedItem.location}</span>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-6 space-y-1">
-                  <div className="text-xs font-mono text-slate-500 uppercase font-bold">System Specs & Hardware:</div>
-                  <div className="text-xs font-mono text-blue-700 font-bold">
-                    {typeof selectedItem.specs === 'object' ? (selectedItem.specs[currentLang] || selectedItem.specs.ko) : selectedItem.specs}
-                  </div>
-                </div>
-
-                <p className="text-sm text-slate-700 leading-relaxed font-normal mb-8">
-                  {typeof selectedItem.description === 'object' ? (selectedItem.description[currentLang] || selectedItem.description.ko) : selectedItem.description}
-                </p>
-
-                <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
-                  <button
-                    onClick={() => setSelectedItem(null)}
-                    className="px-6 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 cursor-pointer"
-                  >
-                    {t('close', currentLang)}
-                  </button>
+                  <h3 className="text-base font-bold text-[#222831] group-hover:text-[#294A63] transition-colors tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs font-mono text-[#66717C]">
+                    {item.titleEn}
+                  </p>
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+      </div>
+
+      {/* Lightbox Modal for Media Projects */}
+      {selectedMediaModal && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-[#D9DEE3] rounded-[2px] max-w-3xl w-full p-6 relative space-y-4">
+            <button
+              onClick={() => setSelectedMediaProjectIndex(null)}
+              className="absolute top-4 right-4 p-2 text-[#66717C] hover:text-[#222831] transition-colors cursor-pointer"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="relative aspect-[3/2] overflow-hidden bg-[#F5F6F7] rounded-[2px] w-full">
+              <img
+                src={selectedMediaModal.image}
+                alt={selectedMediaModal.alt}
+                className="w-full h-full object-cover object-center"
+              />
+              <button
+                onClick={() =>
+                  setSelectedMediaProjectIndex((prev) =>
+                    prev === null ? null : (prev - 1 + filteredMediaProjects.length) % filteredMediaProjects.length
+                  )
+                }
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-[2px] transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() =>
+                  setSelectedMediaProjectIndex((prev) =>
+                    prev === null ? null : (prev + 1) % filteredMediaProjects.length
+                  )
+                }
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-[2px] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-1 pt-1">
+              <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+                {selectedMediaModal.category}
+              </span>
+              <h3 className="text-xl font-bold text-[#222831]">
+                {selectedMediaModal.title}
+              </h3>
+              <p className="text-xs font-mono text-[#66717C]">
+                {selectedMediaModal.titleEn}
+              </p>
+            </div>
+
+            <div className="pt-3 border-t border-[#E2E8F0] flex justify-between items-center">
+              <span className="text-[11px] text-[#66717C]">
+                {selectedMediaProjectIndex! + 1} / {filteredMediaProjects.length}
+              </span>
+              <button
+                onClick={() => setSelectedMediaProjectIndex(null)}
+                className="px-4 py-1.5 bg-[#18324A] text-white text-xs font-bold rounded-[2px] hover:bg-[#294A63] transition-colors cursor-pointer"
+              >
+                닫기
+              </button>
             </div>
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+      )}
+
+      {/* Lightbox Modal for Global Business Items */}
+      {selectedGlobalModal && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-[#D9DEE3] rounded-[2px] max-w-3xl w-full p-6 relative space-y-4">
+            <button
+              onClick={() => setSelectedGlobalItemIndex(null)}
+              className="absolute top-4 right-4 p-2 text-[#66717C] hover:text-[#222831] transition-colors cursor-pointer"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="relative aspect-[16/10] overflow-hidden bg-[#F5F6F7] rounded-[2px] w-full">
+              <img
+                src={selectedGlobalModal.image}
+                alt={selectedGlobalModal.title}
+                className="w-full h-full object-cover object-center"
+              />
+              <button
+                onClick={() =>
+                  setSelectedGlobalItemIndex((prev) =>
+                    prev === null ? null : (prev - 1 + globalBusinessItems.length) % globalBusinessItems.length
+                  )
+                }
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-[2px] transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() =>
+                  setSelectedGlobalItemIndex((prev) =>
+                    prev === null ? null : (prev + 1) % globalBusinessItems.length
+                  )
+                }
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-[2px] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-1 pt-1">
+              <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+                {selectedGlobalModal.categoryEn}
+              </span>
+              <h3 className="text-xl font-bold text-[#222831]">
+                {selectedGlobalModal.title}
+              </h3>
+              <p className="text-xs font-mono text-[#66717C]">
+                {selectedGlobalModal.titleEn}
+              </p>
+              <p className="text-xs sm:text-sm text-[#4A5568] leading-relaxed pt-2 border-t border-[#E2E8F0]">
+                {selectedGlobalModal.description}
+              </p>
+            </div>
+
+            <div className="pt-3 border-t border-[#E2E8F0] flex justify-between items-center">
+              <span className="text-[11px] text-[#66717C]">
+                {selectedGlobalItemIndex! + 1} / {globalBusinessItems.length}
+              </span>
+              <button
+                onClick={() => setSelectedGlobalItemIndex(null)}
+                className="px-4 py-1.5 bg-[#18324A] text-white text-xs font-bold rounded-[2px] hover:bg-[#294A63] transition-colors cursor-pointer"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

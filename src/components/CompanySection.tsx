@@ -1,6 +1,5 @@
 import React from 'react';
 import { Language } from '../types';
-import heroLedGlassBg from '../assets/images/hero_led_glass_bg_1786019620069.jpg';
 
 interface CompanySectionProps {
   currentLang: Language;
@@ -23,8 +22,8 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#222831] tracking-tight leading-[1.08] font-sans">
-              A GLOBAL LED<br />
-              MEDIA COMPANY
+              AN LED MEDIA COMPANY<br />
+              EXPANDING GLOBALLY
             </h2>
           </div>
 
@@ -35,9 +34,29 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
             </h3>
             <p className="text-sm sm:text-base text-[#66717C] font-normal leading-[1.75]">
               {isKo
-                ? 'DISE는 2010년 설립 이후 LED 미디어의 기획과 구축, 자체 CMS 기반 통합관제와 운영·유지관리까지 수행해 온 글로벌 LED 미디어 전문기업입니다.'
-                : 'Since its founding in 2010, DISE has been a global LED media company specializing in planning, building, CMS-integrated control, and operational maintenance.'}
+                ? 'DISE는 2010년 설립 이후 LED 미디어의 기획과 구축, 자체 CMS 기반 통합관제와 운영·유지관리까지 수행해 오며, 기술과 운영 경험을 기반으로 글로벌 시장으로 확장하는 LED 미디어 기업입니다.'
+                : 'Since its founding in 2010, DISE is an LED media company expanding globally through accumulated technology and operational experience in planning, installation, CMS integrated control, and maintenance.'}
             </p>
+          </div>
+        </div>
+
+        {/* REPRESENTATIVE MEDIA IMAGE: Incheon International Airport Media Wall */}
+        <div className="mt-8 sm:mt-10 space-y-2">
+          <div className="w-full max-w-[1200px] mx-auto overflow-hidden bg-[#F8F9FA] border border-[#D9DEE3]">
+            <img
+              src="/images/about/company-incheon-media-wall.webp"
+              alt="인천국제공항 LED 미디어월 구축 사례"
+              loading="lazy"
+              className="w-full h-auto object-contain block"
+            />
+          </div>
+          <div className="text-left space-y-0.5">
+            <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#294A63] block">
+              INCHEON INTERNATIONAL AIRPORT
+            </span>
+            <span className="text-xs font-mono text-[#66717C] block">
+              LED Media & Integrated Operation
+            </span>
           </div>
         </div>
 
@@ -45,26 +64,7 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
         <div className="border-b border-[#D9DEE3] mt-10 sm:mt-12" />
       </div>
 
-      {/* 2. REPRESENTATIVE PROJECT IMAGE */}
-      <div className="space-y-3">
-        <div className="overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px] w-full aspect-[16/8] sm:aspect-[16/7]">
-          <img
-            src={heroLedGlassBg}
-            alt="Incheon International Airport LED Media Project"
-            className="w-full h-full object-cover object-center"
-          />
-        </div>
-        <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-          <span className="text-xs font-mono font-semibold text-[#294A63] uppercase tracking-wider">
-            INCHEON INTERNATIONAL AIRPORT
-          </span>
-          <span className="text-xs text-[#66717C] font-normal">
-            Integrated LED Media &amp; CMS Operation
-          </span>
-        </div>
-      </div>
-
-      {/* 3. WHAT WE DO */}
+      {/* 2. WHAT WE DO */}
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Column */}
@@ -88,7 +88,7 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
         </div>
       </div>
 
-      {/* 4. END-TO-END CAPABILITY LINE */}
+      {/* 3. END-TO-END CAPABILITY LINE */}
       <div className="pt-2">
         <div className="border-t border-[#D9DEE3] pt-10 sm:pt-12 space-y-8">
           <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#294A63] block">
@@ -133,7 +133,7 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
         </div>
       </div>
 
-      {/* 5. COMPANY PROFILE */}
+      {/* 4. COMPANY PROFILE */}
       <div className="pt-2">
         <div className="space-y-6">
           <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight">
@@ -149,7 +149,7 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
                   회사명
                 </span>
                 <span className="text-sm sm:text-base font-medium text-[#222831]">
-                  다이즈하이미디어
+                  (주)다이즈하이미디어
                 </span>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6">
@@ -157,7 +157,7 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
                   영문명
                 </span>
                 <span className="text-sm sm:text-base font-medium text-[#222831]">
-                  DISE HIGH MEDIA
+                  Disehimedia Co., Ltd.
                 </span>
               </div>
             </div>
@@ -166,10 +166,10 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
             <div className="py-4 sm:py-5 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6">
                 <span className="text-xs font-mono font-semibold uppercase text-[#66717C] sm:w-28 shrink-0">
-                  설립
+                  설립일
                 </span>
                 <span className="text-sm sm:text-base font-medium text-[#222831]">
-                  2010
+                  2010.07.16
                 </span>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6">
