@@ -66,6 +66,7 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
       image: HOME_IMAGES.hanoi,
       alt: '하노이 도심 건물 곡면 LED 미디어',
       status: null,
+      isConceptImage: false,
     },
     {
       id: 'g2',
@@ -78,6 +79,7 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
       image: HOME_IMAGES.noiBai,
       alt: '노이바이공항 LED 설치 예정 콘셉트',
       status: 'IN PROGRESS',
+      isConceptImage: true,
     },
   ];
 
@@ -200,8 +202,13 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
                     className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 ease-out"
                   />
                   {project.status === 'IN PROGRESS' && (
-                    <div className="absolute top-3 right-3 bg-slate-900/90 text-amber-400 border border-amber-500/40 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-[2px] uppercase tracking-wider backdrop-blur-sm">
+                    <div className="absolute top-3 right-3 bg-slate-900/90 text-amber-400 border border-amber-500/40 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-[2px] uppercase tracking-wider backdrop-blur-xs">
                       IN PROGRESS
+                    </div>
+                  )}
+                  {project.isConceptImage && (
+                    <div className="absolute bottom-2.5 left-2.5 sm:bottom-3 sm:left-3 bg-[#102B42]/80 text-slate-200 border border-white/10 text-[10px] font-mono font-medium px-2 py-0.5 rounded-[2px] uppercase tracking-wider backdrop-blur-xs">
+                      CONCEPT IMAGE
                     </div>
                   )}
                 </div>
@@ -211,9 +218,6 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
                   <div className="space-y-2">
                     <div className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider flex items-center gap-2">
                       <span>{project.category}</span>
-                      {project.status && (
-                        <span className="text-amber-600 font-bold">• {project.status}</span>
-                      )}
                     </div>
 
                     <div>

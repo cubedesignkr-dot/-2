@@ -1,9 +1,4 @@
-import doohOutdoorMediaImg from '../assets/images/dooh_outdoor_media_1785989215681.jpg';
-import heroLedCityBg from '../assets/images/hero_led_city_bg_1786006096621.jpg';
-import softwareCmsMonitorImg from '../assets/images/software_cms_monitor_1785989194504.jpg';
-import hardwareControllerImg from '../assets/images/hardware_controller_1785989182277.jpg';
-import heroLedGlassBg from '../assets/images/hero_led_glass_bg_1786019620069.jpg';
-import inspireResortImg from '../assets/images/led_display_bg_1785990073226.jpg';
+import { GLOBAL_PROJECT_IMAGES } from './globalProjectImages';
 
 export interface ProjectGalleryItem {
   id: string;
@@ -20,6 +15,37 @@ export interface ProjectGalleryItem {
   status: string;
   sortOrder: number;
   published: boolean;
+}
+
+export interface GlobalGalleryImage {
+  src: string;
+  altKo: string;
+  altEn: string;
+  captionKo?: string;
+  captionEn?: string;
+  objectPosition?: string;
+}
+
+export interface GlobalGalleryItem {
+  id: string;
+  type?: 'GLOBAL' | 'ACTIVITIES';
+  titleKo: string;
+  titleEn: string;
+  locationKo: string;
+  locationEn: string;
+  date?: string;
+  status: 'GLOBAL BUSINESS' | 'IN PROGRESS' | 'GLOBAL PARTNERSHIP' | string;
+  imageType?: 'CONCEPT IMAGE' | string;
+  images: GlobalGalleryImage[];
+  descriptionKo: string;
+  descriptionEn: string;
+
+  // Legacy fields for backward compatibility
+  title?: string;
+  category?: string;
+  categoryEn?: string;
+  image?: string;
+  description?: string;
 }
 
 export const projectGalleryItems: ProjectGalleryItem[] = [
@@ -162,100 +188,154 @@ export function getPublishedProjectGalleryItems(): ProjectGalleryItem[] {
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
-export interface GlobalGalleryItem {
-  id: string;
-  type: 'GLOBAL' | 'ACTIVITIES';
-  title: string;
-  titleEn: string;
-  category: string;
-  categoryEn: string;
-  image: string;
-  status?: 'CANDIDATE SITE' | 'IN PROGRESS';
-  description: string;
-}
-
 export const globalBusinessItems: GlobalGalleryItem[] = [
   {
-    id: 'global-01',
+    id: 'hanoi-urban-led-media',
     type: 'GLOBAL',
+    titleKo: '하노이 도심 LED 미디어 사업',
+    titleEn: 'Hanoi Urban LED Media Project',
+    locationKo: '베트남 하노이',
+    locationEn: 'Hanoi, Vietnam',
+    status: 'GLOBAL BUSINESS',
+    images: [
+      {
+        src: GLOBAL_PROJECT_IMAGES.hanoiTrangTien,
+        altKo: '하노이 Tràng Tiền 건물 LED 미디어 사업 대상지',
+        altEn: 'Hanoi Tràng Tiền Building LED Media Site',
+        captionKo: 'Tràng Tiền LED 미디어 사업 대상지',
+        captionEn: 'Tràng Tiền LED Media Site',
+        objectPosition: 'object-center',
+      },
+      {
+        src: GLOBAL_PROJECT_IMAGES.hanoiQcdPlaza,
+        altKo: '하노이 QCD Plaza 옥외 LED 미디어',
+        altEn: 'Hanoi QCD Plaza Outdoor LED Media',
+        captionKo: 'QCD Plaza LED 미디어 사업 대상지',
+        captionEn: 'QCD Plaza LED Media Site',
+        objectPosition: 'object-center',
+      },
+    ],
+    descriptionKo: '하노이 도심 주요 거점(Tràng Tiền, QCD Plaza) 대상 옥외 LED 미디어 사업입니다.',
+    descriptionEn: 'Outdoor LED media business targeting key landmarks in downtown Hanoi (Tràng Tiền, QCD Plaza).',
     title: '하노이 도심 LED 미디어 사업',
-    titleEn: 'HANOI URBAN LED MEDIA (TRANG TIEN)',
     category: 'GLOBAL BUSINESS',
     categoryEn: 'GLOBAL BUSINESS',
-    status: 'CANDIDATE SITE',
-    image: doohOutdoorMediaImg,
-    description: 'DISE는 국내에서 축적한 LED 미디어 구축과 운영 경험을 바탕으로 글로벌 시장으로 사업 영역을 확장하고 있습니다. 하노이 도심 주요 거점(장띠엔) 대상 옥외 LED 미디어 사업 후보지입니다.',
+    image: GLOBAL_PROJECT_IMAGES.hanoiTrangTien,
+    description: '하노이 도심 주요 거점(Tràng Tiền, QCD Plaza) 대상 옥외 LED 미디어 사업입니다.',
   },
   {
-    id: 'global-02',
+    id: 'noibai-airport-led-project',
     type: 'GLOBAL',
-    title: '하노이 QCD Plaza 후보지',
-    titleEn: 'HANOI QCD PLAZA',
-    category: 'GLOBAL BUSINESS',
-    categoryEn: 'GLOBAL BUSINESS',
-    status: 'CANDIDATE SITE',
-    image: heroLedCityBg,
-    description: '하노이 도심 핵심 상업거점인 QCD Plaza를 대상으로 추진하는 옥외 LED 미디어 사업 후보지입니다.',
-  },
-  {
-    id: 'global-03',
-    type: 'GLOBAL',
-    title: '노이바이국제공항 LED 사업',
-    titleEn: 'NOI BAI INTERNATIONAL AIRPORT LED PROJECT',
-    category: 'GLOBAL BUSINESS',
-    categoryEn: 'GLOBAL BUSINESS',
+    titleKo: '노이바이공항 LED 사업',
+    titleEn: 'Noi Bai International Airport LED Project',
+    locationKo: '베트남 하노이',
+    locationEn: 'Hanoi, Vietnam',
     status: 'IN PROGRESS',
-    image: heroLedCityBg,
-    description: '노이바이국제공항 LED 미디어 사업을 위한 현지 협력 체계와 사업 추진 기반을 구축하고 있습니다.',
+    imageType: 'CONCEPT IMAGE',
+    images: [
+      {
+        src: GLOBAL_PROJECT_IMAGES.noiBaiConcept,
+        altKo: '노이바이공항 LED 미디어 설치 예상도',
+        altEn: 'Noi Bai Airport LED Media Concept Rendering',
+        captionKo: '노이바이공항 LED 미디어 설치 예상도',
+        captionEn: 'Noi Bai Airport LED Media Concept Rendering',
+        objectPosition: 'object-center',
+      },
+    ],
+    descriptionKo: '노이바이공항 LED 미디어 사업을 추진하고 있습니다.',
+    descriptionEn: 'The Noi Bai International Airport LED media project is in progress.',
+    title: '노이바이공항 LED 사업',
+    category: 'IN PROGRESS',
+    categoryEn: 'IN PROGRESS',
+    image: GLOBAL_PROJECT_IMAGES.noiBaiConcept,
+    description: '노이바이공항 LED 미디어 사업을 추진하고 있습니다.',
   },
   {
-    id: 'activity-01',
-    type: 'ACTIVITIES',
-    title: '1차 베트남 방문 및 사업 미팅',
-    titleEn: '1ST VIETNAM BUSINESS VISIT',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: hardwareControllerImg,
-    description: '베트남 주요 미디어 및 공항 관계기관과의 1차 현지 사업 협력 미팅 진행.',
+    id: 'vietnam-led-partnership-agreement',
+    type: 'GLOBAL',
+    titleKo: '베트남 LED 사업 본 협약 체결',
+    titleEn: 'Vietnam LED Business Partnership Agreement',
+    date: '2026.01.07',
+    locationKo: '베트남 하노이',
+    locationEn: 'Hanoi, Vietnam',
+    status: 'GLOBAL PARTNERSHIP',
+    images: [
+      {
+        src: GLOBAL_PROJECT_IMAGES.hanoiAgreementCeremony,
+        altKo: '2026년 1월 7일 하노이 베트남 LED 사업 본 협약 기념사진',
+        altEn: 'January 7, 2026 Hanoi Vietnam LED Business Partnership Ceremony Photograph',
+        captionKo: '본 협약 체결 기념사진',
+        captionEn: 'Partnership Ceremony',
+        objectPosition: 'object-[center_35%]',
+      },
+      {
+        src: GLOBAL_PROJECT_IMAGES.hanoiAgreementExchange,
+        altKo: '2026년 1월 7일 하노이 베트남 LED 사업 계약서 교환',
+        altEn: 'January 7, 2026 Hanoi Vietnam LED Business Agreement Exchange',
+        captionKo: '계약서 교환',
+        captionEn: 'Agreement Exchange',
+        objectPosition: 'object-[center_35%]',
+      },
+    ],
+    descriptionKo: 'MHGROUP과 베트남 LED 미디어 사업 협력을 위한 본 협약을 체결했습니다.',
+    descriptionEn: 'DISE signed a partnership agreement with MHGROUP for the Vietnam LED media business.',
+    title: '베트남 LED 사업 본 협약 체결',
+    category: 'GLOBAL PARTNERSHIP',
+    categoryEn: 'GLOBAL PARTNERSHIP',
+    image: GLOBAL_PROJECT_IMAGES.hanoiAgreementCeremony,
+    description: 'MHGROUP과 베트남 LED 미디어 사업 협력을 위한 본 협약을 체결했습니다.',
   },
   {
-    id: 'activity-02',
-    type: 'ACTIVITIES',
-    title: '2차 베트남 방문 및 현장 조사',
-    titleEn: '2ND VIETNAM BUSINESS VISIT',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: softwareCmsMonitorImg,
-    description: '하노이 주요 거점 및 노이바이국제공항 LED 입지 현장 실사 및 기술 조사.',
+    id: 'noibai-airport-led-partnership',
+    type: 'GLOBAL',
+    titleKo: '노이바이공항 LED 협력',
+    titleEn: 'Noi Bai Airport LED Partnership',
+    date: '2026.05',
+    locationKo: '베트남 하노이',
+    locationEn: 'Hanoi, Vietnam',
+    status: 'IN PROGRESS',
+    images: [
+      {
+        src: GLOBAL_PROJECT_IMAGES.noiBaiCooperation,
+        altKo: '2026년 5월 하노이 노이바이공항 LED 협력 기념사진',
+        altEn: 'May 2026 Hanoi Noi Bai Airport LED Partnership Commemorative Photo',
+        captionKo: '한·베트남 관계자 기념 촬영',
+        captionEn: 'Korean and Vietnamese Partners Commemorative Photograph',
+        objectPosition: 'object-[center_35%]',
+      },
+    ],
+    descriptionKo: '노이바이공항 LED 사업 협력을 위한 한·베트남 관계자 기념 촬영입니다.',
+    descriptionEn: 'A commemorative photograph of Korean and Vietnamese partners for the Noi Bai Airport LED project.',
+    title: '노이바이공항 LED 협력',
+    category: 'IN PROGRESS',
+    categoryEn: 'IN PROGRESS',
+    image: GLOBAL_PROJECT_IMAGES.noiBaiCooperation,
+    description: '노이바이공항 LED 사업 협력을 위한 한·베트남 관계자 기념 촬영입니다.',
   },
   {
-    id: 'activity-03',
+    id: 'civil-aviation-korea-visit-preserved',
     type: 'ACTIVITIES',
+    titleKo: '민항회장 한국 방문 (보존 항목)',
+    titleEn: 'Vietnam Civil Aviation Chairman Korea Visit (Preserved)',
+    locationKo: '대한민국 서울/인천',
+    locationEn: 'Seoul/Incheon, South Korea',
+    status: 'PRESERVED',
+    images: [
+      {
+        src: GLOBAL_PROJECT_IMAGES.noiBaiCooperation,
+        altKo: '민항회장 한국 방문',
+        altEn: 'Vietnam Civil Aviation Chairman Korea Visit',
+        captionKo: '사진 확정 대기 중',
+        captionEn: 'Photo pending confirmation',
+        objectPosition: 'object-center',
+      },
+    ],
+    descriptionKo: '베트남 민항 대표단 한국 본사 방문 및 국내 공항 LED 미디어 현장 시찰 (사진 확정 대기 중).',
+    descriptionEn: 'Vietnam Civil Aviation delegation visit to Korea HQ and domestic airport LED media field inspection (Photo pending).',
     title: '민항회장 한국 방문',
-    titleEn: 'KOREA BUSINESS VISIT',
     category: 'BUSINESS ACTIVITIES',
     categoryEn: 'BUSINESS ACTIVITIES',
-    image: doohOutdoorMediaImg,
+    image: GLOBAL_PROJECT_IMAGES.noiBaiCooperation,
     description: '베트남 민항 대표단 한국 본사 방문 및 국내 공항 LED 미디어 현장 시찰.',
-  },
-  {
-    id: 'activity-04',
-    type: 'ACTIVITIES',
-    title: 'DISE–MHGROUP 협력 체결',
-    titleEn: 'VIETNAM BUSINESS PARTNERSHIP',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: heroLedGlassBg,
-    description: '베트남 글로벌 LED 미디어 인프라 사업 추진을 위한 DISE와 MHGROUP 간 상호 협력 체결.',
-  },
-  {
-    id: 'activity-05',
-    type: 'ACTIVITIES',
-    title: 'DISE–MHGROUP 미팅',
-    titleEn: 'VIETNAM BUSINESS MEETING',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: inspireResortImg,
-    description: '베트남 현지 미디어 운영 및 CMS 시스템 구축을 위한 세부 사업 실행 계획 논의.',
   },
 ];

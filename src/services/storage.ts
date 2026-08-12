@@ -160,10 +160,10 @@ export const storage = {
   getLogo(): string | null {
     try {
       const item = localStorage.getItem(KEYS.LOGO);
-      if (!item || item.length < 10) return 'https://i.imgur.com/M81md58.png';
+      if (!item || item.length < 10 || item === 'https://i.imgur.com/M81md58.png') return '/images/brand/dise-logo.png';
       return item;
     } catch {
-      return 'https://i.imgur.com/M81md58.png';
+      return '/images/brand/dise-logo.png';
     }
   },
   saveLogo(logoUrl: string | null) {

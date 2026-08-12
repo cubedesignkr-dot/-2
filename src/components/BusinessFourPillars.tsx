@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
 
 export const controlSystemImage = "/images/solutions/control-system-placeholder.webp";
@@ -31,50 +31,127 @@ interface BusinessFourPillarsProps {
   [key: string]: any;
 }
 
-interface SolutionImageProps {
-  src: string;
-  alt: string;
-  placeholderTitle: string;
-  placeholderSub?: string;
-  aspectRatio?: string;
+interface SolutionSectionCardProps {
+  id: string;
+  num: string;
+  titleKo: string;
+  titleEn: string;
+  desc: string;
+  coreItemsKo: string[];
+  coreItemsEn: string[];
+  imageSrc?: string;
+  imageAlt?: string;
+  imageOnLeft?: boolean;
+  isKo: boolean;
 }
 
-const SolutionImage: React.FC<SolutionImageProps> = ({
-  src,
-  alt,
-  placeholderTitle,
-  placeholderSub = 'IMAGE TO BE UPDATED',
-  aspectRatio = 'aspect-[16/10]',
+const SolutionSectionCard: React.FC<SolutionSectionCardProps> = ({
+  id,
+  num,
+  titleKo,
+  titleEn,
+  desc,
+  coreItemsKo,
+  coreItemsEn,
+  imageSrc,
+  imageAlt = '',
+  imageOnLeft = true,
+  isKo,
 }) => {
-  const [hasError, setHasError] = useState(false);
+  const [imageValid, setImageValid] = useState<boolean | null>(null);
 
-  if (hasError || !src) {
-    return (
-      <div className={`w-full ${aspectRatio} bg-[#102B42] border border-[#294A63] rounded-[2px] flex flex-col items-center justify-center p-6 text-center space-y-2 relative overflow-hidden`}>
-        {/* Subtle grid pattern background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-        <div className="relative z-10 space-y-1.5">
-          <span className="text-xs font-mono font-bold text-[#D0BE7D] tracking-widest uppercase block">
-            {placeholderTitle}
-          </span>
-          <span className="text-[10px] font-mono font-medium text-white/60 tracking-wider uppercase block">
-            {placeholderSub}
-          </span>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!imageSrc) {
+      setImageValid(false);
+      return;
+    }
+    const img = new Image();
+    img.src = imageSrc;
+    img.onload = () => setImageValid(true);
+    img.onerror = () => setImageValid(false);
+  }, [imageSrc]);
+
+  const showImage = imageValid === true;
 
   return (
-    <div className={`w-full ${aspectRatio} overflow-hidden rounded-[2px] bg-[#102B42] border border-[#D9DEE3]`}>
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        onError={() => setHasError(true)}
-        className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.01]"
-      />
-    </div>
+    <section id={id} className="scroll-mt-24 space-y-6 pt-2">
+      {showImage ? (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Image Container */}
+          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-1' : 'order-1 lg:order-2'}`}>
+            <div className="w-full aspect-[16/10] overflow-hidden rounded-[2px] bg-[#102B42] border border-[#D9DEE3]">
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                loading="lazy"
+                className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.01]"
+              />
+            </div>
+          </div>
+
+          {/* Text Container */}
+          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-2' : 'order-2 lg:order-1'} space-y-5`}>
+            <div className="space-y-2">
+              <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
+                {num} SOLUTIONS
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
+                {isKo ? titleKo : titleEn}
+              </h2>
+              <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
+                {titleEn}
+              </p>
+            </div>
+
+            <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
+              {desc}
+            </p>
+
+            {/* Core Items */}
+            <div className="pt-3 border-t border-[#E2E8F0] space-y-2.5">
+              {(isKo ? coreItemsKo : coreItemsEn).map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
+                  <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Text-Only Full Width Layout when image is unavailable */
+        <div className="w-full space-y-6 py-2">
+          <div className="space-y-3 max-w-3xl">
+            <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
+              {num} SOLUTIONS
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
+              {isKo ? titleKo : titleEn}
+            </h2>
+            <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
+              {titleEn}
+            </p>
+            <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal pt-1">
+              {desc}
+            </p>
+          </div>
+
+          {/* Core Items in 3-column grid for clean full-width balance */}
+          <div className="pt-4 border-t border-[#E2E8F0] grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {(isKo ? coreItemsKo : coreItemsEn).map((item, idx) => (
+              <div key={idx} className="flex items-start gap-3 bg-[#F8FAFC] p-3.5 rounded-[2px] border border-[#E2E8F0]">
+                <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0 mt-2" />
+                <span className="text-xs sm:text-sm font-semibold text-[#1E293B] leading-snug">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
   );
 };
 
@@ -167,181 +244,83 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
         <div className="space-y-20 sm:space-y-28">
 
           {/* [01 LED 미디어 기획·구축] */}
-          <section id="solution-01" className="scroll-mt-24 space-y-6 pt-2">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Image Left */}
-              <div className="lg:col-span-6 order-1">
-                <SolutionImage
-                  src="/images/about/history-inspire-arena-v2.webp"
-                  alt="INSPIRE ARENA LED 미디어 프로젝트"
-                  placeholderTitle="LED MEDIA INSTALLATION"
-                />
-              </div>
-
-              {/* Text Right */}
-              <div className="lg:col-span-6 order-2 space-y-5">
-                <div className="space-y-2">
-                  <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
-                    01 SOLUTIONS
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
-                    {isKo ? 'LED 미디어 기획·구축' : 'LED Media Planning & Installation'}
-                  </h2>
-                  <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
-                    LED MEDIA PLANNING &amp; INSTALLATION
-                  </p>
-                </div>
-
-                <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
-                  {isKo
-                    ? '공간과 운영 목적에 맞는 LED 미디어를 기획하고 구축합니다.'
-                    : 'Planning and building LED media customized to space specifications and operational requirements.'}
-                </p>
-
-                {/* Core Items (3 max) */}
-                <div className="pt-3 border-t border-[#E2E8F0] space-y-2.5">
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '공간 및 운영환경 분석' : 'Spatial & Operational Environment Analysis'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '디스플레이 시스템 설계' : 'Display System Engineering & Design'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '현장 시공 및 시스템 구축' : 'On-Site Installation & System Building'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <SolutionSectionCard
+            id="solution-01"
+            num="01"
+            titleKo="LED 미디어 기획·구축"
+            titleEn="LED Media Planning & Installation"
+            desc={isKo
+              ? '공간과 운영 목적에 맞는 LED 미디어를 기획하고 구축합니다.'
+              : 'Planning and building LED media customized to space specifications and operational requirements.'}
+            coreItemsKo={[
+              '공간 및 운영환경 분석',
+              '디스플레이 시스템 설계',
+              '현장 시공 및 시스템 구축',
+            ]}
+            coreItemsEn={[
+              'Spatial & Operational Environment Analysis',
+              'Display System Engineering & Design',
+              'On-Site Installation & System Building',
+            ]}
+            imageSrc="/images/about/history-inspire-arena-v2.webp"
+            imageAlt="INSPIRE ARENA LED 미디어 프로젝트"
+            imageOnLeft={true}
+            isKo={isKo}
+          />
 
           <hr className="border-[#E2E8F0]" />
 
           {/* [02 디스플레이·제어 시스템] */}
-          <section id="solution-02" className="scroll-mt-24 space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Text Left */}
-              <div className="lg:col-span-6 order-2 lg:order-1 space-y-5">
-                <div className="space-y-2">
-                  <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
-                    02 SOLUTIONS
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
-                    {isKo ? '디스플레이·제어 시스템' : 'Display & Control System'}
-                  </h2>
-                  <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
-                    DISPLAY &amp; CONTROL SYSTEM
-                  </p>
-                </div>
-
-                <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
-                  {isKo
-                    ? '디스플레이와 컨트롤러를 연결해 안정적인 통합 송출 환경을 구성합니다.'
-                    : 'Connecting displays and controllers to configure a stable integrated playout environment.'}
-                </p>
-
-                {/* Core Items (3 max) */}
-                <div className="pt-3 border-t border-[#E2E8F0] space-y-2.5">
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '다중 디스플레이 통합 제어' : 'Multi-Display Integrated Control'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '화면 동기화 송출' : 'Synchronized Video Output'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '외부 시스템 연동' : 'External System Integration'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Image Right */}
-              <div className="lg:col-span-6 order-1 lg:order-2">
-                <SolutionImage
-                  src={controlSystemImage}
-                  alt="디스플레이 제어 시스템"
-                  placeholderTitle="DISPLAY & CONTROL SYSTEM"
-                  placeholderSub="IMAGE TO BE UPDATED"
-                />
-              </div>
-            </div>
-          </section>
+          <SolutionSectionCard
+            id="solution-02"
+            num="02"
+            titleKo="디스플레이·제어 시스템"
+            titleEn="Display & Control System"
+            desc={isKo
+              ? '디스플레이와 컨트롤러를 연결해 안정적인 통합 송출 환경을 구성합니다.'
+              : 'Connecting displays and controllers to configure a stable integrated playout environment.'}
+            coreItemsKo={[
+              '다중 디스플레이 통합 제어',
+              '화면 동기화 송출',
+              '외부 시스템 연동',
+            ]}
+            coreItemsEn={[
+              'Multi-Display Integrated Control',
+              'Synchronized Video Output',
+              'External System Integration',
+            ]}
+            imageSrc={controlSystemImage}
+            imageAlt="디스플레이 제어 시스템"
+            imageOnLeft={false}
+            isKo={isKo}
+          />
 
           <hr className="border-[#E2E8F0]" />
 
           {/* [03 CMS·통합관제 및 운영] */}
-          <section id="solution-03" className="scroll-mt-24 space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Image Left */}
-              <div className="lg:col-span-6 order-1">
-                <SolutionImage
-                  src={cmsImage}
-                  alt="CMS 통합관제 화면"
-                  placeholderTitle="CMS OPERATION SCREEN"
-                  placeholderSub="IMAGE TO BE UPDATED"
-                />
-              </div>
-
-              {/* Text Right */}
-              <div className="lg:col-span-6 order-2 space-y-5">
-                <div className="space-y-2">
-                  <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
-                    03 SOLUTIONS
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight">
-                    {isKo ? 'CMS·통합관제 및 운영' : 'CMS & Integrated Operation'}
-                  </h2>
-                  <p className="text-xs font-mono font-semibold text-[#64748B] uppercase tracking-wider">
-                    CMS &amp; INTEGRATED OPERATION
-                  </p>
-                </div>
-
-                <p className="text-sm sm:text-base text-[#334155] leading-relaxed font-normal">
-                  {isKo
-                    ? '자체 CMS를 기반으로 콘텐츠 송출과 다중 미디어 통합관제를 수행합니다.'
-                    : 'Conducting content playout and multi-media integrated control based on proprietary CMS.'}
-                </p>
-
-                {/* Core Items (3 max) */}
-                <div className="pt-3 border-t border-[#E2E8F0] space-y-2.5">
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '콘텐츠 등록·편성·송출' : 'Content Management, Scheduling & Playout'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '원격 통합관제 및 상태 확인' : 'Remote Integrated Control & Status Monitoring'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-[#294A63] rounded-full shrink-0" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#1E293B]">
-                      {isKo ? '운영 로그 및 유지관리 지원' : 'Operation Logs & Maintenance Support'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <SolutionSectionCard
+            id="solution-03"
+            num="03"
+            titleKo="CMS·통합관제 및 운영"
+            titleEn="CMS & Integrated Operation"
+            desc={isKo
+              ? '자체 CMS를 기반으로 콘텐츠 송출과 다중 미디어 통합관제를 수행합니다.'
+              : 'Conducting content playout and multi-media integrated control based on proprietary CMS.'}
+            coreItemsKo={[
+              '콘텐츠 등록·편성·송출',
+              '원격 통합관제 및 상태 확인',
+              '운영 로그 및 유지관리 지원',
+            ]}
+            coreItemsEn={[
+              'Content Management, Scheduling & Playout',
+              'Remote Integrated Control & Status Monitoring',
+              'Operation Logs & Maintenance Support',
+            ]}
+            imageSrc={cmsImage}
+            imageAlt="CMS 통합관제 화면"
+            imageOnLeft={true}
+            isKo={isKo}
+          />
 
         </div>
 

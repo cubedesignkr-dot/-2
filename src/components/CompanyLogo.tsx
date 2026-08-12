@@ -26,12 +26,16 @@ export const CompanyLogo: React.FC<CompanyLogoProps> = ({
     setFallbackStep(0);
   }, [activeLogo]);
 
-  const DEFAULT_LOGO_URL = 'https://i.imgur.com/M81md58.png';
+  const DEFAULT_LOGO_URL = '/images/brand/dise-logo.png';
 
   // Determine current image source based on fallback step
   const getSource = (): string | null => {
+    let logo = activeLogo;
+    if (logo === 'https://i.imgur.com/M81md58.png') {
+      logo = DEFAULT_LOGO_URL;
+    }
     if (fallbackStep === 0) {
-      return activeLogo || DEFAULT_LOGO_URL || defaultLogo || svgLogo;
+      return logo || DEFAULT_LOGO_URL || defaultLogo || svgLogo;
     } else if (fallbackStep === 1) {
       return DEFAULT_LOGO_URL || defaultLogo || svgLogo;
     } else if (fallbackStep === 2) {

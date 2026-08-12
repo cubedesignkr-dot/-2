@@ -1,6 +1,7 @@
 import React from 'react';
 import { Language } from '../types';
 import { AdheatCluster } from './about/AdheatCluster';
+import { NoiBaiConsortium } from './about/NoiBaiConsortium';
 
 interface OrgSectionProps {
   currentLang: Language;
@@ -156,8 +157,11 @@ export const OrgSection: React.FC<OrgSectionProps> = ({ currentLang }) => {
         </div>
       </div>
 
-      {/* 3. ADHEAT CIRCULAR CLUSTER */}
+      {/* 2. ADHEAT CIRCULAR CLUSTER */}
       <AdheatCluster currentLang={currentLang} />
+
+      {/* 3. GLOBAL BUSINESS CONSORTIUM */}
+      <NoiBaiConsortium currentLang={currentLang} />
     </div>
   );
 };
