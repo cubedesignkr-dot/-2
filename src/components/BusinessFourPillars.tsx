@@ -43,6 +43,9 @@ interface SolutionSectionCardProps {
   imageSrc?: string;
   imageAlt?: string;
   imageCaption?: string;
+  imageHeaderLabel?: string;
+  imageSubTitle?: string;
+  imageNotice?: string;
   imageFitContain?: boolean;
   imageOnLeft?: boolean;
   isKo: boolean;
@@ -59,6 +62,9 @@ const SolutionSectionCard: React.FC<SolutionSectionCardProps> = ({
   imageSrc,
   imageAlt = '',
   imageCaption,
+  imageHeaderLabel,
+  imageSubTitle,
+  imageNotice,
   imageFitContain = false,
   imageOnLeft = true,
   isKo,
@@ -83,26 +89,52 @@ const SolutionSectionCard: React.FC<SolutionSectionCardProps> = ({
       {showImage ? (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Image Container */}
-          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-1' : 'order-1 lg:order-2'} space-y-2`}>
-            <div className={`w-full aspect-[16/10] overflow-hidden rounded-[2px] ${imageFitContain ? 'bg-[#0b1a29]' : 'bg-[#102B42]'} border border-[#D9DEE3] relative flex items-center justify-center p-1 sm:p-2`}>
+          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-1 lg:order-1' : 'order-2 lg:order-2'} space-y-2`}>
+            {/* Header / SubTitle above image if provided */}
+            {(imageHeaderLabel || imageSubTitle) && (
+              <div className="flex items-center justify-between pb-0.5">
+                {imageHeaderLabel && (
+                  <span className="text-[11px] font-mono font-bold text-[#294A63] tracking-widest uppercase">
+                    {imageHeaderLabel}
+                  </span>
+                )}
+                {imageSubTitle && (
+                  <span className="text-[11px] font-bold text-[#334155]">
+                    {imageSubTitle}
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Image Frame */}
+            <div className={`w-full aspect-[16/10] overflow-hidden rounded-[2px] ${imageFitContain ? 'bg-[#0F172A]' : 'bg-[#102B42]'} border border-[#E2E8F0] relative flex items-center justify-center p-1 sm:p-2`}>
               <img
                 src={imageSrc}
                 alt={imageAlt}
                 loading="lazy"
-                className={`w-full h-full ${imageFitContain ? 'object-contain' : 'object-cover'} object-center transition-transform duration-500 hover:scale-[1.01]`}
+                className={`w-full h-full ${imageFitContain ? 'object-contain' : 'object-cover'} object-center transition-transform duration-300`}
               />
             </div>
-            {imageCaption && (
-              <div className="text-right">
-                <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] tracking-wider uppercase inline-block font-medium">
-                  {imageCaption}
-                </span>
+
+            {/* Caption / Notice below image */}
+            {(imageCaption || imageNotice) && (
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-0.5">
+                {imageCaption && (
+                  <span className="text-[11px] font-mono text-[#64748B] tracking-wider uppercase font-medium">
+                    {imageCaption}
+                  </span>
+                )}
+                {imageNotice && (
+                  <span className="text-[11px] text-[#64748B] font-normal leading-normal">
+                    {imageNotice}
+                  </span>
+                )}
               </div>
             )}
           </div>
 
           {/* Text Container */}
-          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-2' : 'order-2 lg:order-1'} space-y-5`}>
+          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-2 lg:order-2' : 'order-1 lg:order-1'} space-y-5`}>
             <div className="space-y-2">
               <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider uppercase block">
                 {num} SOLUTIONS
@@ -467,10 +499,12 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
               'Operation Logs & Maintenance Support',
             ]}
             imageSrc={cmsImage}
-            imageAlt="CMS 콘텐츠 편성과 다중 디스플레이 통합관제 설명 화면"
-            imageCaption="CMS INTERFACE · ILLUSTRATIVE SCREEN"
+            imageAlt="CMS 콘텐츠 편성과 다중 디스플레이 통합관제 예시 화면"
+            imageHeaderLabel="CMS INTERFACE"
+            imageSubTitle={isKo ? '통합 미디어 운영 화면' : 'Integrated Media Operation Display'}
+            imageNotice={isKo ? '※ 이해를 돕기 위한 예시 화면입니다.' : '※ Illustrative example screen.'}
             imageFitContain={true}
-            imageOnLeft={true}
+            imageOnLeft={false}
             isKo={isKo}
           />
 
