@@ -274,6 +274,11 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
                           GLOBAL PARTNERSHIP
                         </span>
                       )}
+                      {item.status === 'BUSINESS ACTIVITIES' && (
+                        <span className="bg-[#294A63] text-white text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-[2px] uppercase tracking-wider shadow-xs">
+                          BUSINESS ACTIVITIES
+                        </span>
+                      )}
                       {item.status === 'PRESERVED' && (
                         <span className="bg-slate-500 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-[2px] uppercase tracking-wider shadow-xs">
                           PRESERVED
@@ -452,6 +457,11 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
                       {selectedGlobalModal.status === 'GLOBAL PARTNERSHIP' && (
                         <span className="bg-blue-700 text-white text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-[2px] uppercase tracking-wider shadow-sm">
                           GLOBAL PARTNERSHIP
+                        </span>
+                      )}
+                      {selectedGlobalModal.status === 'BUSINESS ACTIVITIES' && (
+                        <span className="bg-[#294A63] text-white text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-[2px] uppercase tracking-wider shadow-sm">
+                          BUSINESS ACTIVITIES
                         </span>
                       )}
                     </div>

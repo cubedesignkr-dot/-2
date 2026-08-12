@@ -37,6 +37,11 @@ async function startServer() {
     res.json({ status: "ok", company: "(주)다이즈하이미디어" });
   });
 
+  // Local development handler for Netlify Forms submissions (POST /)
+  app.post("/", (req, res) => {
+    res.status(200).send("Form submission received");
+  });
+
   // AI Copywriting & Translation Generator Endpoint
   app.post("/api/ai/copywriting", async (req, res) => {
     try {

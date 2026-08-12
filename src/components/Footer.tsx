@@ -71,7 +71,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, customLogo }) => {
                 <span className="text-slate-500 mr-2">회사명</span> (주)다이즈하이미디어
               </li>
               <li>
-                <span className="text-slate-500 mr-2">대표자</span> 원종일 · 유정우 (각자대표)
+                <span className="text-slate-500 mr-2">대표자</span> 유정우·원종일(각자대표)
               </li>
               <li>
                 <span className="text-slate-500 mr-2">사업자 번호</span> 122-86-11534

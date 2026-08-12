@@ -30,6 +30,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
     email: '',
     inquiryType: '광고/매체 문의',
     message: '',
+    botField: '', // honeypot
   });
 
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
@@ -62,14 +63,33 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
     '기타/파트너십',
   ];
 
+  const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.pdf'];
+
+  const validateFile = (file: File): boolean => {
+    if (file.size > 7 * 1024 * 1024) {
+      alert(isKo ? '첨부파일 크기는 최대 7MB까지 가능합니다.' : 'File size limit is 7MB.');
+      return false;
+    }
+    const ext = '.' + file.name.split('.').pop()?.toLowerCase();
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+      alert(
+        isKo
+          ? '허용되지 않는 파일 형식입니다. (.jpg, .jpeg, .png, .webp, .pdf 파일만 가능)'
+          : 'Allowed file formats: .jpg, .jpeg, .png, .webp, .pdf'
+      );
+      return false;
+    }
+    return true;
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      if (file.size > 20 * 1024 * 1024) {
-        alert(isKo ? '파일 크기는 최대 20MB까지 첨부 가능합니다.' : 'File size limit is 20MB.');
-        return;
+      if (validateFile(file)) {
+        setAttachedFile(file);
+      } else if (fileInputRef.current) {
+        fileInputRef.current.value = '';
       }
-      setAttachedFile(file);
     }
   };
 
@@ -77,11 +97,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
-      if (file.size > 20 * 1024 * 1024) {
-        alert(isKo ? '파일 크기는 최대 20MB까지 첨부 가능합니다.' : 'File size limit is 20MB.');
-        return;
+      if (validateFile(file)) {
+        setAttachedFile(file);
       }
-      setAttachedFile(file);
     }
   };
 
@@ -96,7 +114,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
 
@@ -124,21 +142,61 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
-        region: '서울/수도권',
-        companyName: '',
-        contactName: '',
-        phone: '',
-        email: '',
-        inquiryType: '광고/매체 문의',
-        message: '',
+    try {
+      const payload = new FormData();
+      payload.append('form-name', 'business-inquiry');
+      payload.append('bot-field', formData.botField);
+      payload.append('region', formData.region);
+      payload.append('company', formData.companyName);
+      payload.append('name', formData.contactName);
+      payload.append('phone', formData.phone);
+      payload.append('email', formData.email);
+      payload.append('inquiryType', formData.inquiryType);
+      payload.append('message', formData.message);
+      payload.append('privacyConsent', agreedPrivacy ? 'true' : 'false');
+      if (attachedFile) {
+        payload.append('attachment', attachedFile);
+      }
+
+      const response = await fetch('/', {
+        method: 'POST',
+        body: payload,
       });
-      setAttachedFile(null);
-      setAgreedPrivacy(false);
-    }, 1200);
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({
+          region: '서울/수도권',
+          companyName: '',
+          contactName: '',
+          phone: '',
+          email: '',
+          inquiryType: '광고/매체 문의',
+          message: '',
+          botField: '',
+        });
+        setAttachedFile(null);
+        setAgreedPrivacy(false);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
+      } else {
+        setFormError(
+          isKo
+            ? '문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도하거나 hidise@disehimedia.com으로 문의해주세요.'
+            : 'An error occurred during submission. Please try again later or contact hidise@disehimedia.com.'
+        );
+      }
+    } catch (err) {
+      console.error('Submit Error:', err);
+      setFormError(
+        isKo
+          ? '문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도하거나 hidise@disehimedia.com으로 문의해주세요.'
+          : 'An error occurred during submission. Please try again later or contact hidise@disehimedia.com.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -229,10 +287,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       EMAIL
                     </span>
                     <a
-                      href="mailto:info@disehimedia.com"
+                      href="mailto:hidise@disehimedia.com"
                       className="text-sm font-mono font-medium text-[#222831] hover:text-[#294A63] transition-colors"
                     >
-                      info@disehimedia.com
+                      hidise@disehimedia.com
                     </a>
                   </div>
                 </div>
@@ -293,12 +351,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                     <CheckCircle2 className="w-8 h-8 text-[#294A63]" />
                   </div>
                   <h4 className="text-xl font-bold text-[#222831]">
-                    {isKo ? '문의가 접수되었습니다.' : 'Inquiry Submitted Successfully!'}
+                    {isKo ? '문의가 정상적으로 접수되었습니다.' : 'Inquiry Submitted Successfully!'}
                   </h4>
                   <p className="text-xs sm:text-sm text-[#66717C] max-w-md mx-auto leading-relaxed">
                     {isKo
-                      ? '(주)다이즈하이미디어에 문의해 주셔서 감사합니다. 기재해 주신 연락처로 담당자가 확인 후 안내드리겠습니다.'
-                      : 'Thank you for contacting DISE HI MEDIA. Our team will review your message and respond promptly.'}
+                      ? '담당자가 확인 후 안내드리겠습니다.'
+                      : 'Our team will review your message and get back to you promptly.'}
                   </p>
                   <button
                     type="button"
@@ -309,7 +367,29 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form
+                  name="business-inquiry"
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  encType="multipart/form-data"
+                  onSubmit={handleSubmit}
+                  className="space-y-5"
+                >
+                  <input type="hidden" name="form-name" value="business-inquiry" />
+
+                  {/* Honeypot field for anti-spam (visually hidden offscreen) */}
+                  <div style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, width: 0, overflow: 'hidden' }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="bot-field"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.botField}
+                      onChange={(e) => setFormData({ ...formData, botField: e.target.value })}
+                    />
+                  </div>
+
                   {formError && (
                     <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2 rounded-md">
                       <AlertCircle className="w-4 h-4 shrink-0" />
@@ -322,6 +402,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                     <label className="block text-xs font-bold text-[#222831]">
                       {isKo ? '문의 유형' : 'Inquiry Type'} <span className="text-[#D97706]">*</span>
                     </label>
+                    <input type="hidden" name="inquiryType" value={formData.inquiryType} />
                     <div className="flex flex-wrap gap-2">
                       {inquiryTypes.map((type) => (
                         <button
@@ -347,6 +428,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                         {isKo ? '지역' : 'Region'} <span className="text-[#D97706]">*</span>
                       </label>
                       <select
+                        name="region"
                         value={formData.region}
                         onChange={(e) => setFormData({ ...formData, region: e.target.value })}
                         className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-md focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all cursor-pointer"
@@ -365,6 +447,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       </label>
                       <input
                         type="text"
+                        name="company"
                         required
                         placeholder={isKo ? '예: (주)다이즈' : 'e.g. DISE Corp.'}
                         value={formData.companyName}
@@ -382,6 +465,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       </label>
                       <input
                         type="text"
+                        name="name"
                         required
                         placeholder={isKo ? '홍길동 팀장' : 'John Doe'}
                         value={formData.contactName}
@@ -396,6 +480,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       </label>
                       <input
                         type="tel"
+                        name="phone"
                         required
                         placeholder="010-0000-0000"
                         value={formData.phone}
@@ -413,6 +498,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       </label>
                       <input
                         type="email"
+                        name="email"
                         required
                         placeholder="name@company.com"
                         value={formData.email}
@@ -424,15 +510,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                     <div className="space-y-1.5">
                       <label className="block text-xs font-bold text-[#222831]">
                         {isKo ? '첨부파일' : 'Attachment File'}{' '}
-                        <span className="text-[#66717C] font-normal">(선택, 최대 20MB)</span>
+                        <span className="text-[#66717C] font-normal">(선택, 최대 7MB)</span>
                       </label>
 
                       <input
                         type="file"
+                        name="attachment"
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         className="hidden"
-                        accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,.jpg,.png"
+                        accept=".jpg,.jpeg,.png,.webp,.pdf"
                       />
 
                       {attachedFile ? (
@@ -472,6 +559,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       {isKo ? '문의내용' : 'Inquiry Message'} <span className="text-[#D97706]">*</span>
                     </label>
                     <textarea
+                      name="message"
                       rows={5}
                       required
                       placeholder={
@@ -491,6 +579,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       <input
                         type="checkbox"
                         id="privacyConsent"
+                        name="privacyConsent"
                         checked={agreedPrivacy}
                         onChange={(e) => setAgreedPrivacy(e.target.checked)}
                         className="w-4 h-4 mt-0.5 text-[#294A63] border-[#CBD5E1] rounded-[2px] focus:ring-0 cursor-pointer"

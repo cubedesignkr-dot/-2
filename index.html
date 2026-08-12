@@ -7,6 +7,29 @@
     <meta name="description" content="DISE High Media - 디지털 사이니지 및 LED 미디어 기획, 구축, 자체 CMS 기반 통합관제 및 운영 전문기업" />
   </head>
   <body>
+    <!-- Netlify Forms static detection form -->
+    <form
+      name="business-inquiry"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      enctype="multipart/form-data"
+      hidden
+      aria-hidden="true"
+    >
+      <input type="hidden" name="form-name" value="business-inquiry" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="region" />
+      <input type="text" name="company" />
+      <input type="text" name="name" />
+      <input type="text" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="inquiryType" />
+      <textarea name="message"></textarea>
+      <input type="checkbox" name="privacyConsent" />
+      <input type="file" name="attachment" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

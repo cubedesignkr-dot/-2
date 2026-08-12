@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
+import { ArrowRight } from 'lucide-react';
 
 export const controlSystemImage = "/images/solutions/control-system-placeholder.webp";
-export const cmsImage = "/images/solutions/cms-screen-placeholder.webp";
+export const cmsImage = "/images/solutions/solution-cms-operation-interface.webp";
 
 export const SOLUTION_TABS = [
   {
@@ -41,6 +42,8 @@ interface SolutionSectionCardProps {
   coreItemsEn: string[];
   imageSrc?: string;
   imageAlt?: string;
+  imageCaption?: string;
+  imageFitContain?: boolean;
   imageOnLeft?: boolean;
   isKo: boolean;
 }
@@ -55,6 +58,8 @@ const SolutionSectionCard: React.FC<SolutionSectionCardProps> = ({
   coreItemsEn,
   imageSrc,
   imageAlt = '',
+  imageCaption,
+  imageFitContain = false,
   imageOnLeft = true,
   isKo,
 }) => {
@@ -78,15 +83,22 @@ const SolutionSectionCard: React.FC<SolutionSectionCardProps> = ({
       {showImage ? (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Image Container */}
-          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-1' : 'order-1 lg:order-2'}`}>
-            <div className="w-full aspect-[16/10] overflow-hidden rounded-[2px] bg-[#102B42] border border-[#D9DEE3]">
+          <div className={`lg:col-span-6 ${imageOnLeft ? 'order-1' : 'order-1 lg:order-2'} space-y-2`}>
+            <div className={`w-full aspect-[16/10] overflow-hidden rounded-[2px] ${imageFitContain ? 'bg-[#0b1a29]' : 'bg-[#102B42]'} border border-[#D9DEE3] relative flex items-center justify-center p-1 sm:p-2`}>
               <img
                 src={imageSrc}
                 alt={imageAlt}
                 loading="lazy"
-                className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.01]"
+                className={`w-full h-full ${imageFitContain ? 'object-contain' : 'object-cover'} object-center transition-transform duration-500 hover:scale-[1.01]`}
               />
             </div>
+            {imageCaption && (
+              <div className="text-right">
+                <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] tracking-wider uppercase inline-block font-medium">
+                  {imageCaption}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Text Container */}
@@ -138,7 +150,7 @@ const SolutionSectionCard: React.FC<SolutionSectionCardProps> = ({
             </p>
           </div>
 
-          {/* Core Items in 3-column grid for clean full-width balance */}
+          {/* Core Items in 3-column grid */}
           <div className="pt-4 border-t border-[#E2E8F0] grid grid-cols-1 sm:grid-cols-3 gap-4">
             {(isKo ? coreItemsKo : coreItemsEn).map((item, idx) => (
               <div key={idx} className="flex items-start gap-3 bg-[#F8FAFC] p-3.5 rounded-[2px] border border-[#E2E8F0]">
@@ -157,6 +169,7 @@ const SolutionSectionCard: React.FC<SolutionSectionCardProps> = ({
 
 export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
   currentLang,
+  onNavigateContact,
 }) => {
   const isKo = currentLang === 'ko';
 
@@ -167,81 +180,218 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
     }
   };
 
+  // 1. Business Domains (4 domains)
+  const businessDomains = [
+    {
+      num: '01',
+      titleEn: 'DISPLAY HARDWARE',
+      titleKo: '디스플레이 하드웨어',
+      descKo: '디스플레이·자체 컨트롤러',
+      descEn: 'Display & Proprietary Controller',
+    },
+    {
+      num: '02',
+      titleEn: 'DISE PLATFORM',
+      titleKo: '다이즈 플랫폼',
+      descKo: 'CMS·FIDS 연동·멀티 싱크 운영',
+      descEn: 'CMS, FIDS Sync & Multi-Sync Operation',
+    },
+    {
+      num: '03',
+      titleEn: 'AI & DEEP LEARNING',
+      titleKo: 'AI·딥러닝',
+      descKo: 'AI 인식·XR 가상공간',
+      descEn: 'AI Recognition & XR Virtual Space',
+    },
+    {
+      num: '04',
+      titleEn: 'CONTENT & SERVICE',
+      titleKo: '콘텐츠·서비스',
+      descKo: '콘텐츠 운영·B2G 안전 솔루션',
+      descEn: 'Content Operations & B2G Safety Solutions',
+    },
+  ];
+
+  // 2. AMSIT Core Technologies (5 techs)
+  const amsitCoreTechs = [
+    {
+      num: '01',
+      acronym: 'AFD',
+      enName: 'AERO-FLEX DISPLAY',
+      koName: '에어로-플렉스 디스플레이',
+      descKo: '오픈 메시 기반 LED 디스플레이',
+      descEn: 'Open-mesh based LED display',
+    },
+    {
+      num: '02',
+      acronym: 'MWC',
+      enName: 'MW CONTROLLER',
+      koName: 'MW 컨트롤러',
+      descKo: '다중 디스플레이 제어',
+      descEn: 'Multi-display control',
+    },
+    {
+      num: '03',
+      acronym: 'SOF',
+      enName: 'STACK-ON-FLOW',
+      koName: '스택 온 플로우',
+      descKo: '멀티레이어 콘텐츠 구성',
+      descEn: 'Multi-layer content composition',
+    },
+    {
+      num: '04',
+      acronym: 'IMT',
+      enName: 'IMPERATIVE TRIGGER',
+      koName: '임페러티브 트리거',
+      descKo: '상황 기반 콘텐츠 전환',
+      descEn: 'Context-based content switching',
+    },
+    {
+      num: '05',
+      acronym: 'TED',
+      enName: 'TARGETING ECHO DETECT',
+      koName: '타기팅 에코 디텍트',
+      descKo: 'AI 기반 인식 기술',
+      descEn: 'AI-based recognition technology',
+    },
+  ];
+
+  // 3. Technology Highlights (3 detail items)
+  const techHighlights = [
+    {
+      num: '01',
+      titleEn: 'MULTI-WINDOW SYNCHRONIZATION',
+      titleKo: '다중 화면 동기화',
+      descKo: '동일한 영상 소스를 여러 디스플레이에 동기화하여 하나의 연결된 미디어 환경으로 운영합니다.',
+      descEn: 'Synchronizes the same video source across multiple displays to operate as a single connected media environment.',
+    },
+    {
+      num: '02',
+      titleEn: 'AERO-FLEX OPEN-MESH DISPLAY',
+      titleKo: '에어로-플렉스 오픈 메시 디스플레이',
+      descKo: '후면이 개방된 메시 구조를 적용해 자연 통풍과 효율적인 유지관리 환경을 고려한 LED 디스플레이 기술입니다.',
+      descEn: 'LED display technology engineered with an open-mesh rear structure for natural ventilation and efficient maintenance.',
+    },
+    {
+      num: '03',
+      titleEn: 'AI BIOMETRIC RECOGNITION',
+      titleKo: 'AI 생체 인식 기술',
+      descKo: '안면·실루엣·음성 등 다양한 입력을 활용하는 인식 기술과 인터랙티브 환경을 연구·개발합니다.',
+      descEn: 'Researching and developing recognition technologies utilizing various inputs such as face, silhouette, and voice for interactive environments.',
+    },
+  ];
+
   return (
     <div className="bg-white text-[#222831] font-sans selection:bg-[#294A63] selection:text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-16 sm:space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 sm:space-y-16">
         
-        {/* 1. PAGE INTRO (페이지 인트로) */}
-        <div className="space-y-6 pb-6 border-b border-[#D9DEE3]">
-          <div className="space-y-3 text-left">
-            <span className="text-xs font-mono font-bold text-[#294A63] tracking-[0.2em] uppercase block">
-              SOLUTIONS
+        {/* 1. PAGE INTRO (페이지 소개) */}
+        <div className="space-y-4 pb-6 border-b border-[#D9DEE3]">
+          <span className="text-xs font-mono font-bold text-[#294A63] tracking-[0.2em] uppercase block">
+            SOLUTIONS
+          </span>
+
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-mono font-bold text-[#18324A] tracking-tight leading-[1.2]">
+            FROM MEDIA INSTALLATION TO INTEGRATED OPERATION
+          </h1>
+
+          <p className="text-sm sm:text-base text-[#4A5568] font-normal leading-relaxed max-w-2xl pt-1">
+            {isKo
+              ? '기획과 구축부터 디스플레이 제어, 콘텐츠 송출과 통합운영까지 하나의 기술 체계로 연결합니다.'
+              : 'Connecting planning, installation, display control, content playout, and integrated operations in a unified technology system.'}
+          </p>
+        </div>
+
+        {/* 2. BUSINESS DOMAINS (4개 사업영역) */}
+        <div className="space-y-4">
+          <div className="space-y-1 text-left">
+            <span className="text-[11px] font-mono font-bold text-[#D97706] tracking-[0.2em] uppercase block">
+              BUSINESS DOMAINS
             </span>
-
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-mono font-bold text-[#18324A] tracking-tight leading-[1.2]">
-              FROM MEDIA INSTALLATION TO INTEGRATED OPERATION
-            </h1>
-
-            <p className="text-sm sm:text-base text-[#4A5568] font-normal leading-relaxed max-w-2xl pt-1">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight">
+              {isKo ? '4개 사업영역' : '4 Business Domains'}
+            </h2>
+            <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
               {isKo
-                ? '기획과 구축부터 디스플레이 제어, 콘텐츠 송출과 통합운영까지 하나의 기술 체계로 연결합니다.'
-                : 'Connecting planning, installation, display control, content playout, and integrated operations in a unified technology system.'}
+                ? '디스플레이 하드웨어부터 자체 플랫폼, AI 기술과 콘텐츠 운영까지 미디어 사업 전반을 연결합니다.'
+                : 'Connecting the entire media business from display hardware to proprietary platforms, AI technology, and content operations.'}
             </p>
           </div>
 
-          {/* INDEX MENU (가로형 메뉴) */}
-          <div className="pt-4">
-            <nav
-              className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#D9DEE3] border-y border-[#D9DEE3]"
-              aria-label="Solutions Index"
-            >
-              <button
-                type="button"
-                onClick={() => scrollToSection('solution-01')}
-                className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
-              >
-                <div className="space-y-0.5">
-                  <span className="text-[11px] font-mono text-[#D97706] font-bold block">01</span>
-                  <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
-                    {isKo ? 'LED 미디어 기획·구축' : 'LED Media Planning & Installation'}
+          <div className="bg-white border border-[#E2E8F0] rounded-[2px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0]">
+            {businessDomains.map((domain) => (
+              <div key={domain.num} className="p-4 sm:p-5 space-y-2 flex flex-col justify-between hover:bg-[#F8FAFC] transition-colors">
+                <div className="space-y-1">
+                  <span className="text-xs font-mono font-bold text-[#D97706] block">
+                    {domain.num}
                   </span>
+                  <h3 className="text-xs font-mono font-bold text-[#1E293B] uppercase tracking-wider">
+                    {domain.titleEn}
+                  </h3>
+                  <p className="text-sm font-bold text-[#0F172A]">
+                    {isKo ? domain.titleKo : domain.titleEn}
+                  </p>
                 </div>
-                <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => scrollToSection('solution-02')}
-                className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
-              >
-                <div className="space-y-0.5">
-                  <span className="text-[11px] font-mono text-[#D97706] font-bold block">02</span>
-                  <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
-                    {isKo ? '디스플레이·제어 시스템' : 'Display & Control System'}
-                  </span>
-                </div>
-                <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => scrollToSection('solution-03')}
-                className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
-              >
-                <div className="space-y-0.5">
-                  <span className="text-[11px] font-mono text-[#D97706] font-bold block">03</span>
-                  <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
-                    {isKo ? 'CMS·통합관제 및 운영' : 'CMS & Integrated Operation'}
-                  </span>
-                </div>
-                <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
-              </button>
-            </nav>
+                <p className="text-xs text-[#64748B] font-normal leading-normal pt-2 border-t border-[#F1F5F9]">
+                  {isKo ? domain.descKo : domain.descEn}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* 2. CORE SOLUTIONS (3 INDEPENDENT SECTIONS) */}
-        <div className="space-y-20 sm:space-y-28">
+        {/* INDEX MENU (핵심 솔루션 가로형 인덱스 메뉴) */}
+        <div className="pt-2">
+          <nav
+            className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#D9DEE3] border-y border-[#D9DEE3]"
+            aria-label="Solutions Index"
+          >
+            <button
+              type="button"
+              onClick={() => scrollToSection('solution-01')}
+              className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
+            >
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-mono text-[#D97706] font-bold block">01</span>
+                <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
+                  {isKo ? 'LED 미디어 기획·구축' : 'LED Media Planning & Installation'}
+                </span>
+              </div>
+              <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => scrollToSection('solution-02')}
+              className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
+            >
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-mono text-[#D97706] font-bold block">02</span>
+                <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
+                  {isKo ? '디스플레이·제어 시스템' : 'Display & Control System'}
+                </span>
+              </div>
+              <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => scrollToSection('solution-03')}
+              className="py-3.5 px-4 text-left hover:bg-[#F8FAFC] transition-colors group flex items-center justify-between cursor-pointer"
+            >
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-mono text-[#D97706] font-bold block">03</span>
+                <span className="text-xs sm:text-sm font-bold text-[#1E293B] group-hover:text-[#294A63] transition-colors">
+                  {isKo ? 'CMS·통합관제 및 운영' : 'CMS & Integrated Operation'}
+                </span>
+              </div>
+              <span className="text-[#94A3B8] group-hover:text-[#294A63] text-sm group-hover:translate-x-0.5 transition-transform">→</span>
+            </button>
+          </nav>
+        </div>
+
+        {/* 3. CORE SOLUTIONS (3 INDEPENDENT SECTIONS) */}
+        <div className="space-y-16 sm:space-y-20">
 
           {/* [01 LED 미디어 기획·구축] */}
           <SolutionSectionCard
@@ -317,16 +467,106 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
               'Operation Logs & Maintenance Support',
             ]}
             imageSrc={cmsImage}
-            imageAlt="CMS 통합관제 화면"
+            imageAlt="CMS 콘텐츠 편성과 다중 디스플레이 통합관제 설명 화면"
+            imageCaption="CMS INTERFACE · ILLUSTRATIVE SCREEN"
+            imageFitContain={true}
             imageOnLeft={true}
             isKo={isKo}
           />
 
         </div>
 
-        {/* 3. PROJECT EXECUTION PROCESS (프로젝트 수행 프로세스) */}
-        <div className="bg-[#102B42] text-white p-6 sm:p-10 rounded-[2px] space-y-8 shadow-sm">
-          <div className="space-y-2 text-left">
+        {/* 4. AMSIT CORE TECHNOLOGY (AMSIT 5대 핵심 기술) */}
+        <div className="space-y-6 pt-6 border-t border-[#E2E8F0]">
+          <div className="space-y-1 text-left">
+            <span className="text-[11px] font-mono font-bold text-[#294A63] tracking-[0.2em] uppercase block">
+              AMSIT CORE TECHNOLOGY
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight">
+              {isKo ? '5대 핵심 기술' : 'AMSIT 5 Core Technologies'}
+            </h2>
+            <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
+              {isKo
+                ? '대규모 미디어 환경의 구축과 운영을 위해 자체적으로 축적한 핵심 기술 체계입니다.'
+                : 'Core technology framework accumulated for building and operating large-scale media environments.'}
+            </p>
+          </div>
+
+          <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[2px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0]">
+            {amsitCoreTechs.map((tech) => (
+              <div key={tech.num} className="p-4 sm:p-5 space-y-3 bg-white hover:bg-[#F1F5F9] transition-colors flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold text-[#D97706]">
+                      {tech.num}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold text-[#64748B] uppercase tracking-wider">
+                      AMSIT
+                    </span>
+                  </div>
+                  
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-mono font-black text-[#18324A] tracking-tight">
+                      {tech.acronym}
+                    </div>
+                    <div className="text-[10px] font-mono font-semibold text-[#64748B] uppercase tracking-wider pt-0.5">
+                      {tech.enName}
+                    </div>
+                  </div>
+
+                  <p className="text-xs sm:text-sm font-bold text-[#0F172A] leading-snug">
+                    {isKo ? tech.koName : tech.enName}
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-[#F1F5F9]">
+                  <p className="text-xs text-[#475569] font-normal leading-normal">
+                    {isKo ? tech.descKo : tech.descEn}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 5. TECHNOLOGY HIGHLIGHTS (핵심 기술 상세 3개) */}
+        <div className="space-y-6 pt-6 border-t border-[#E2E8F0]">
+          <div className="space-y-1 text-left">
+            <span className="text-[11px] font-mono font-bold text-[#D97706] tracking-[0.2em] uppercase block">
+              TECHNOLOGY HIGHLIGHTS
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight">
+              {isKo ? '핵심 기술 상세' : 'Technology Highlights'}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-1">
+            {techHighlights.map((highlight) => (
+              <div key={highlight.num} className="border-t-2 border-[#18324A] pt-4 space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-bold text-[#D97706]">
+                    {highlight.num}
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-[#64748B] uppercase tracking-wider">
+                    {highlight.titleEn}
+                  </span>
+                </div>
+
+                <h3 className="text-base sm:text-lg font-bold text-[#0F172A]">
+                  {isKo ? highlight.titleKo : highlight.titleEn}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-[#334155] leading-relaxed font-normal">
+                  {isKo ? highlight.descKo : highlight.descEn}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 6. PROJECT EXECUTION PROCESS (프로젝트 수행 프로세스) */}
+        <div className="bg-[#102B42] text-white p-6 sm:p-8 rounded-[2px] space-y-6 shadow-sm">
+          <div className="space-y-1 text-left">
             <span className="text-xs font-mono font-bold text-[#D0BE7D] uppercase tracking-widest block">
               PROCESS
             </span>
@@ -383,7 +623,7 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
           </div>
 
           {/* Mobile Vertical Timeline */}
-          <div className="block md:hidden space-y-4 pt-2">
+          <div className="block md:hidden space-y-3 pt-1">
             <div className="flex items-start gap-3">
               <span className="w-6 h-6 rounded-full bg-[#18324A] border border-[#D0BE7D] text-[#D0BE7D] font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                 01
@@ -419,7 +659,7 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
           </div>
         </div>
 
-        {/* 4. EXTENSION TECH AREA (확장 기술) */}
+        {/* 7. EXTENSION TECHNOLOGY (확장 기술) */}
         <div className="bg-[#F8FAFC] border border-[#E2E8F0] p-6 sm:p-8 rounded-[2px] space-y-4">
           <div className="space-y-1.5">
             <span className="text-[11px] font-mono font-bold text-[#64748B] uppercase tracking-wider block">
@@ -435,7 +675,7 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
             </p>
           </div>
 
-          <div className="pt-2 flex flex-wrap gap-2 sm:gap-3">
+          <div className="pt-1 flex flex-wrap gap-2 sm:gap-3">
             <div className="bg-white border border-[#CBD5E1] px-3.5 py-2 rounded-[2px] text-xs font-semibold text-[#1E293B]">
               {isKo ? 'AI 인식 기술' : 'AI Recognition Technology'}
             </div>
@@ -448,7 +688,36 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
           </div>
         </div>
 
+        {/* 8. CONTACT CTA (문의 CTA) */}
+        <div className="bg-[#18324A] text-white p-6 sm:p-8 rounded-[2px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xs">
+          <div className="space-y-2 max-w-xl">
+            <span className="text-xs font-mono font-bold text-[#D0BE7D] uppercase tracking-widest block">
+              PROJECT INQUIRY
+            </span>
+            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              {isKo ? '맞춤형 미디어 솔루션 도입 문의' : 'Inquire About Custom Media Solutions'}
+            </h3>
+            <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal">
+              {isKo
+                ? '공간 특성에 맞춘 LED 구축, CMS 도입 및 미디어 제어 시스템 구축 상담을 지원합니다.'
+                : 'Providing consultation for LED installation, CMS implementation, and media control tailored to your space.'}
+            </p>
+          </div>
+
+          {onNavigateContact && (
+            <button
+              type="button"
+              onClick={onNavigateContact}
+              className="inline-flex items-center gap-2 bg-[#D0BE7D] text-[#0F172A] hover:bg-[#c2af6e] font-bold text-xs sm:text-sm px-6 py-3 rounded-[2px] transition-colors shrink-0 cursor-pointer"
+            >
+              <span>{isKo ? '프로젝트 문의하기' : 'Contact Us'}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+
       </div>
     </div>
   );
 };
+

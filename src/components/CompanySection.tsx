@@ -174,10 +174,10 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6">
                 <span className="text-xs font-mono font-semibold uppercase text-[#66717C] sm:w-28 shrink-0">
-                  대표이사
+                  {isKo ? '대표자' : 'Representatives'}
                 </span>
                 <span className="text-sm sm:text-base font-medium text-[#222831]">
-                  유정우
+                  {isKo ? '유정우·원종일(각자대표)' : 'Yoo Jeong Woo · Won Jong Il (Independent Representatives)'}
                 </span>
               </div>
             </div>
