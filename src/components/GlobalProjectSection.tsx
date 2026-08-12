@@ -22,16 +22,16 @@ export const GlobalProjectSection: React.FC<GlobalProjectSectionProps> = ({ onNa
           {/* Left Column */}
           <div className="lg:col-span-5 space-y-5">
             <div className="space-y-2.5">
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.08] font-sans">
-                EXPANDING DIGITAL MEDIA<br />
-                INFRASTRUCTURE ACROSS ASIA
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.08] font-sans text-heading-balance">
+                <span className="block">EXPANDING DIGITAL MEDIA</span>
+                <span className="block">INFRASTRUCTURE ACROSS ASIA</span>
               </h2>
-              <p className="text-base sm:text-xl font-semibold text-slate-800 tracking-tight pt-1">
-                아시아의 도시와 공항으로 확장하는<br className="hidden sm:inline" /> DISE의 미디어 인프라
+              <p className="text-base sm:text-xl font-semibold text-slate-800 tracking-tight pt-1 text-heading-balance">
+                아시아의 도시와 공항으로 확장하는 DISE의 미디어 인프라
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-slate-600 leading-[1.75] font-normal">
+            <p className="text-sm sm:text-base text-slate-600 leading-[1.75] font-normal text-body-pretty">
               DISE는 MHGROUP과 전략적 사업제휴를 체결하고, 하노이 후보지를 중심으로 옥외 LED 미디어 사업을 추진하고 있습니다.
             </p>
 

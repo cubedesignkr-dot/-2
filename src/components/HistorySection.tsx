@@ -163,20 +163,20 @@ export const HistorySection: React.FC<HistorySectionProps> = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
           {/* Left (~42% / 5 cols) */}
           <div className="lg:col-span-5 space-y-2">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#222831] tracking-tight leading-[1.12] font-sans">
-              FROM TECHNOLOGY<br />
-              TO GLOBAL MEDIA
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#222831] tracking-tight leading-[1.12] font-sans text-heading-balance">
+              <span className="block">FROM TECHNOLOGY</span>
+              <span className="block">TO GLOBAL MEDIA</span>
             </h2>
 
-            <h3 className="text-base sm:text-lg font-bold text-[#222831] tracking-tight pt-1">
-              기술에서 시작해<br />
-              도시와 공간을 연결하는 미디어 기업으로
+            <h3 className="text-base sm:text-lg font-bold text-[#222831] tracking-tight pt-1 text-heading-balance">
+              <span className="block">기술에서 시작해</span>
+              <span className="block">도시와 공간을 연결하는 미디어 기업으로</span>
             </h3>
           </div>
 
           {/* Right (~58% / 7 cols) */}
           <div className="lg:col-span-7 flex items-center lg:pt-1">
-            <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-[1.75]">
+            <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-[1.75] text-body-pretty">
               DISE는 자체 CMS 기술을 기반으로 인천국제공항과 주요 상업·공공 공간의 LED 미디어를 구축하고 운영해 왔습니다. 축적된 기술과 운영 경험을 바탕으로 글로벌 미디어 사업으로 영역을 확장하고 있습니다.
             </p>
           </div>
@@ -258,12 +258,12 @@ export const HistorySection: React.FC<HistorySectionProps> = () => {
                       </div>
 
                       {/* Primary History Title */}
-                      <h4 className="text-base sm:text-lg font-bold text-[#222831] leading-snug font-sans text-left">
+                      <h4 className="text-base sm:text-lg font-bold text-[#222831] leading-snug font-sans text-left text-heading-balance">
                         {item.title}
                       </h4>
 
                       {/* Secondary Description */}
-                      <p className="text-sm sm:text-base text-[#66717C] leading-relaxed font-normal text-left">
+                      <p className="text-sm sm:text-base text-[#66717C] leading-relaxed font-normal text-left text-body-pretty">
                         {item.description}
                       </p>
                     </div>

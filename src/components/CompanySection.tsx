@@ -21,18 +21,18 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
                 COMPANY
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#222831] tracking-tight leading-[1.08] font-sans">
-              AN LED MEDIA COMPANY<br />
-              EXPANDING GLOBALLY
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#222831] tracking-tight leading-[1.08] font-sans text-heading-balance">
+              <span className="block">AN LED MEDIA COMPANY</span>
+              <span className="block">EXPANDING GLOBALLY</span>
             </h2>
           </div>
 
           {/* Right Column (~45% / 5 cols) */}
           <div className="lg:col-span-5 space-y-4 pt-1 lg:pt-8">
-            <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight leading-snug">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight leading-snug text-heading-balance">
               {isKo ? '도시와 공간을 새로운 미디어로 만듭니다.' : 'Transforming Cities & Spaces with Next-Gen Media.'}
             </h3>
-            <p className="text-sm sm:text-base text-[#66717C] font-normal leading-[1.75]">
+            <p className="text-sm sm:text-base text-[#66717C] font-normal leading-[1.75] text-body-pretty">
               {isKo
                 ? 'DISE는 2010년 설립 이후 LED 미디어의 기획과 구축, 자체 CMS 기반 통합관제와 운영·유지관리까지 수행해 오며, 기술과 운영 경험을 기반으로 글로벌 시장으로 확장하는 LED 미디어 기업입니다.'
                 : 'Since its founding in 2010, DISE is an LED media company expanding globally through accumulated technology and operational experience in planning, installation, CMS integrated control, and maintenance.'}
@@ -72,14 +72,14 @@ export const CompanySection: React.FC<CompanySectionProps> = ({ currentLang }) =
             <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#294A63] block">
               WHAT WE DO
             </span>
-            <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight leading-snug">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight leading-snug text-heading-balance">
               {isKo ? 'LED 미디어를 구축하는 것에서 끝나지 않습니다.' : 'More Than Just Installing LED Media.'}
             </h3>
           </div>
 
           {/* Right Column */}
           <div className="lg:col-span-7 pt-1 lg:pt-7">
-            <p className="text-sm sm:text-base text-[#66717C] font-normal leading-[1.75]">
+            <p className="text-sm sm:text-base text-[#66717C] font-normal leading-[1.75] text-body-pretty">
               {isKo
                 ? 'DISE는 공간과 환경을 분석해 LED 미디어를 기획하고, 디스플레이 구축과 콘텐츠 운영 환경을 설계합니다. 구축 이후에는 자체 CMS를 기반으로 다수의 미디어를 통합 관리하고 안정적인 운영을 지원합니다.'
                 : 'DISE analyzes architectural spaces to plan LED media environments, design display hardware, and structure content workflows. Post-deployment, our proprietary CMS enables seamless multi-display integrated control and stable operations.'}

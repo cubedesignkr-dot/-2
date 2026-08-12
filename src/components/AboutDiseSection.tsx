@@ -21,20 +21,21 @@ export const AboutDiseSection: React.FC<AboutDiseSectionProps> = ({ onNavigateAb
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
             {/* Left Column (~55% / 7 cols) */}
             <div className="lg:col-span-7 space-y-4">
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#222831] tracking-tight leading-[1.08] font-sans">
-                DIGITAL MEDIA INFRASTRUCTURE<br />
-                BUILT FOR REAL SPACES
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#222831] tracking-tight leading-[1.08] font-sans text-heading-balance">
+                <span className="block">DIGITAL MEDIA INFRASTRUCTURE</span>
+                <span className="block">BUILT FOR REAL SPACES</span>
               </h2>
             </div>
 
             {/* Right Column (~45% / 5 cols) */}
             <div className="lg:col-span-5 space-y-4">
-              <div className="space-y-3 text-[#66717C] text-sm sm:text-base leading-[1.75] font-normal">
+              <div className="space-y-3 text-[#66717C] text-sm sm:text-base leading-[1.75] font-normal text-body-pretty">
                 <p>
                   DISE는 LED 미디어의 기획과 구축, 자체 CMS 기반 통합관제와 운영을 수행하는 전문기업입니다.
                 </p>
                 <p>
-                  공항과 도시, 상업공간의 대규모 미디어 환경을 하나의 기술 체계로 연결합니다.
+                  <span className="block">공항과 도시, 상업공간의 대규모 미디어 환경을</span>
+                  <span className="block">하나의 기술 체계로 연결합니다.</span>
                 </p>
               </div>
 

@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+@layer utilities {
+  .text-heading-balance {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+  .text-body-pretty {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+  .text-english-balance {
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    text-wrap: balance;
+  }
+  .keep-all {
+    word-break: keep-all;
+  }
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -12,3 +34,4 @@
 .animate-marquee {
   animation: marquee linear infinite;
 }
+

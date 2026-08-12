@@ -208,10 +208,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
           <span className="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[#294A63] bg-[#294A63]/10 px-3 py-1 rounded-full inline-block">
             CONTACT US
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#222831] tracking-tight leading-snug">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#222831] tracking-tight leading-snug text-heading-balance">
             LET’S BUILD THE NEXT MEDIA INFRASTRUCTURE
           </h2>
-          <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-relaxed text-body-pretty">
             {isKo
               ? 'LED 미디어 구축 및 디지털 사이니지 통합운영에 관한 문의를 남겨주시면 담당자가 신속하게 안내해 드립니다.'
               : 'Leave an inquiry regarding LED media installation and digital signage integrated operation.'}

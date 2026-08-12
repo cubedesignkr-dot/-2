@@ -42,11 +42,11 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
             </span>
           </div>
           <div className="max-w-3xl space-y-3">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#222831] tracking-tight leading-[1.15] font-sans">
-              FROM MEDIA INSTALLATION<br />
-              TO INTEGRATED OPERATION
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#222831] tracking-tight leading-[1.15] font-sans text-heading-balance">
+              <span className="block">FROM MEDIA INSTALLATION</span>
+              <span className="block">TO INTEGRATED OPERATION</span>
             </h2>
-            <p className="text-sm sm:text-base font-normal text-[#66717C] leading-relaxed font-sans">
+            <p className="text-sm sm:text-base font-normal text-[#66717C] leading-relaxed font-sans text-body-pretty">
               LED 미디어의 기획과 구축부터 디스플레이 제어, CMS 기반 통합운영까지 제공합니다.
             </p>
           </div>

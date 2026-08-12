@@ -41,18 +41,19 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenPortfolio }) => {
             </span>
           </div>
 
-          {/* Main Headline (38px on mobile, 56px on PC, 1.08 line-height) */}
-          <h1 className="text-[38px] sm:text-[44px] lg:text-[56px] font-bold text-white tracking-tight leading-[1.08] font-sans">
-            THE CITY BECOMES THE MEDIUM
+          {/* Main Headline (34px on mobile, 56px on PC, 1.08 line-height) */}
+          <h1 className="text-[34px] sm:text-[44px] lg:text-[56px] font-bold text-white tracking-tight leading-[1.08] font-sans">
+            <span className="block">THE CITY BECOMES</span>
+            <span className="block">MEDIUM</span>
           </h1>
 
           {/* Korean Subtitle */}
-          <p className="text-lg sm:text-2xl lg:text-3xl font-semibold text-slate-100 tracking-tight leading-snug">
+          <p className="text-lg sm:text-2xl lg:text-3xl font-semibold text-slate-100 tracking-tight leading-snug text-heading-balance">
             도시와 공간을 새로운 미디어로 만듭니다.
           </p>
 
           {/* Description */}
-          <p className="text-xs sm:text-sm lg:text-base text-slate-200 font-normal leading-[1.7] pt-1 pb-3 max-w-2xl font-sans">
+          <p className="text-xs sm:text-sm lg:text-base text-slate-200 font-normal leading-[1.7] pt-1 pb-3 max-w-2xl font-sans text-body-pretty">
             LED 미디어의 기획과 구축부터 자체 CMS 기반 통합관제와 운영까지 하나의 체계로 연결합니다.
           </p>
 

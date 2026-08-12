@@ -50,11 +50,11 @@ export const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = (
 
         {/* Header */}
         <div className="max-w-3xl mb-12 sm:mb-16 space-y-2.5">
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.08] font-sans">
-            PROVEN IN COMPLEX,<br />
-            HIGH-TRAFFIC ENVIRONMENTS
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.08] font-sans text-heading-balance">
+            <span className="block">PROVEN IN COMPLEX,</span>
+            <span className="block">HIGH-TRAFFIC ENVIRONMENTS</span>
           </h2>
-          <p className="text-sm sm:text-lg font-normal text-slate-600 leading-[1.7]">
+          <p className="text-sm sm:text-lg font-normal text-slate-600 leading-[1.7] text-body-pretty">
             공항과 도시, 주요 상업공간에서 축적한 DISE의 LED 미디어 구축 및 운영 경험을 확인하세요.
           </p>
         </div>

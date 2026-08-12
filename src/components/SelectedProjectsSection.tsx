@@ -98,13 +98,13 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
             </div>
 
             <div className="max-w-3xl space-y-2">
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#222831] tracking-tight leading-[1.08] font-sans">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#222831] tracking-tight leading-[1.08] font-sans text-heading-balance">
                 PROVEN ACROSS SPACES
               </h2>
-              <p className="text-base sm:text-xl font-semibold text-[#222831] tracking-tight pt-1">
+              <p className="text-base sm:text-xl font-semibold text-[#222831] tracking-tight pt-1 text-heading-balance">
                 공항에서 복합리조트와 도시 미디어까지
               </p>
-              <p className="text-sm sm:text-base font-normal text-[#66717C] leading-[1.75] pt-1">
+              <p className="text-sm sm:text-base font-normal text-[#66717C] leading-[1.75] pt-1 text-body-pretty">
                 대규모 통합관제 기술을 기반으로 공항과 복합상업공간, 도시 옥외미디어까지 다양한 환경의 프로젝트를 수행합니다.
               </p>
             </div>
@@ -173,10 +173,10 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
             </div>
 
             <div className="max-w-3xl space-y-2">
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#222831] tracking-tight leading-[1.08] font-sans">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#222831] tracking-tight leading-[1.08] font-sans text-heading-balance">
                 GLOBAL EXPANSION
               </h2>
-              <p className="text-base sm:text-xl font-semibold text-[#222831] tracking-tight pt-1">
+              <p className="text-base sm:text-xl font-semibold text-[#222831] tracking-tight pt-1 text-heading-balance">
                 아시아 주요 거점으로 확장하는 미디어 인프라
               </p>
             </div>

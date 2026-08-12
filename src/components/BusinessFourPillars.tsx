@@ -148,10 +148,11 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
             <span className="text-xs font-mono font-bold text-[#294A63] tracking-[0.2em] uppercase block">
               SOLUTIONS
             </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight leading-[1.2] font-sans">
-              FROM MEDIA INSTALLATION<br className="hidden sm:inline" /> TO INTEGRATED OPERATION
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight leading-[1.2] font-sans text-heading-balance">
+              <span className="block">FROM MEDIA INSTALLATION</span>
+              <span className="block">TO INTEGRATED OPERATION</span>
             </h1>
-            <p className="text-base sm:text-lg text-[#475569] font-normal leading-[1.6] max-w-2xl pt-2">
+            <p className="text-base sm:text-lg text-[#475569] font-normal leading-[1.6] max-w-2xl pt-2 text-body-pretty">
               {isKo
                 ? '기획과 구축부터 디스플레이 제어, 콘텐츠 송출과 통합운영까지 하나의 기술 체계로 연결합니다.'
                 : 'Connecting planning, installation, display control, content playout, and integrated operations in a unified technology system.'}

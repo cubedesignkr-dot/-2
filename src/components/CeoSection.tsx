@@ -66,11 +66,11 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
         <div className="lg:col-span-7 lg:pl-8 lg:border-l lg:border-[#D9DEE3] space-y-6 sm:space-y-8">
           {/* HEADLINE */}
           <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-[#222831] tracking-tight leading-[1.3] font-sans">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-[#222831] tracking-tight leading-[1.3] font-sans text-heading-balance">
               {isKo ? (
                 <>
-                  기술의 깊이를<br />
-                  시장의 언어로 연결합니다.
+                  <span className="block">기술의 깊이를</span>
+                  <span className="block">시장의 언어로 연결합니다.</span>
                 </>
               ) : (
                 'Connecting Technical Depth with Market Language.'
@@ -79,7 +79,7 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
           </div>
 
           {/* CEO MESSAGE BODY PARAGRAPHS */}
-          <div className="space-y-4 text-sm sm:text-base text-[#4A5568] font-normal leading-[1.85] font-sans">
+          <div className="space-y-4 text-sm sm:text-base text-[#4A5568] font-normal leading-[1.85] font-sans text-body-pretty">
             {isKo ? (
               <>
                 <p>
@@ -127,14 +127,14 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
           <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
             TECHNOLOGY & OPERATION
           </span>
-          <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight font-sans">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight font-sans text-heading-balance">
             {isKo
               ? '축적된 기술과 운영 경험으로 안정적인 미디어 인프라를 만들어갑니다.'
               : 'Building Stable Media Infrastructure with Accumulated Technology & Operational Experience.'}
           </h3>
         </div>
 
-        <div className="space-y-3 text-sm sm:text-base text-[#4A5568] font-normal leading-[1.85] font-sans">
+        <div className="space-y-3 text-sm sm:text-base text-[#4A5568] font-normal leading-[1.85] font-sans text-body-pretty">
           {isKo ? (
             <>
               <p>
