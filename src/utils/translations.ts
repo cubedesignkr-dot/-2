@@ -256,11 +256,11 @@ export const UI_TRANSLATIONS: Record<string, Record<Language, string>> = {
 
   // CEO Section
   ceo_founder: {
-    ko: 'FOUNDER & CEO · 대표이사',
-    en: 'FOUNDER & CEO',
-    vi: 'SÁNG LẬP & CEO',
-    zh: '创始人兼CEO · 대표이사',
-    ar: 'المؤسس والرئيس التنفيذي',
+    ko: 'CEO · 대표이사',
+    en: 'CHIEF EXECUTIVE OFFICER',
+    vi: 'CEO · GIÁM ĐỐC ĐIỀU HÀNH',
+    zh: 'CEO · 代表理事',
+    ar: 'الرئيس التنفيذي',
   },
   ceo_name: {
     ko: '유 정 우',
@@ -292,7 +292,7 @@ export const UI_TRANSLATIONS: Record<string, Record<Language, string>> = {
   },
   ceo_career_3: {
     ko: '現 (주)다이즈하이미디어 대표이사',
-    en: 'Current Founder & CEO, DISE HI MEDIA Co., Ltd.',
+    en: 'Current CEO, DISE HI MEDIA Co., Ltd.',
     vi: 'Hiện là Đại diện kiêm CEO, DISE HI MEDIA Co., Ltd.',
     zh: '现 (株)DISE HI MEDIA 代表理事/CEO',
     ar: 'الرئيس التنفيذي الحالي لشركة DISE HI MEDIA',

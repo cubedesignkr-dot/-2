@@ -118,106 +118,165 @@ const phaseDividers: PhaseDivider[] = [
 ];
 
 export const HistorySection: React.FC<HistorySectionProps> = () => {
+  const [inspireError, setInspireError] = React.useState(false);
+  const [sparkError, setSparkError] = React.useState(false);
+
+  const phase01Items = historyItems.filter(item => ["2010", "2014"].includes(item.year));
+  const phase02Items = historyItems.filter(item =>
+    ["2015", "2017", "2019", "2020"].includes(item.year) ||
+    (item.year === "2021" && (item.category === "AIRPORT CMS" || item.category === "ENTERPRISE"))
+  );
+  const phase03Items = historyItems.filter(item => ["2022", "2023", "2024", "2026"].includes(item.year));
+
+  const phases = [
+    {
+      phaseNum: "PHASE 01",
+      title: "FOUNDATION & TECHNOLOGY",
+      period: "2010—2014",
+      items: phase01Items,
+    },
+    {
+      phaseNum: "PHASE 02",
+      title: "AIRPORT & INTEGRATION",
+      period: "2015—2021",
+      items: phase02Items,
+    },
+    {
+      phaseNum: "PHASE 03",
+      title: "EXPANSION & GLOBAL",
+      period: "2022—2026",
+      items: phase03Items,
+    },
+  ];
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-      {/* LEFT COLUMN: Section Intro (~30% / 4 cols) */}
-      <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-4">
-        <div className="flex items-center gap-3">
+    <div className="w-full space-y-12 sm:space-y-16">
+      {/* 01 HISTORY Intro Header Section (Full Width) */}
+      <div className="space-y-5 pb-8 border-b border-[#D9DEE3]">
+        <div className="flex items-center gap-2">
           <span className="text-xs font-mono font-bold text-[#294A63]">02</span>
           <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#294A63]">
             HISTORY
           </span>
         </div>
 
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#222831] tracking-tight leading-[1.12] font-sans">
-          FROM TECHNOLOGY<br />
-          TO GLOBAL MEDIA
-        </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
+          {/* Left (~42% / 5 cols) */}
+          <div className="lg:col-span-5 space-y-2">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#222831] tracking-tight leading-[1.12] font-sans">
+              FROM TECHNOLOGY<br />
+              TO GLOBAL MEDIA
+            </h2>
 
-        <h3 className="text-base sm:text-lg font-bold text-[#222831] tracking-tight pt-1">
-          기술에서 시작해<br />
-          도시와 공간을 연결하는 미디어 기업으로
-        </h3>
+            <h3 className="text-base sm:text-lg font-bold text-[#222831] tracking-tight pt-1">
+              기술에서 시작해<br />
+              도시와 공간을 연결하는 미디어 기업으로
+            </h3>
+          </div>
 
-        <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-[1.75] pt-1 max-w-md">
-          DISE는 자체 CMS 기술을 기반으로 인천국제공항과 주요 상업·공공 공간의 LED 미디어를 구축하고 운영해 왔습니다. 축적된 기술과 운영 경험을 바탕으로 글로벌 미디어 사업으로 영역을 확장하고 있습니다.
-        </p>
-      </div>
-
-      {/* RIGHT COLUMN: Chronological Timeline (~70% / 8 cols) */}
-      <div className="lg:col-span-8 space-y-8">
-        <div className="relative pl-2 sm:pl-4 space-y-8">
-          {/* Continuous Vertical Line */}
-          <div className="absolute left-[78px] sm:left-[98px] top-3 bottom-3 w-[1px] bg-[#D9DEE3] z-0" />
-
-          {historyItems.map((item) => {
-            const phase = phaseDividers.find(p => p.startYear === item.year);
-
-            return (
-              <React.Fragment key={item.year + item.category}>
-                {/* Typographic Phase Divider */}
-                {phase && (
-                  <div className="relative z-10 pt-4 pb-2 border-t border-[#D9DEE3] flex items-center justify-between gap-4 -ml-2 sm:-ml-4">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-mono font-bold text-[#294A63]">
-                        {phase.phaseNum}
-                      </span>
-                      <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#222831]">
-                        {phase.title}
-                      </span>
-                    </div>
-                    <span className="text-xs font-mono text-[#66717C]">
-                      {phase.period}
-                    </span>
-                  </div>
-                )}
-
-                {/* Milestone Entry */}
-                <div className="relative flex items-start gap-4 sm:gap-6 z-10">
-                  {/* Fixed Width Year Column */}
-                  <div className="w-14 sm:w-20 shrink-0 text-right pt-0.5">
-                    <span className="text-sm sm:text-base font-mono font-bold text-[#294A63] tracking-tight">
-                      {item.year}
-                    </span>
-                  </div>
-
-                  {/* Timeline Node Dot */}
-                  <div className="shrink-0 pt-1.5 flex items-center justify-center">
-                    <div className={`w-2.5 h-2.5 rounded-full border-2 border-white ring-1 ${
-                      item.status ? 'bg-[#294A63] ring-[#294A63]' : 'bg-[#294A63] ring-[#D9DEE3]'
-                    }`} />
-                  </div>
-
-                  {/* Milestone Text */}
-                  <div className="flex-1 space-y-1 pt-0.5">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-widest">
-                        {item.category}
-                      </span>
-                      {item.status && (
-                        <span className="text-[10px] font-mono font-semibold text-[#294A63] bg-[#294A63]/10 px-1.5 py-0.5 rounded-[2px] tracking-wider uppercase">
-                          {item.status}
-                        </span>
-                      )}
-                    </div>
-
-                    <h4 className="text-sm sm:text-base font-semibold text-[#222831] font-sans leading-snug">
-                      {item.title}
-                    </h4>
-
-                    <p className="text-xs sm:text-sm text-[#4A5568] font-normal leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </React.Fragment>
-            );
-          })}
+          {/* Right (~58% / 7 cols) */}
+          <div className="lg:col-span-7 flex items-center lg:pt-1">
+            <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-[1.75]">
+              DISE는 자체 CMS 기술을 기반으로 인천국제공항과 주요 상업·공공 공간의 LED 미디어를 구축하고 운영해 왔습니다. 축적된 기술과 운영 경험을 바탕으로 글로벌 미디어 사업으로 영역을 확장하고 있습니다.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* KEY PROJECTS / HISTORY PROJECT STRIP */}
-      <div className="lg:col-span-12 pt-12 sm:pt-16 border-t border-[#D9DEE3] space-y-6">
+      {/* 02 PHASES SECTIONS (CENTERED TIMELINE CONTAINER max-w-[900px]) */}
+      <div className="history-timeline-wrap w-full max-w-[900px] mx-auto space-y-16 sm:space-y-20">
+        {phases.map((phase) => (
+          <div key={phase.phaseNum} className="space-y-10 sm:space-y-12">
+            {/* Phase Top Header */}
+            <div className="pt-5 pb-3.5 border-t border-[#D9DEE3] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-3">
+                <span className="text-xs sm:text-sm font-mono font-bold text-[#D97706] tracking-wider">
+                  {phase.phaseNum}
+                </span>
+                <span className="text-sm sm:text-base font-mono font-bold uppercase tracking-wider text-[#222831]">
+                  {phase.title}
+                </span>
+              </div>
+              <span className="text-xs sm:text-sm font-mono text-[#66717C] font-semibold">
+                {phase.period}
+              </span>
+            </div>
+
+            {/* Vertical Timeline Items */}
+            <div className="space-y-11 sm:space-y-12">
+              {phase.items.map((item, idx) => {
+                const isLast = idx === phase.items.length - 1;
+                return (
+                  <div
+                    key={item.year + item.category + idx}
+                    className="history-timeline-item relative grid grid-cols-[24px_minmax(0,1fr)] md:grid-cols-[100px_32px_minmax(0,1fr)] items-start"
+                  >
+                    {/* DESKTOP YEAR COLUMN (100px) - RIGHT ALIGNED TO CONNECTOR */}
+                    <div className="hidden md:block pt-0.5 pr-3 text-right">
+                      <span className="text-xl sm:text-2xl font-mono font-bold text-[#18324A] tracking-tight block">
+                        {item.year}
+                      </span>
+                    </div>
+
+                    {/* TIMELINE CONNECTOR COLUMN (32px on desktop / 24px on mobile) */}
+                    <div className="relative flex justify-center items-start h-full">
+                      {/* Vertical Connecting Line */}
+                      {!isLast && (
+                        <div className="absolute top-3.5 bottom-[-44px] sm:bottom-[-48px] w-[1px] bg-[#D9DEE3] left-1/2 -translate-x-1/2" />
+                      )}
+
+                      {/* Timeline Point Marker */}
+                      <div className="relative z-10 pt-1.5 flex items-center justify-center">
+                        {item.status === 'IN PROGRESS' ? (
+                          <div className="w-3 h-3 rounded-full bg-[#D97706] ring-4 ring-amber-100" />
+                        ) : (
+                          <div className="w-3 h-3 rounded-full bg-[#18324A] border-2 border-white ring-2 ring-[#D9DEE3]" />
+                        )}
+                      </div>
+                    </div>
+
+                    {/* HISTORY CONTENT COLUMN (LEFT ALIGNED, FULL REMAINING WIDTH IN 900PX WRAPPER) */}
+                    <div className="pl-3 md:pl-4 space-y-1.5 text-left w-full">
+                      {/* Category & Status (Mobile includes Year) */}
+                      <div className="flex items-center gap-2.5 flex-wrap text-left">
+                        {/* Mobile Year Badge */}
+                        <span className="md:hidden text-lg font-mono font-bold text-[#18324A]">
+                          {item.year}
+                        </span>
+
+                        {/* Category Label */}
+                        <span className="text-[11px] font-mono font-bold text-[#294A63] tracking-wider uppercase">
+                          {item.category}
+                        </span>
+
+                        {item.status && (
+                          <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-amber-800 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded-[2px] border border-amber-200">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#D97706] animate-pulse inline-block" />
+                            {item.status}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Primary History Title */}
+                      <h4 className="text-base sm:text-lg font-bold text-[#222831] leading-snug font-sans text-left">
+                        {item.title}
+                      </h4>
+
+                      {/* Secondary Description */}
+                      <p className="text-sm sm:text-base text-[#66717C] leading-relaxed font-normal text-left">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 03 KEY PROJECTS / HISTORY PROJECT STRIP */}
+      <div className="pt-10 sm:pt-12 border-t border-[#D9DEE3] space-y-6">
         <div className="space-y-1">
           <span className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#294A63] block">
             SELECTED MILESTONES
@@ -227,16 +286,26 @@ export const HistorySection: React.FC<HistorySectionProps> = () => {
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* PROJECT 1: INSPIRE Arena */}
-          <div className="bg-[#F8F9FA] border border-[#D9DEE3] rounded-[2px] overflow-hidden group">
+          <div className="bg-[#F8F9FA] border border-[#D9DEE3] rounded-[2px] overflow-hidden">
             <div className="aspect-[16/10] w-full overflow-hidden bg-[#101418] relative">
-              <img
-                src="/images/about/history-inspire-arena-v2.webp"
-                alt="INSPIRE Arena LED 미디어 프로젝트"
-                loading="lazy"
-                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
-              />
+              {inspireError ? (
+                <div className="w-full h-full flex flex-col items-center justify-center bg-[#F8F9FA] text-[#66717C] text-xs font-mono p-4 text-center">
+                  <span>IMAGE UNAVAILABLE</span>
+                  <span className="text-[10px] mt-1 text-[#8C98A4]">이미지 준비 중</span>
+                </div>
+              ) : (
+                <img
+                  src="/images/about/history-inspire-arena-hq.webp"
+                  alt="인스파이어 아레나 LED 미디어 프로젝트"
+                  loading="lazy"
+                  width={640}
+                  height={400}
+                  className="w-full h-full object-cover object-center"
+                  onError={() => setInspireError(true)}
+                />
+              )}
             </div>
             <div className="p-4 sm:p-5 space-y-1 bg-white border-t border-[#D9DEE3]">
               <span className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider block">
@@ -249,14 +318,24 @@ export const HistorySection: React.FC<HistorySectionProps> = () => {
           </div>
 
           {/* PROJECT 2: 동성로 SPARK */}
-          <div className="bg-[#F8F9FA] border border-[#D9DEE3] rounded-[2px] overflow-hidden group">
+          <div className="bg-[#F8F9FA] border border-[#D9DEE3] rounded-[2px] overflow-hidden">
             <div className="aspect-[16/10] w-full overflow-hidden bg-[#101418] relative">
-              <img
-                src="/images/about/history-dongseongro-spark-v2.webp"
-                alt="동성로 SPARK 대형 LED 미디어 프로젝트"
-                loading="lazy"
-                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
-              />
+              {sparkError ? (
+                <div className="w-full h-full flex flex-col items-center justify-center bg-[#F8F9FA] text-[#66717C] text-xs font-mono p-4 text-center">
+                  <span>IMAGE UNAVAILABLE</span>
+                  <span className="text-[10px] mt-1 text-[#8C98A4]">이미지 준비 중</span>
+                </div>
+              ) : (
+                <img
+                  src="/images/about/history-dongseongro-spark-hq.webp"
+                  alt="동성로 스파크 대형 LED 미디어 프로젝트"
+                  loading="lazy"
+                  width={640}
+                  height={400}
+                  className="w-full h-full object-cover object-center"
+                  onError={() => setSparkError(true)}
+                />
+              )}
             </div>
             <div className="p-4 sm:p-5 space-y-1 bg-white border-t border-[#D9DEE3]">
               <span className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider block">

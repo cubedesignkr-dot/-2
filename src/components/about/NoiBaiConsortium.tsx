@@ -47,25 +47,51 @@ export const consortiumCompanies: ConsortiumCompany[] = [
 export const NoiBaiConsortium: React.FC<NoiBaiConsortiumProps> = ({ currentLang }) => {
   const isKo = currentLang === 'ko';
 
-  const getLogoClass = (nameEn: string) => {
-    switch (nameEn) {
-      case 'AXIS':
-        return 'max-h-8 max-w-[140px] object-contain';
-      case 'BIC':
-        return 'max-h-7 max-w-[115px] object-contain';
-      case 'DISE HI MEDIA':
-        return 'max-h-6 max-w-[105px] object-contain';
-      case 'R2V':
-        return 'max-h-6 max-w-[100px] object-contain';
-      default:
-        return 'max-h-7 max-w-[120px] object-contain';
+  const renderLogo = (nameEn: string, logoPath: string | null) => {
+    if (!logoPath) {
+      return (
+        <span className="text-xs font-bold font-mono tracking-wider text-[#18324A]">
+          {nameEn}
+        </span>
+      );
     }
+
+    let imgClasses = "max-w-[120px] sm:max-w-[130px] lg:max-w-[150px] w-auto object-contain object-center";
+    let style: React.CSSProperties = {};
+
+    switch (nameEn) {
+      case 'DISE HI MEDIA':
+        imgClasses += " max-h-[44px] sm:max-h-[50px] lg:max-h-[54px]";
+        break;
+      case 'R2V':
+        imgClasses += " max-h-[46px] sm:max-h-[52px] lg:max-h-[56px]";
+        break;
+      case 'BIC':
+        imgClasses += " max-h-[46px] sm:max-h-[52px] lg:max-h-[56px]";
+        break;
+      case 'AXIS':
+        imgClasses += " max-h-[48px] sm:max-h-[54px] lg:max-h-[58px]";
+        style = { transform: 'scale(1.3)', transformOrigin: 'center' };
+        break;
+      default:
+        imgClasses += " max-h-[44px] sm:max-h-[50px] lg:max-h-[54px]";
+        break;
+    }
+
+    return (
+      <img
+        src={logoPath}
+        alt={nameEn}
+        className={imgClasses}
+        style={style}
+      />
+    );
   };
 
   return (
-    <section className="bg-white border border-[#E2E8F0] rounded-[2px] p-5 sm:p-7 space-y-5 font-sans w-full max-w-[1200px] mx-auto">
-      {/* Section Header */}
-      <div className="space-y-1.5 border-b border-[#E2E8F0] pb-3.5">
+    <section className="bg-white border border-[#E2E8F0] rounded-[2px] p-5 sm:p-7 space-y-6 font-sans w-full max-w-[1200px] mx-auto">
+      {/* Section Header (Left Aligned) */}
+      <div className="space-y-1.5 border-b border-[#E2E8F0] pb-3.5 text-left">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-[#D97706] font-mono tracking-wider">
             GLOBAL BUSINESS NETWORK
@@ -81,48 +107,41 @@ export const NoiBaiConsortium: React.FC<NoiBaiConsortiumProps> = ({ currentLang 
         </p>
       </div>
 
-      {/* 4-Column Individual Cards (No Intermediate Enclosing Container/Background) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-3.5 pt-1">
+      {/* 4-Column Individual Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 pt-1">
         {consortiumCompanies.map((comp) => (
           <div
             key={comp.num}
-            className="bg-white border border-[#E2E8F0] rounded-[2px] p-3.5 space-y-2.5 flex flex-col justify-between"
+            className="bg-white border border-[#E2E8F0]/80 rounded-[2px] p-4 sm:p-5 flex flex-col items-center text-center justify-between h-full space-y-3"
           >
-            <div className="space-y-2">
-              {/* Number */}
-              <div className="text-xs font-mono font-bold text-[#D97706]">
+            {/* Top Container (Number, Logo, Names) */}
+            <div className="w-full flex flex-col items-center space-y-2.5">
+              {/* 1. Number */}
+              <span className="text-xs font-mono font-bold text-[#D97706] tracking-wider block">
                 {comp.num}
+              </span>
+
+              {/* 2. Logo */}
+              <div className="w-full max-w-[140px] sm:max-w-[150px] lg:max-w-[170px] h-[68px] sm:h-[74px] lg:h-[80px] flex items-center justify-center overflow-visible my-1">
+                {renderLogo(comp.nameEn, comp.logo)}
               </div>
 
-              {/* Logo Box */}
-              <div className="h-8 flex items-center justify-start">
-                {comp.logo ? (
-                  <img
-                    src={comp.logo}
-                    alt={comp.nameEn}
-                    className={getLogoClass(comp.nameEn)}
-                  />
-                ) : (
-                  <span className="text-xs font-bold font-mono tracking-wider text-[#18324A]">
-                    {comp.nameEn}
-                  </span>
-                )}
-              </div>
-
-              {/* Company Name */}
-              <div className="space-y-0.5">
-                <div className="text-xs sm:text-sm font-bold text-[#18324A]">
+              {/* 3. Korean Name & 4. English Name */}
+              <div className="w-full text-center space-y-0.5">
+                <h5 className="text-sm sm:text-base font-bold text-[#18324A] tracking-tight leading-snug">
                   {comp.nameKo}
-                </div>
-                <div className="text-[10px] font-mono text-[#64748B]">
+                </h5>
+                <p className="text-[11px] font-mono text-[#64748B] tracking-wider uppercase">
                   {comp.nameEn}
-                </div>
+                </p>
               </div>
             </div>
 
-            {/* Core Role */}
-            <div className="pt-2 border-t border-[#F1F5F9] text-xs font-medium text-[#475569]">
-              {comp.roleKo}
+            {/* 5. Thin Divider & 6. Core Role */}
+            <div className="w-full pt-2.5 border-t border-[#F1F5F9] text-center">
+              <p className="text-xs font-medium text-[#475569] leading-relaxed">
+                {comp.roleKo}
+              </p>
             </div>
           </div>
         ))}

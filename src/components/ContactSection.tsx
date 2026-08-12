@@ -200,58 +200,51 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-24 bg-[#F8FAFC] text-[#222831] font-sans antialiased">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="contact" className="py-12 sm:py-20 bg-[#F8FAFC] text-[#222831] font-sans antialiased">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         
         {/* SECTION HEADER */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#294A63] bg-[#294A63]/10 px-3 py-1 rounded-full inline-block">
+        <div className="text-center space-y-2.5 max-w-3xl mx-auto">
+          <span className="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[#294A63] bg-[#294A63]/10 px-3 py-1 rounded-full inline-block">
             CONTACT US
           </span>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#222831] tracking-tight leading-snug">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#222831] tracking-tight leading-snug">
             LET’S BUILD THE NEXT MEDIA INFRASTRUCTURE
           </h2>
-          <p className="text-sm sm:text-base text-[#66717C] font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-relaxed">
             {isKo
               ? 'LED 미디어 구축 및 디지털 사이니지 통합운영에 관한 문의를 남겨주시면 담당자가 신속하게 안내해 드립니다.'
               : 'Leave an inquiry regarding LED media installation and digital signage integrated operation.'}
           </p>
         </div>
 
-        {/* RESTORED ORIGINAL 2-COLUMN MAIN LAYOUT (Company Info Card + Map & Form) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* 2-COLUMN MAIN LAYOUT (Left: Company Info + Map | Right: Inquiry Form) */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(320px,0.38fr)_minmax(0,0.62fr)] gap-8 lg:gap-12 items-stretch">
           
-          {/* LEFT COLUMN: COMPANY INFO CARD & MAP (lg:col-span-5) */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* LEFT COLUMN: COMPANY INFO & LOCATION MAP */}
+          <div className="flex flex-col gap-6 h-auto lg:h-full">
             
-            {/* COMPANY INFO CARD */}
-            <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 sm:p-8 shadow-xs hover:shadow-md transition-shadow space-y-6">
-              <div className="border-b border-[#F1F5F9] pb-4 flex items-center justify-between">
-                <div>
-                  <span className="text-[11px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    COMPANY INFO
-                  </span>
-                  <h3 className="text-xl font-bold text-[#222831] tracking-tight mt-0.5">
-                    (주)다이즈하이미디어
-                  </h3>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-[#294A63]/10 text-[#294A63] flex items-center justify-center shrink-0">
-                  <Building2 className="w-5 h-5" />
-                </div>
+            {/* BOX 1: COMPANY INFO */}
+            <div className="bg-white border border-[#D9DEE3] rounded-[2px] p-5 sm:p-7 lg:p-8 flex-none">
+              <div className="border-b border-[#E2E8F0] pb-4 mb-6">
+                <span className="text-[11px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+                  COMPANY INFO
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight mt-1">
+                  (주)다이즈하이미디어
+                </h3>
               </div>
 
-              <div className="space-y-5 text-xs sm:text-sm">
+              <div className="space-y-4 text-xs sm:text-sm">
                 
                 {/* ADDRESS */}
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#F1F5F9] text-[#294A63] flex items-center justify-center shrink-0 mt-0.5">
-                    <MapPin className="w-4 h-4" />
-                  </div>
+                  <MapPin className="w-4 h-4 text-[#294A63] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[11px] font-mono font-semibold text-[#66717C] uppercase block">
                       ADDRESS
                     </span>
-                    <p className="text-sm font-medium text-[#222831] leading-relaxed">
+                    <p className="text-xs sm:text-sm font-medium text-[#222831] leading-relaxed">
                       {isKo
                         ? '인천시 부평구 백범로577번길 20'
                         : '20, Baekbeom-ro 577beon-gil, Bupyeong-gu, Incheon, Republic of Korea'}
@@ -261,16 +254,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
 
                 {/* PHONE */}
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#F1F5F9] text-[#294A63] flex items-center justify-center shrink-0 mt-0.5">
-                    <Phone className="w-4 h-4" />
-                  </div>
+                  <Phone className="w-4 h-4 text-[#294A63] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[11px] font-mono font-semibold text-[#66717C] uppercase block">
                       TEL
                     </span>
                     <a
                       href="tel:032-573-3114"
-                      className="text-sm font-mono font-bold text-[#222831] hover:text-[#294A63] transition-colors underline underline-offset-4"
+                      className="text-xs sm:text-sm font-mono font-bold text-[#222831] hover:text-[#294A63] transition-colors underline underline-offset-4"
                     >
                       032-573-3114
                     </a>
@@ -279,16 +270,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
 
                 {/* EMAIL */}
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#F1F5F9] text-[#294A63] flex items-center justify-center shrink-0 mt-0.5">
-                    <Mail className="w-4 h-4" />
-                  </div>
+                  <Mail className="w-4 h-4 text-[#294A63] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[11px] font-mono font-semibold text-[#66717C] uppercase block">
                       EMAIL
                     </span>
                     <a
                       href="mailto:hidise@disehimedia.com"
-                      className="text-sm font-mono font-medium text-[#222831] hover:text-[#294A63] transition-colors"
+                      className="text-xs sm:text-sm font-mono font-medium text-[#222831] hover:text-[#294A63] transition-colors"
                     >
                       hidise@disehimedia.com
                     </a>
@@ -298,57 +287,66 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
               </div>
             </div>
 
-            {/* MAP CARD LOCATION */}
-            <div className="bg-white border border-[#E2E8F0] rounded-xl overflow-hidden shadow-xs hover:shadow-md transition-shadow">
-              <div className="p-4 bg-[#F8FAFC] border-b border-[#E2E8F0] flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#222831]">
-                  <MapPin className="w-4 h-4 text-[#294A63]" />
-                  <span>LOCATION MAP</span>
-                </div>
+            {/* BOX 2: LOCATION MAP */}
+            <div className="bg-white border border-[#D9DEE3] rounded-[2px] p-5 sm:p-7 lg:p-8 flex-1 flex flex-col min-h-0">
+              <div className="border-b border-[#E2E8F0] pb-4 mb-6">
+                <span className="text-[11px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+                  LOCATION MAP
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight mt-1">
+                  {isKo ? '오시는 길' : 'Location & Map'}
+                </h3>
+              </div>
+
+              <div className="flex-1 w-full min-h-[280px] border border-[#E2E8F0] rounded-[2px] overflow-hidden relative">
+                <iframe
+                  title="다이즈하이미디어 본사 위치"
+                  src="https://www.google.com/maps?q=%EC%9D%B8%EC%B2%9C%EC%8B%9C%20%EB%B6%80%ED%8F%89%EA%B5%AC%20%EB%B0%B1%EB%B2%94%EB%A1%9C577%EB%B2%88%EA%B8%B8%2020&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full"
+                />
+              </div>
+
+              <div className="pt-3 flex items-center justify-between text-xs">
+                <span className="text-[#66717C] font-medium truncate">
+                  {isKo ? '인천시 부평구 백범로577번길 20' : '20, Baekbeom-ro 577beon-gil, Bupyeong-gu, Incheon'}
+                </span>
                 <a
                   href="https://map.naver.com/p/search/%EC%9D%B8%EC%B2%9C%EC%8B%9C%20%EB%B6%80%ED%8F%89%EA%B5%AC%20%EB%B0%B1%EB%B2%94%EB%A1%9C577%EB%B2%88%EA%B8%B8%2020"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] font-mono text-[#294A63] hover:underline flex items-center gap-1 font-semibold"
+                  className="text-[11px] font-mono text-[#294A63] hover:underline flex items-center gap-1 font-semibold shrink-0 ml-2"
                 >
                   <span>지도 크게보기</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
-              <div className="relative aspect-[16/9] w-full bg-[#E2E8F0]">
-                <iframe
-                  title="DISE Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.717901174092!2d126.6853!3d37.5142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzc_MzAnNTEuMSJOIDEyNsKwNDEnMDcuMSJF!5e0!3m2!1sko!2skr!4v1680000000000!5m2!1sko!2skr"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full grayscale opacity-90 hover:grayscale-0 transition-all"
-                />
-              </div>
             </div>
 
           </div>
 
-          {/* RIGHT COLUMN: INQUIRY FORM CARD (lg:col-span-7) */}
-          <div className="lg:col-span-7">
-            <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 sm:p-8 shadow-xs hover:shadow-md transition-shadow space-y-6">
+          {/* RIGHT COLUMN: ONLINE INQUIRY FORM */}
+          <div className="h-auto lg:h-full flex flex-col">
+            <div className="bg-white border border-[#D9DEE3] rounded-[2px] p-5 sm:p-7 lg:p-8 flex-1 flex flex-col">
               
-              <div className="border-b border-[#F1F5F9] pb-4">
-                <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+              <div className="border-b border-[#E2E8F0] pb-4 mb-6">
+                <span className="text-[11px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
                   ONLINE INQUIRY
                 </span>
-                <h3 className="text-xl font-bold text-[#222831] tracking-tight mt-0.5">
+                <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight mt-1">
                   {isKo ? '프로젝트 상담 및 문의 접수' : 'Online Consultation'}
                 </h3>
               </div>
 
               {isSubmitted ? (
-                <div className="py-12 text-center space-y-4 animate-fadeIn">
-                  <div className="w-14 h-14 rounded-full bg-[#294A63]/10 text-[#294A63] flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-8 h-8 text-[#294A63]" />
+                <div className="flex-1 py-12 flex flex-col items-center justify-center text-center space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-[#294A63]/10 text-[#294A63] flex items-center justify-center">
+                    <CheckCircle2 className="w-7 h-7 text-[#294A63]" />
                   </div>
                   <h4 className="text-xl font-bold text-[#222831]">
                     {isKo ? '문의가 정상적으로 접수되었습니다.' : 'Inquiry Submitted Successfully!'}
@@ -361,7 +359,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                   <button
                     type="button"
                     onClick={() => setIsSubmitted(false)}
-                    className="px-6 py-2.5 bg-[#18324A] hover:bg-[#294A63] text-white font-bold text-xs rounded-md transition-colors cursor-pointer"
+                    className="px-6 py-2.5 bg-[#18324A] hover:bg-[#294A63] text-white font-bold text-xs rounded-[2px] transition-colors cursor-pointer mt-2"
                   >
                     {isKo ? '추가 문의 작성' : 'Send Another Inquiry'}
                   </button>
@@ -374,7 +372,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                   data-netlify-honeypot="bot-field"
                   encType="multipart/form-data"
                   onSubmit={handleSubmit}
-                  className="space-y-5"
+                  className="flex-1 flex flex-col gap-4 sm:gap-5"
                 >
                   <input type="hidden" name="form-name" value="business-inquiry" />
 
@@ -391,7 +389,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                   </div>
 
                   {formError && (
-                    <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2 rounded-md">
+                    <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2 rounded-[2px]">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       <span>{formError}</span>
                     </div>
@@ -409,7 +407,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                           key={type}
                           type="button"
                           onClick={() => setFormData({ ...formData, inquiryType: type })}
-                          className={`px-3 py-1.5 text-xs font-semibold rounded-md border transition-all cursor-pointer ${
+                          className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] border transition-all cursor-pointer ${
                             formData.inquiryType === type
                               ? 'bg-[#18324A] text-white border-[#18324A]'
                               : 'bg-[#F8FAFC] text-[#66717C] border-[#E2E8F0] hover:border-[#294A63]'
@@ -431,7 +429,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                         name="region"
                         value={formData.region}
                         onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-md focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all cursor-pointer"
+                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-[2px] focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all cursor-pointer"
                       >
                         {regions.map((r) => (
                           <option key={r} value={r}>
@@ -452,7 +450,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                         placeholder={isKo ? '예: (주)다이즈' : 'e.g. DISE Corp.'}
                         value={formData.companyName}
                         onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-md focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
+                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-[2px] focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
                       />
                     </div>
                   </div>
@@ -470,7 +468,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                         placeholder={isKo ? '홍길동 팀장' : 'John Doe'}
                         value={formData.contactName}
                         onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-md focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
+                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-[2px] focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
                       />
                     </div>
 
@@ -485,7 +483,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                         placeholder="010-0000-0000"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-md focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
+                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-[2px] focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
                       />
                     </div>
                   </div>
@@ -503,7 +501,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                         placeholder="name@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-md focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
+                        className="w-full h-10 px-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-[2px] focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all"
                       />
                     </div>
 
@@ -523,7 +521,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       />
 
                       {attachedFile ? (
-                        <div className="flex items-center justify-between h-10 px-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-md text-xs text-[#222831]">
+                        <div className="flex items-center justify-between h-10 px-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-[2px] text-xs text-[#222831]">
                           <div className="flex items-center gap-2 truncate">
                             <FileText className="w-4 h-4 text-[#294A63] shrink-0" />
                             <span className="font-semibold truncate">{attachedFile.name}</span>
@@ -542,7 +540,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                           onClick={() => fileInputRef.current?.click()}
                           onDrop={handleDrop}
                           onDragOver={handleDragOver}
-                          className="border border-dashed border-[#CBD5E1] hover:border-[#294A63] bg-[#F8FAFC] hover:bg-white rounded-md px-3 text-center transition-colors cursor-pointer flex items-center justify-center gap-2 h-10 group"
+                          className="border border-dashed border-[#CBD5E1] hover:border-[#294A63] bg-[#F8FAFC] hover:bg-white rounded-[2px] px-3 text-center transition-colors cursor-pointer flex items-center justify-center gap-2 h-10 group"
                         >
                           <Upload className="w-3.5 h-3.5 text-[#66717C] group-hover:text-[#294A63] transition-colors" />
                           <span className="text-xs font-medium text-[#66717C] group-hover:text-[#222831]">
@@ -554,13 +552,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                   </div>
 
                   {/* ROW 4: INQUIRY MESSAGE */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 flex-1 flex flex-col">
                     <label className="block text-xs font-bold text-[#222831]">
                       {isKo ? '문의내용' : 'Inquiry Message'} <span className="text-[#D97706]">*</span>
                     </label>
                     <textarea
                       name="message"
-                      rows={5}
+                      rows={4}
                       required
                       placeholder={
                         isKo
@@ -569,13 +567,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                       }
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full p-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-md focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all resize-y min-h-[120px]"
+                      className="w-full flex-1 p-3 bg-[#F8FAFC] focus:bg-white border border-[#E2E8F0] text-xs font-medium text-[#222831] rounded-[2px] focus:outline-none focus:border-[#294A63] focus:ring-1 focus:ring-[#294A63] transition-all resize-y min-h-[110px]"
                     />
                   </div>
 
                   {/* PRIVACY CONSENT */}
                   <div className="pt-1">
-                    <div className="p-3.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-md flex items-start gap-3">
+                    <div className="p-3 sm:p-3.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-[2px] flex items-start gap-3">
                       <input
                         type="checkbox"
                         id="privacyConsent"
@@ -590,7 +588,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                         </label>
                         <p className="text-[11px] text-[#66717C]">
                           {isKo
-                            ? '수집항목: 회사명, 담당자명, 연락처, 이메일 | 수집목적: 사업 상담 및 답변 안내 | 보유기간: 문의 접수 후 1년 간 보관'
+                            ? '수집항목: 회사명, 담당자명, 연락처, 이메일 | 수집목적: 사업 상담 및 답변 안내 | 보유기간: 1년'
                             : 'Items collected: Company, Name, Phone, Email | Purpose: Inquiry response | Retention: 1 year'}
                         </p>
                       </div>
@@ -605,11 +603,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ currentLang }) =
                   </div>
 
                   {/* SUBMIT BUTTON */}
-                  <div className="pt-2">
+                  <div className="pt-1">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 bg-[#18324A] hover:bg-[#294A63] text-white font-bold text-xs tracking-wider rounded-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50 group shadow-xs"
+                      className="w-full py-3.5 bg-[#18324A] hover:bg-[#294A63] text-white font-bold text-xs tracking-wider rounded-[2px] flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50 group"
                     >
                       {isSubmitting ? (
                         <>

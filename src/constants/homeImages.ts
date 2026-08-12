@@ -5,8 +5,8 @@ export const HOME_IMAGES = {
   },
   projects: {
     incheonAirport: "/images/home/home-project-incheon-airport.png",
-    inspireArena: "/images/home/home-project-inspire-arena.webp",
-    dongseongroSpark: "/images/home/home-project-dongseongro-spark.webp",
+    inspireArena: "/images/home/home-project-inspire-arena-hq.webp",
+    dongseongroSpark: "/images/home/home-project-dongseongro-spark-clean.webp",
     ifcMall: "/images/home/home-project-ifc-mall.png",
   },
   global: {
@@ -18,8 +18,8 @@ export const HOME_IMAGES = {
   heroDesktop: "/images/home/home-hero-inspire-desktop.webp",
   heroMobile: "/images/home/home-hero-inspire-mobile.webp",
   incheonAirport: "/images/home/home-project-incheon-airport.png",
-  inspireArena: "/images/home/home-project-inspire-arena.webp",
-  dongseongroSpark: "/images/home/home-project-dongseongro-spark.webp",
+  inspireArena: "/images/home/home-project-inspire-arena-hq.webp",
+  dongseongroSpark: "/images/home/home-project-dongseongro-spark-clean.webp",
   ifcMall: "/images/home/home-project-ifc-mall.png",
   hanoi: "/images/home/home-global-hanoi.png",
   noiBai: "/images/home/home-global-noibai-concept.png",

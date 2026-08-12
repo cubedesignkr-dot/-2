@@ -115,6 +115,8 @@ export default function App() {
     } else if (page === 'portfolio') {
       if (portfolioFilter === 'global') {
         setGalleryCategory('global');
+      } else if (portfolioFilter === 'media') {
+        setGalleryCategory('media');
       } else if (!portfolioFilter) {
         setGalleryCategory('all');
       }

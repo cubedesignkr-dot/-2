@@ -65,7 +65,7 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
       description: '하노이 도심 후보지를 중심으로 옥외 LED 미디어 사업을 추진하고 있습니다.',
       image: HOME_IMAGES.hanoi,
       alt: '하노이 도심 건물 곡면 LED 미디어',
-      status: null,
+      status: 'IN PROGRESS',
       isConceptImage: false,
     },
     {
@@ -110,43 +110,41 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
             </div>
           </div>
 
-          {/* 4 Featured Projects Grid (1 column on mobile, 2 on tablet, 4 on desktop) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {/* 4 Featured Projects Grid (1 column on mobile, 2 columns on tablet and desktop: 2x2 grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 sm:gap-y-12 lg:gap-x-12 lg:gap-y-14">
             {featuredProjects.map((project) => (
               <div
                 key={project.id}
                 onClick={onNavigateProjects}
-                className="group cursor-pointer flex flex-col h-full bg-[#F5F6F7]/30 border border-[#D9DEE3] rounded-[2px] overflow-hidden"
+                className="group cursor-pointer flex flex-col space-y-3"
               >
-                {/* Image Container with 3:2 Aspect Ratio */}
-                <div className="relative aspect-[3/2] w-full overflow-hidden bg-[#F5F6F7] border-b border-[#D9DEE3]">
+                {/* Image Container with 16:10 Aspect Ratio */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px]">
                   <img
                     src={project.image}
                     alt={project.alt}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
 
                 {/* Content Section */}
-                <div className="p-5 flex flex-col flex-1 justify-between space-y-4">
-                  <div className="space-y-2">
-                    <div className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider">
-                      {project.category}
-                    </div>
-                    <div>
-                      <h3 className="text-base sm:text-lg font-bold text-[#222831] tracking-tight group-hover:text-[#294A63] transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-[11px] font-mono text-[#66717C] mt-0.5">
-                        {project.location}
-                      </p>
-                    </div>
-                    <p className="text-xs text-[#66717C] font-normal leading-[1.6] line-clamp-3">
-                      {project.description}
+                <div className="space-y-1.5">
+                  <div className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider">
+                    {project.category}
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight leading-snug group-hover:text-[#294A63] transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs font-mono text-[#66717C] mt-0.5">
+                      {project.location}
                     </p>
                   </div>
+                  <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-[1.6] line-clamp-2">
+                    {project.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -185,27 +183,22 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
           </div>
 
           {/* Global Projects Grid (2 Columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 sm:gap-y-12 lg:gap-x-12 lg:gap-y-14">
             {globalProjects.map((project) => (
               <div
                 key={project.id}
                 onClick={onNavigateProjects}
-                className="group cursor-pointer flex flex-col h-full bg-[#F5F6F7]/30 border border-[#D9DEE3] rounded-[2px] overflow-hidden"
+                className="group cursor-pointer flex flex-col space-y-3"
               >
-                {/* Image Container with 3:2 Aspect Ratio & IN PROGRESS badge if applicable */}
-                <div className="relative aspect-[3/2] w-full overflow-hidden bg-[#F5F6F7] border-b border-[#D9DEE3]">
+                {/* Image Container with 16:10 Aspect Ratio */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px]">
                   <img
                     src={project.image}
                     alt={project.alt}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                    className="w-full h-full object-cover object-center"
                   />
-                  {project.status === 'IN PROGRESS' && (
-                    <div className="absolute top-3 right-3 bg-slate-900/90 text-amber-400 border border-amber-500/40 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-[2px] uppercase tracking-wider backdrop-blur-xs">
-                      IN PROGRESS
-                    </div>
-                  )}
                   {project.isConceptImage && (
                     <div className="absolute bottom-2.5 left-2.5 sm:bottom-3 sm:left-3 bg-[#102B42]/80 text-slate-200 border border-white/10 text-[10px] font-mono font-medium px-2 py-0.5 rounded-[2px] uppercase tracking-wider backdrop-blur-xs">
                       CONCEPT IMAGE
@@ -214,25 +207,34 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
                 </div>
 
                 {/* Details */}
-                <div className="p-5 flex flex-col flex-1 justify-between space-y-3">
-                  <div className="space-y-2">
-                    <div className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider flex items-center gap-2">
-                      <span>{project.category}</span>
-                    </div>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-mono font-semibold text-[#294A63] uppercase tracking-wider">
+                      {project.category}
+                    </span>
+                    {project.status === 'IN PROGRESS' && (
+                      <>
+                        <span className="text-[#D9DEE3]">•</span>
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-amber-700 uppercase tracking-wider">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />
+                          IN PROGRESS
+                        </span>
+                      </>
+                    )}
+                  </div>
 
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight group-hover:text-[#294A63] transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-xs font-mono text-[#66717C] mt-0.5">
-                        {project.location}
-                      </p>
-                    </div>
-
-                    <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-[1.7]">
-                      {project.description}
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight leading-snug group-hover:text-[#294A63] transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs font-mono text-[#66717C] mt-0.5">
+                      {project.location}
                     </p>
                   </div>
+
+                  <p className="text-xs sm:text-sm text-[#66717C] font-normal leading-[1.6] line-clamp-2">
+                    {project.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -243,3 +245,4 @@ export const SelectedProjectsSection: React.FC<SelectedProjectsSectionProps> = (
     </section>
   );
 };
+

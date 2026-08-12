@@ -7,6 +7,7 @@ interface CeoSectionProps {
 
 export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
   const isKo = currentLang === 'ko';
+  const [imgError, setImgError] = React.useState(false);
 
   return (
     <div className="space-y-12 sm:space-y-16">
@@ -30,13 +31,23 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
         {/* LEFT COLUMN: Official Portrait Frame (~38% / 5 cols) */}
         <div className="lg:col-span-5 space-y-4">
           <div className="w-[80%] sm:w-[75%] lg:w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[440px] mx-auto lg:mx-0 aspect-[4/5] overflow-hidden rounded-[2px] bg-[#F8F9FA] border border-[#D9DEE3]">
-            <img
-              src="/images/about/ceo-yoo-jeong-woo-v2.webp"
-              alt="다이즈하이미디어 유정우 대표이사"
-              loading="lazy"
-              className="w-full h-full object-cover object-top"
-              style={{ objectPosition: 'center top' }}
-            />
+            {imgError ? (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-[#F8F9FA] text-[#66717C] text-xs font-mono p-4 text-center">
+                <span>IMAGE UNAVAILABLE</span>
+                <span className="text-[10px] mt-1 text-[#8C98A4]">이미지 준비 중</span>
+              </div>
+            ) : (
+              <img
+                src="/images/about/ceo-yoo-jeong-woo-hq.webp"
+                alt="다이즈하이미디어 유정우 대표이사"
+                loading="lazy"
+                width={440}
+                height={550}
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center top' }}
+                onError={() => setImgError(true)}
+              />
+            )}
           </div>
           <div className="text-center lg:text-left space-y-1">
             <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
@@ -46,7 +57,7 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
               {isKo ? '유정우 대표이사' : 'YOO JEONG WOO, CEO'}
             </p>
             <span className="text-[11px] font-mono text-[#66717C] block">
-              CEO · DISE HIGH MEDIA
+              CEO · DISE HI MEDIA
             </span>
           </div>
         </div>
@@ -93,7 +104,7 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
           {/* REPRESENTATIVE INFORMATION BLOCK */}
           <div className="pt-6 sm:pt-8 border-t border-[#D9DEE3] space-y-2">
             <p className="text-xs text-[#66717C] font-mono tracking-wider">
-              {isKo ? '㈜다이즈하이미디어 대표이사' : 'DISE HIGH MEDIA Co., Ltd.'}
+              {isKo ? '㈜다이즈하이미디어 대표이사' : 'DISE HI MEDIA Co., Ltd.'}
             </p>
             <p className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight font-sans">
               {isKo ? '유정우 대표이사' : 'YOO JEONG WOO'}
@@ -103,21 +114,23 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
                 YOO JEONG WOO
               </p>
               <p className="text-xs text-[#66717C] font-mono tracking-wide">
-                CEO · DISE HIGH MEDIA
+                CEO · DISE HI MEDIA
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 2. WON JONG IL FOUNDER BLOCK (PURE TYPOGRAPHY - NO PHOTO / NO PLACEHOLDER) */}
+      {/* 2. WON JONG IL TECHNOLOGY & OPERATION BLOCK (PURE TYPOGRAPHY) */}
       <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-6 sm:p-10 rounded-[2px] space-y-6">
         <div className="space-y-1">
           <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-            FOUNDER
+            TECHNOLOGY & OPERATION
           </span>
           <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight font-sans">
-            {isKo ? '자체 CMS와 원천 기술로 안정적인 미디어 인프라를 만들어갑니다.' : 'Building Stable Media Infrastructure with Proprietary CMS & Core Technology.'}
+            {isKo
+              ? '축적된 기술과 운영 경험으로 안정적인 미디어 인프라를 만들어갑니다.'
+              : 'Building Stable Media Infrastructure with Accumulated Technology & Operational Experience.'}
           </h3>
         </div>
 
@@ -128,7 +141,7 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
                 2010년 영상분석 프로그램 개발을 시작으로 자체 CMS와 디스플레이 제어 기술을 축적해 왔습니다.
               </p>
               <p>
-                인천국제공항 약 600대 LED 스크린의 장기간 통합운영 경험과 직접 개발한 원천 기술을 기반으로 안정적인 미디어 인프라를 만들어가겠습니다.
+                인천국제공항 LED 스크린 통합운영 경험과 축적된 기술을 기반으로 안정적인 미디어 인프라를 만들어가겠습니다.
               </p>
             </>
           ) : (
@@ -137,7 +150,7 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
                 Starting with video analysis software development in 2010, we have accumulated proprietary CMS and display control technology.
               </p>
               <p>
-                Based on long-term integrated operational experience with approximately 600 LED screens at Incheon International Airport and in-house core technology, we will build a stable media infrastructure.
+                Based on integrated operational experience with Incheon International Airport LED screens and accumulated technology, we will build a stable media infrastructure.
               </p>
             </>
           )}
@@ -146,14 +159,14 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
         <div className="pt-4 border-t border-[#D9DEE3] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <p className="text-base font-bold text-[#222831] font-sans">
-              {isKo ? '원종일 FOUNDER' : 'JONG-IL WON'}
+              {isKo ? '원종일 각자대표' : 'WON JONG IL'}
             </p>
             <p className="text-xs font-mono text-[#66717C]">
-              FOUNDER · DISE HIGH MEDIA
+              CO-CEO · DISE HI MEDIA
             </p>
           </div>
           <span className="text-xs font-mono text-[#294A63] font-semibold uppercase tracking-wider">
-            FOUNDER & R&D ARCHITECTURE
+            TECHNOLOGY & OPERATION
           </span>
         </div>
       </div>

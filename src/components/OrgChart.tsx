@@ -16,14 +16,14 @@ export const OrgChart: React.FC<OrgChartProps> = ({ currentLang = 'ko' }) => {
         {/* 1. TOP LEADERSHIP ROW (2 DIVISIONS) */}
         <div className="grid grid-cols-2 gap-8 relative z-10">
           
-          {/* LEFT DIVISION: FOUNDER & CEO / DEVELOPMENT */}
+          {/* LEFT DIVISION: CO-CEO / DEVELOPMENT */}
           <div className="bg-blue-900 text-white rounded-xl shadow-md overflow-hidden border border-blue-800 flex flex-col justify-between">
             <div className="p-6 text-center space-y-2">
               <div className="text-xs font-mono font-bold tracking-widest text-blue-200 uppercase">
-                FOUNDER & CEO
+                CO-CEO
               </div>
               <h3 className="text-2xl font-black tracking-wider text-white">
-                {isKo ? '대 표 이 사' : 'FOUNDER & CEO'}
+                {isKo ? '각 자 대 표' : 'CO-CEO'}
               </h3>
             </div>
             

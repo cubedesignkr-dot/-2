@@ -67,7 +67,7 @@ export const OrgSection: React.FC<OrgSectionProps> = ({ currentLang }) => {
                 {isKo ? '유정우' : 'YOO JEONG WOO'}
               </p>
               <p className="text-[11px] font-mono text-[#66717C]">
-                CEO · DISE HIGH MEDIA
+                CEO · DISE HI MEDIA
               </p>
             </div>
 

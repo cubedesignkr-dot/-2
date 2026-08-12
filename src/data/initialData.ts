@@ -742,11 +742,11 @@ export const INITIAL_ORG: OrgDepartment[] = [
       ar: 'قطاع البحث والتطوير والتقنية',
     },
     leadName: {
-      ko: '원종일 대표이사 겸 기술총괄',
-      en: 'Jong-Il Won, CEO & CTO',
-      vi: 'Jong-Il Won, CEO & Giám Đốc Kỹ Thuật',
-      zh: '元钟一 代表理事 兼 CTO',
-      ar: 'يونغ إيل وون، الرئيس التنفيذي ورئيس التقنية',
+      ko: '원종일 각자대표',
+      en: 'WON JONG IL, Co-CEO',
+      vi: 'WON JONG IL, Đồng CEO',
+      zh: '元钟一 各自代表',
+      ar: 'وون جونغ إيل، الرئيس التنفيذي المشارك',
     },
     teams: [
       {

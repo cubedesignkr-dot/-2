@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import cmsOperationImg from '../assets/images/software_cms_monitor_1785989194504.jpg';
 
 interface AboutDiseSectionProps {
   onNavigateAbout: () => void;
@@ -54,14 +53,19 @@ export const AboutDiseSection: React.FC<AboutDiseSectionProps> = ({ onNavigateAb
           </div>
         </div>
 
-        {/* Bottom Row — Full-Width Operation Image */}
+        {/* Bottom Row — Incheon Airport Media Tower Photo */}
         <div className="w-full">
-          <div className="relative w-full aspect-[16/5] sm:aspect-[21/7] max-h-[380px] overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px]">
+          <div className="relative w-full aspect-[3/2] overflow-hidden bg-[#F5F6F7] border border-[#D9DEE3] rounded-[2px]">
             <img
-              src={cmsOperationImg}
-              alt="DISE Integrated Operation Control Environment"
-              className="w-full h-full object-cover"
+              src="/images/home/home-about-incheon-media-tower.png"
+              alt="인천국제공항 내부 LED 미디어타워 구축 사례"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
             />
+          </div>
+          <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] sm:text-xs font-mono text-[#66717C] tracking-wider uppercase">
+            <span>INCHEON INTERNATIONAL AIRPORT</span>
+            <span>LED MEDIA TOWER</span>
           </div>
         </div>
       </div>
