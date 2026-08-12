@@ -239,10 +239,13 @@ export const BusinessFourPillars: React.FC<BusinessFourPillarsProps> = ({
                           className="w-full h-full object-contain object-center"
                         />
                       </div>
-                      <div className="pt-0.5">
-                        <span className="text-[11px] font-mono text-[#64748B] tracking-wider uppercase font-medium">
+                      <div className="pt-0.5 space-y-0.5">
+                        <div className="text-[11px] font-mono text-[#64748B] tracking-wider uppercase font-medium">
                           CMS INTERFACE · ILLUSTRATIVE SCREEN
-                        </span>
+                        </div>
+                        <div className="text-[11px] text-[#64748B]">
+                          이해를 돕기 위한 예시 화면입니다.
+                        </div>
                       </div>
                     </div>
                   ) : sol.isDisplayControl ? (
