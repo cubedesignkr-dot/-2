@@ -30,35 +30,12 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
     },
   ];
 
-  const processSteps = [
-    {
-      step: '01',
-      titleKo: '기획·요구사항 분석',
-      titleEn: 'Planning & Requirement Analysis',
-    },
-    {
-      step: '02',
-      titleKo: '설계·시스템 구축',
-      titleEn: 'Design & Installation',
-    },
-    {
-      step: '03',
-      titleKo: 'CMS 연동·운영 테스트',
-      titleEn: 'CMS Integration & Testing',
-    },
-    {
-      step: '04',
-      titleKo: '통합관제·운영',
-      titleEn: 'Integrated Operation',
-    },
-  ];
-
   return (
-    <section className="py-20 sm:py-28 bg-[#F8F9FA] text-[#222831] border-b border-[#D9DEE3]">
+    <section className="py-20 sm:py-24 bg-[#F8F9FA] text-[#222831] border-b border-[#D9DEE3]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Header */}
-        <div className="space-y-4 mb-12 sm:mb-16">
+        <div className="space-y-4 mb-10 sm:mb-14">
           <div>
             <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#294A63]">
               SOLUTIONS
@@ -70,13 +47,13 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
               TO INTEGRATED OPERATION
             </h2>
             <p className="text-sm sm:text-base font-normal text-[#66717C] leading-relaxed font-sans">
-              기획과 구축부터 콘텐츠 송출, 통합관제와 운영까지 하나의 기술 체계로 연결합니다.
+              LED 미디어의 기획과 구축부터 디스플레이 제어, CMS 기반 통합운영까지 제공합니다.
             </p>
           </div>
         </div>
 
         {/* Vertical List of Horizontal Rows */}
-        <div className="max-w-[1100px] mx-auto border-t border-b border-[#D9DEE3] divide-y divide-[#D9DEE3] mb-16 sm:mb-20">
+        <div className="max-w-[1100px] mx-auto border-t border-b border-[#D9DEE3] divide-y divide-[#D9DEE3]">
           {solutions.map((item) => (
             <div
               key={item.num}
@@ -115,64 +92,16 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigateSo
           ))}
         </div>
 
-        {/* Project Execution Process Section */}
-        <div className="max-w-[1100px] mx-auto bg-[#18324A] text-white rounded-[2px] p-7 sm:p-12 border border-[#18324A]">
-          {/* Header */}
-          <div className="space-y-2 mb-10 pb-6 border-b border-white/15">
-            <span className="text-xs font-mono font-bold text-[#294A63] bg-white/10 px-2 py-0.5 rounded-[2px] tracking-[0.15em] uppercase inline-block text-amber-300">
-              HOW WE WORK
-            </span>
-            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              프로젝트 수행 프로세스
-            </h3>
-            <p className="text-xs sm:text-sm text-white/80 font-normal leading-relaxed max-w-2xl">
-              프로젝트 상담과 요구사항 분석부터 구축, CMS 연동 및 통합운영까지 다음 4단계로 진행합니다.
-            </p>
-          </div>
-
-          {/* 4 Steps Grid */}
-          <div className="relative pt-2">
-            {/* Horizontal Line on Desktop */}
-            <div className="hidden md:block absolute top-[16px] left-4 right-4 h-[1px] bg-white/20 z-0" />
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
-              {processSteps.map((step) => (
-                <div
-                  key={step.step}
-                  className="relative flex flex-col items-start space-y-2 pl-6 md:pl-0 border-l border-white/20 md:border-l-0 py-1 md:py-0"
-                >
-                  {/* Dot Desktop */}
-                  <div className="hidden md:flex items-center justify-center w-2.5 h-2.5 rounded-full bg-white border-2 border-[#18324A] mb-2 -mt-1 shadow-xs" />
-                  {/* Dot Mobile */}
-                  <div className="md:hidden absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-white border-2 border-[#18324A]" />
-
-                  <span className="text-xs font-mono font-bold text-amber-300 tracking-wider">
-                    {step.step}
-                  </span>
-
-                  <h4 className="text-base font-bold text-white tracking-tight">
-                    {step.titleKo}
-                  </h4>
-
-                  <p className="text-[11px] font-mono font-medium text-white/60">
-                    {step.titleEn}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Bottom Link to Solutions Page */}
-          <div className="mt-10 pt-6 border-t border-white/15 flex justify-between items-center">
-            <button
-              type="button"
-              onClick={() => onNavigateSolutions()}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-amber-300 transition-colors group cursor-pointer border-b border-white/30 hover:border-amber-300 pb-0.5"
-            >
-              <span>EXPLORE ALL SOLUTIONS</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
+        {/* Bottom Link to Solutions Page */}
+        <div className="max-w-[1100px] mx-auto pt-6 flex justify-end">
+          <button
+            type="button"
+            onClick={() => onNavigateSolutions()}
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#222831] hover:text-[#294A63] transition-colors group cursor-pointer border-b border-[#222831]/30 hover:border-[#294A63] pb-0.5"
+          >
+            <span>EXPLORE ALL SOLUTIONS</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
 
       </div>

@@ -20,19 +20,19 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
             </span>
           </div>
           <span className="text-xs font-mono font-medium uppercase tracking-widest text-[#66717C]">
-            MESSAGE FROM CO-CEOS
+            EXECUTIVE MESSAGE
           </span>
         </div>
       </div>
 
-      {/* 1. YOO JEONG WOO CO-CEO BLOCK */}
+      {/* 1. YOO JEONG WOO REPRESENTATIVE DIRECTOR BLOCK */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pb-12 border-b border-[#D9DEE3]">
         {/* LEFT COLUMN: Official Portrait Frame (~38% / 5 cols) */}
         <div className="lg:col-span-5 space-y-4">
           <div className="w-[80%] sm:w-[75%] lg:w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[440px] mx-auto lg:mx-0 aspect-[4/5] overflow-hidden rounded-[2px] bg-[#F8F9FA] border border-[#D9DEE3]">
             <img
               src="/images/about/ceo-yoo-jeong-woo-v2.webp"
-              alt="다이즈하이미디어 유정우 각자대표"
+              alt="다이즈하이미디어 유정우 대표이사"
               loading="lazy"
               className="w-full h-full object-cover object-top"
               style={{ objectPosition: 'center top' }}
@@ -40,13 +40,13 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
           </div>
           <div className="text-center lg:text-left space-y-1">
             <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-              CO-CHIEF EXECUTIVE OFFICER
+              CHIEF EXECUTIVE OFFICER
             </span>
             <p className="text-sm font-bold text-[#222831]">
-              {isKo ? '유정우 각자대표' : 'YOO JEONG WOO, CO-CEO'}
+              {isKo ? '유정우 대표이사' : 'YOO JEONG WOO, CEO'}
             </p>
             <span className="text-[11px] font-mono text-[#66717C] block">
-              CO-CEO · DISE HIGH MEDIA
+              CEO · DISE HIGH MEDIA
             </span>
           </div>
         </div>
@@ -59,10 +59,10 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
               {isKo ? (
                 <>
                   기술의 깊이를<br />
-                  시장의 확장으로 연결합니다.
+                  시장의 언어로 연결합니다.
                 </>
               ) : (
-                'Bridging Technical Depth with Market Expansion.'
+                'Connecting Technical Depth with Market Language.'
               )}
             </h2>
           </div>
@@ -72,16 +72,10 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
             {isKo ? (
               <>
                 <p>
-                  기술이 깊을수록, 그것을 시장의 언어로 옮기는 일이 중요합니다.
+                  기술이 깊을수록 그것을 시장의 언어로 옮기는 일이 중요합니다.
                 </p>
                 <p>
-                  DISE는 2010년부터 축적해 온 LED 미디어 기술과 운영 경험을 국내 주요 공간을 넘어 글로벌 시장으로 확장하고 있습니다.
-                </p>
-                <p>
-                  검증된 기술을 기반으로 새로운 미디어 환경을 설계하고, 고객과 파트너가 신뢰할 수 있는 지속 가능한 사업 구조를 만들어가겠습니다.
-                </p>
-                <p>
-                  DISE의 다음 도약을 함께해 주시기 바랍니다.
+                  DISE가 축적해 온 LED 미디어 기술과 운영 경험을 기반으로 베트남을 비롯한 글로벌 시장으로 사업 영역을 확장하고, 고객과 파트너가 신뢰할 수 있는 사업 구조를 만들어가겠습니다.
                 </p>
               </>
             ) : (
@@ -90,13 +84,7 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
                   The deeper the technology, the more crucial it is to translate it into the language of the market.
                 </p>
                 <p>
-                  Since 2010, DISE has built extensive LED media technology and operational expertise, expanding from major domestic landmarks into the global market.
-                </p>
-                <p>
-                  Based on proven technology, we design innovative media environments and establish sustainable business models trusted by clients and partners.
-                </p>
-                <p>
-                  We invite you to join DISE on our next leap forward.
+                  Based on the LED media technology and operational experience accumulated by DISE, we are expanding our business into global markets including Vietnam, creating a business structure trusted by customers and partners.
                 </p>
               </>
             )}
@@ -105,31 +93,31 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
           {/* REPRESENTATIVE INFORMATION BLOCK */}
           <div className="pt-6 sm:pt-8 border-t border-[#D9DEE3] space-y-2">
             <p className="text-xs text-[#66717C] font-mono tracking-wider">
-              {isKo ? '㈜다이즈하이미디어 각자대표' : 'DISE HIGH MEDIA Co., Ltd.'}
+              {isKo ? '㈜다이즈하이미디어 대표이사' : 'DISE HIGH MEDIA Co., Ltd.'}
             </p>
             <p className="text-lg sm:text-xl font-bold text-[#222831] tracking-tight font-sans">
-              {isKo ? '유정우 각자대표' : 'YOO JEONG WOO'}
+              {isKo ? '유정우 대표이사' : 'YOO JEONG WOO'}
             </p>
             <div className="space-y-0.5 pt-1">
               <p className="text-xs font-mono font-semibold text-[#294A63] tracking-widest uppercase">
                 YOO JEONG WOO
               </p>
               <p className="text-xs text-[#66717C] font-mono tracking-wide">
-                CO-CEO · DISE HIGH MEDIA
+                CEO · DISE HIGH MEDIA
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 2. WON JONG IL CO-CEO & CTO BLOCK (PURE TYPOGRAPHY - NO PHOTO / NO PLACEHOLDER) */}
+      {/* 2. WON JONG IL FOUNDER BLOCK (PURE TYPOGRAPHY - NO PHOTO / NO PLACEHOLDER) */}
       <div className="bg-[#F8F9FA] border border-[#D9DEE3] p-6 sm:p-10 rounded-[2px] space-y-6">
         <div className="space-y-1">
           <span className="text-xs font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-            CO-CEO & CTO
+            FOUNDER
           </span>
           <h3 className="text-xl sm:text-2xl font-bold text-[#222831] tracking-tight font-sans">
-            {isKo ? '자체 CMS와 원천 기술로 무중단 미디어 인프라를 지탱합니다.' : 'Sustaining Uninterrupted Media Infrastructure with Proprietary CMS & Core Technology.'}
+            {isKo ? '자체 CMS와 원천 기술로 안정적인 미디어 인프라를 만들어갑니다.' : 'Building Stable Media Infrastructure with Proprietary CMS & Core Technology.'}
           </h3>
         </div>
 
@@ -137,19 +125,19 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
           {isKo ? (
             <>
               <p>
-                16년간 무중단 운영 실적으로 검증된 자체 CMS 및 디스플레이 제어 원천 기술은 DISE의 가장 강력한 자산입니다.
+                2010년 영상분석 프로그램 개발을 시작으로 자체 CMS와 디스플레이 제어 기술을 축적해 왔습니다.
               </p>
               <p>
-                인천국제공항 600개 이상의 스크린 통합 관제부터 복합 미디어 공간 연동까지, 기술적 안정성을 바탕으로 흔들림 없는 미디어 환경을 구현해 가겠습니다.
+                인천국제공항 약 600대 LED 스크린의 장기간 통합운영 경험과 직접 개발한 원천 기술을 기반으로 안정적인 미디어 인프라를 만들어가겠습니다.
               </p>
             </>
           ) : (
             <>
               <p>
-                Proven by 16 years of uninterrupted operation, our proprietary CMS and display control core technologies represent DISE's core strength.
+                Starting with video analysis software development in 2010, we have accumulated proprietary CMS and display control technology.
               </p>
               <p>
-                From integrated control of 600+ screens at Incheon International Airport to complex venue media syncing, we deliver rock-solid media environments through technical reliability.
+                Based on long-term integrated operational experience with approximately 600 LED screens at Incheon International Airport and in-house core technology, we will build a stable media infrastructure.
               </p>
             </>
           )}
@@ -158,14 +146,14 @@ export const CeoSection: React.FC<CeoSectionProps> = ({ currentLang }) => {
         <div className="pt-4 border-t border-[#D9DEE3] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <p className="text-base font-bold text-[#222831] font-sans">
-              {isKo ? '원종일 각자대표 겸 기술총괄' : 'JONG-IL WON'}
+              {isKo ? '원종일 FOUNDER' : 'JONG-IL WON'}
             </p>
             <p className="text-xs font-mono text-[#66717C]">
-              CO-CEO & CTO · DISE HIGH MEDIA
+              FOUNDER · DISE HIGH MEDIA
             </p>
           </div>
           <span className="text-xs font-mono text-[#294A63] font-semibold uppercase tracking-wider">
-            R&D & TECHNICAL ARCHITECTURE
+            FOUNDER & R&D ARCHITECTURE
           </span>
         </div>
       </div>

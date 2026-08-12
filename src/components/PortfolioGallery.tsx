@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { PROJECT_IMAGES } from '../constants/projectImages';
-
-// Assets for Global Business & Activities (kept intact per requirements)
-import doohOutdoorMediaImg from '../assets/images/dooh_outdoor_media_1785989215681.jpg';
-import heroLedCityBg from '../assets/images/hero_led_city_bg_1786006096621.jpg';
-import softwareCmsMonitorImg from '../assets/images/software_cms_monitor_1785989194504.jpg';
-import hardwareControllerImg from '../assets/images/hardware_controller_1785989182277.jpg';
-import heroLedGlassBg from '../assets/images/hero_led_glass_bg_1786019620069.jpg';
-import inspireResortImg from '../assets/images/led_display_bg_1785990073226.jpg';
+import {
+  getPublishedProjectGalleryItems,
+  globalBusinessItems,
+  ProjectGalleryItem,
+} from '../data/projectGallery';
 
 interface PortfolioGalleryProps {
   currentLang: Language;
@@ -18,191 +14,25 @@ interface PortfolioGalleryProps {
   initialCategory?: string;
 }
 
-export interface MediaProjectItem {
-  id: string;
-  title: string;
-  titleEn: string;
-  image: string;
-  alt: string;
-  category: 'LED MEDIA' | 'DID';
-}
-
-export const mediaProjects: MediaProjectItem[] = [
-  {
-    id: "incheon-airport-media-tower",
-    title: "인천국제공항 미디어타워",
-    titleEn: "Incheon International Airport Media Tower",
-    image: PROJECT_IMAGES.incheonAirport,
-    alt: "인천국제공항 내부 수직 LED 미디어타워",
-    category: "LED MEDIA",
-  },
-  {
-    id: "inspire-arena",
-    title: "인스파이어 아레나",
-    titleEn: "Inspire Arena",
-    image: PROJECT_IMAGES.inspireArena,
-    alt: "인스파이어 아레나 공연장 LED 미디어",
-    category: "LED MEDIA",
-  },
-  {
-    id: "dongseongro-spark",
-    title: "동성로 스파크",
-    titleEn: "Dongseongro Spark",
-    image: PROJECT_IMAGES.dongseongroSpark,
-    alt: "동성로 스파크 외벽 LED 미디어",
-    category: "LED MEDIA",
-  },
-  {
-    id: "ifc-mall",
-    title: "여의도 IFC몰 LED 미디어",
-    titleEn: "Yeouido IFC Mall LED Media",
-    image: PROJECT_IMAGES.ifcMall,
-    alt: "여의도 IFC몰 야간 LED 미디어 파사드",
-    category: "LED MEDIA",
-  },
-  {
-    id: "emart24-did",
-    title: "이마트24 매장 DID",
-    titleEn: "eMart24 Store DID",
-    image: PROJECT_IMAGES.emart24Did,
-    alt: "이마트24 매장 카운터 DID 디스플레이",
-    category: "DID",
-  },
-  {
-    id: "busan-lct-exhibition",
-    title: "부산 엘시티 미디어 전시관",
-    titleEn: "Busan LCT Media Exhibition",
-    image: PROJECT_IMAGES.busanLctExhibition,
-    alt: "부산 엘시티 몰입형 LED 미디어 전시 공간",
-    category: "LED MEDIA",
-  },
-  {
-    id: "tour-bus-shelter-led",
-    title: "투어버스 쉘터 LED 매체",
-    titleEn: "Tour Bus Shelter LED Media",
-    image: PROJECT_IMAGES.tourBusShelterLed,
-    alt: "도심 보행 공간의 투어버스 쉘터 LED 매체",
-    category: "LED MEDIA",
-  },
-  {
-    id: "civil-service-did",
-    title: "양방향 민원 서비스 DID",
-    titleEn: "Interactive Civil Service DID",
-    image: PROJECT_IMAGES.civilServiceDid,
-    alt: "공공기관 민원 창구에 설치된 양방향 DID 단말기",
-    category: "DID",
-  },
-];
-
-interface GlobalGalleryItem {
-  id: string;
-  type: 'GLOBAL' | 'ACTIVITIES';
-  title: string;
-  titleEn: string;
-  category: string;
-  categoryEn: string;
-  image: string;
-  status?: 'CANDIDATE SITE' | 'IN PROGRESS';
-  description: string;
-}
-
-export const globalBusinessItems: GlobalGalleryItem[] = [
-  {
-    id: 'global-01',
-    type: 'GLOBAL',
-    title: '하노이 도심 LED 미디어 사업',
-    titleEn: 'HANOI URBAN LED MEDIA (TRANG TIEN)',
-    category: 'GLOBAL BUSINESS',
-    categoryEn: 'GLOBAL BUSINESS',
-    status: 'CANDIDATE SITE',
-    image: doohOutdoorMediaImg,
-    description: 'DISE는 국내에서 축적한 LED 미디어 구축과 운영 경험을 바탕으로 글로벌 시장으로 사업 영역을 확장하고 있습니다. 하노이 도심 주요 거점(장띠엔) 대상 옥외 LED 미디어 사업 후보지입니다.',
-  },
-  {
-    id: 'global-02',
-    type: 'GLOBAL',
-    title: '하노이 QCD Plaza 후보지',
-    titleEn: 'HANOI QCD PLAZA',
-    category: 'GLOBAL BUSINESS',
-    categoryEn: 'GLOBAL BUSINESS',
-    status: 'CANDIDATE SITE',
-    image: heroLedCityBg,
-    description: '하노이 도심 핵심 상업거점인 QCD Plaza를 대상으로 추진하는 옥외 LED 미디어 사업 후보지입니다.',
-  },
-  {
-    id: 'global-03',
-    type: 'GLOBAL',
-    title: '노이바이국제공항 LED 사업',
-    titleEn: 'NOI BAI INTERNATIONAL AIRPORT LED PROJECT',
-    category: 'GLOBAL BUSINESS',
-    categoryEn: 'GLOBAL BUSINESS',
-    status: 'IN PROGRESS',
-    image: heroLedCityBg,
-    description: '노이바이국제공항 LED 미디어 사업을 위한 현지 협력 체계와 사업 추진 기반을 구축하고 있습니다.',
-  },
-  {
-    id: 'activity-01',
-    type: 'ACTIVITIES',
-    title: '1차 베트남 방문 및 사업 미팅',
-    titleEn: '1ST VIETNAM BUSINESS VISIT',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: hardwareControllerImg,
-    description: '베트남 주요 미디어 및 공항 관계기관과의 1차 현지 사업 협력 미팅 진행.',
-  },
-  {
-    id: 'activity-02',
-    type: 'ACTIVITIES',
-    title: '2차 베트남 방문 및 현장 조사',
-    titleEn: '2ND VIETNAM BUSINESS VISIT',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: softwareCmsMonitorImg,
-    description: '하노이 주요 거점 및 노이바이국제공항 LED 입지 현장 실사 및 기술 조사.',
-  },
-  {
-    id: 'activity-03',
-    type: 'ACTIVITIES',
-    title: '민항회장 한국 방문',
-    titleEn: 'KOREA BUSINESS VISIT',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: doohOutdoorMediaImg,
-    description: '베트남 민항 대표단 한국 본사 방문 및 국내 공항 LED 미디어 현장 시찰.',
-  },
-  {
-    id: 'activity-04',
-    type: 'ACTIVITIES',
-    title: 'DISE–MHGROUP 협력 체결',
-    titleEn: 'VIETNAM BUSINESS PARTNERSHIP',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: heroLedGlassBg,
-    description: '베트남 글로벌 LED 미디어 인프라 사업 추진을 위한 DISE와 MHGROUP 간 상호 협력 체결.',
-  },
-  {
-    id: 'activity-05',
-    type: 'ACTIVITIES',
-    title: 'DISE–MHGROUP 미팅',
-    titleEn: 'VIETNAM BUSINESS MEETING',
-    category: 'BUSINESS ACTIVITIES',
-    categoryEn: 'BUSINESS ACTIVITIES',
-    image: inspireResortImg,
-    description: '베트남 현지 미디어 운영 및 CMS 시스템 구축을 위한 세부 사업 실행 계획 논의.',
-  },
-];
-
 export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
+  currentLang,
   onOpenAdminGallery,
 }) => {
   const [activeMediaFilter, setActiveMediaFilter] = useState<'ALL' | 'LED MEDIA' | 'DID'>('ALL');
   const [selectedMediaProjectIndex, setSelectedMediaProjectIndex] = useState<number | null>(null);
   const [selectedGlobalItemIndex, setSelectedGlobalItemIndex] = useState<number | null>(null);
 
-  const filteredMediaProjects = mediaProjects.filter((item) => {
+  // Load published gallery items from src/data/projectGallery.ts sorted by sortOrder ascending
+  const publishedProjects: ProjectGalleryItem[] = getPublishedProjectGalleryItems();
+
+  const filteredMediaProjects = publishedProjects.filter((item) => {
     if (activeMediaFilter === 'ALL') return true;
     return item.category === activeMediaFilter;
   });
+
+  // Admin button visibility condition: Development environment OR VITE_ENABLE_GALLERY_ADMIN === "true"
+  const showAdminButton =
+    import.meta.env.DEV || import.meta.env.VITE_ENABLE_GALLERY_ADMIN === 'true';
 
   // Modal keyboard shortcuts
   useEffect(() => {
@@ -237,8 +67,10 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedMediaProjectIndex, selectedGlobalItemIndex, filteredMediaProjects.length]);
 
-  const selectedMediaModal = selectedMediaProjectIndex !== null ? filteredMediaProjects[selectedMediaProjectIndex] : null;
-  const selectedGlobalModal = selectedGlobalItemIndex !== null ? globalBusinessItems[selectedGlobalItemIndex] : null;
+  const selectedMediaModal =
+    selectedMediaProjectIndex !== null ? filteredMediaProjects[selectedMediaProjectIndex] : null;
+  const selectedGlobalModal =
+    selectedGlobalItemIndex !== null ? globalBusinessItems[selectedGlobalItemIndex] : null;
 
   return (
     <div className="bg-white text-[#222831] font-sans antialiased min-h-screen">
@@ -248,19 +80,9 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
         <section className="space-y-8">
           {/* Header */}
           <div className="border-b border-[#D9DEE3] pb-6 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#294A63] block">
-                MEDIA PROJECTS
-              </span>
-              {onOpenAdminGallery && (
-                <button
-                  onClick={onOpenAdminGallery}
-                  className="text-xs font-mono text-[#66717C] hover:text-[#294A63] transition-colors border-b border-[#D9DEE3] pb-0.5 cursor-pointer"
-                >
-                  ADMIN GALLERY EDIT
-                </button>
-              )}
-            </div>
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#294A63] block">
+              MEDIA PROJECTS
+            </span>
             <h1 className="text-2xl sm:text-4xl font-bold text-[#222831] tracking-tight">
               주요 미디어 구축 프로젝트
             </h1>
@@ -292,39 +114,44 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
 
           {/* 2-Column Gallery Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
-            {filteredMediaProjects.map((item, idx) => (
-              <div
-                key={item.id}
-                onClick={() => setSelectedMediaProjectIndex(idx)}
-                className="group cursor-pointer space-y-2.5 pb-4 border-b border-[#E2E8F0]"
-              >
-                {/* Image Container (3:2 Aspect Ratio, No Box Frame) */}
-                <div className="relative aspect-[3/2] overflow-hidden rounded-[2px] bg-[#F5F6F7] w-full">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    width={1200}
-                    height={800}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300 ease-out"
-                  />
-                </div>
+            {filteredMediaProjects.map((item, idx) => {
+              const title = currentLang === 'en' ? item.titleEn : item.titleKo;
+              const alt = currentLang === 'en' ? item.imageAltEn : item.imageAltKo;
 
-                {/* Text Info Below Image */}
-                <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
-                    {item.category}
-                  </span>
-                  <h3 className="text-base sm:text-lg font-bold text-[#222831] group-hover:text-[#294A63] transition-colors tracking-tight">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs font-mono text-[#66717C]">
-                    {item.titleEn}
-                  </p>
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedMediaProjectIndex(idx)}
+                  className="group cursor-pointer space-y-2.5 pb-4 border-b border-[#E2E8F0]"
+                >
+                  {/* Image Container (3:2 Aspect Ratio, No Box Frame) */}
+                  <div className="relative aspect-[3/2] overflow-hidden rounded-[2px] bg-[#F5F6F7] w-full">
+                    <img
+                      src={item.image}
+                      alt={alt}
+                      width={1200}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300 ease-out"
+                    />
+                  </div>
+
+                  {/* Text Info Below Image */}
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-mono font-bold text-[#294A63] uppercase tracking-wider block">
+                      {item.category}
+                    </span>
+                    <h3 className="text-base sm:text-lg font-bold text-[#222831] group-hover:text-[#294A63] transition-colors tracking-tight">
+                      {title}
+                    </h3>
+                    <p className="text-xs font-mono text-[#66717C]">
+                      {item.titleEn}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -388,6 +215,19 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
           </div>
         </section>
 
+        {/* 3. DEVELOPER ADMIN BUTTON REGION (Positioned at bottom of gallery, right above Footer) */}
+        {/* TODO: Currently gallery data is stored in src/data/projectGallery.ts and client state/localStorage. Connect with real backend CMS (/admin/gallery) for permanent database persistence in production. */}
+        {showAdminButton && onOpenAdminGallery && (
+          <div className="pt-8 border-t border-[#E2E8F0] flex justify-center items-center">
+            <button
+              onClick={onOpenAdminGallery}
+              className="text-[11px] font-mono text-[#94A3B8] hover:text-[#64748B] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider uppercase"
+            >
+              ADMIN GALLERY EDIT — DEVELOPMENT ONLY
+            </button>
+          </div>
+        )}
+
       </div>
 
       {/* Lightbox Modal for Media Projects */}
@@ -405,7 +245,7 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
             <div className="relative aspect-[3/2] overflow-hidden bg-[#F5F6F7] rounded-[2px] w-full">
               <img
                 src={selectedMediaModal.image}
-                alt={selectedMediaModal.alt}
+                alt={currentLang === 'en' ? selectedMediaModal.imageAltEn : selectedMediaModal.imageAltKo}
                 className="w-full h-full object-cover object-center"
               />
               <button
@@ -435,10 +275,13 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
                 {selectedMediaModal.category}
               </span>
               <h3 className="text-xl font-bold text-[#222831]">
-                {selectedMediaModal.title}
+                {currentLang === 'en' ? selectedMediaModal.titleEn : selectedMediaModal.titleKo}
               </h3>
               <p className="text-xs font-mono text-[#66717C]">
                 {selectedMediaModal.titleEn}
+              </p>
+              <p className="text-xs sm:text-sm text-[#4A5568] leading-relaxed pt-2 border-t border-[#E2E8F0]">
+                {currentLang === 'en' ? selectedMediaModal.descriptionEn : selectedMediaModal.descriptionKo}
               </p>
             </div>
 

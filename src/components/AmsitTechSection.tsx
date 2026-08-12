@@ -86,11 +86,11 @@ export const AmsitTechSection: React.FC<AmsitTechSectionProps> = ({ currentLang 
         <h2 className="text-lg sm:text-2xl font-black text-slate-900 leading-snug tracking-tight [word-break:keep-all] break-keep">
           {isKo ? (
             <>
-              <span className="text-red-600 font-black">15년 인천국제공항 무중단 운영</span>으로 검증된 통합 미디어 플랫폼 기술 체계
+              <span className="text-[#294A63] font-black">2010년 이후 축적해 온 기술과 대형 미디어 인프라 운영 경험</span>으로 검증된 통합 미디어 플랫폼 기술 체계
             </>
           ) : (
             <>
-              Integrated Media Platform Tech Core Proven by <span className="text-red-600 font-black">15+ Years of Zero-Downtime Operations at Incheon Airport</span>
+              Integrated Media Platform Tech Core Proven by <span className="text-[#294A63] font-black">Extensive Operational Experience Since 2010</span>
             </>
           )}
         </h2>

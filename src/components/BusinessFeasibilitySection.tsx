@@ -64,7 +64,7 @@ export const BusinessFeasibilitySection: React.FC<BusinessFeasibilitySectionProp
             <h3 className="text-xl font-bold text-slate-900 mb-3">3. 안정성 및 리스크 관리</h3>
             <p className="text-sm text-slate-600 leading-relaxed">
               전력 소비와 블랙아웃(화면 멈춤) 장애가 옥외 매체 사업의 주된 리스크입니다. 
-              다이즈하이미디어의 AMSIT 기술(Aero-Flex 35% 전력절감 + MW 16년 무중단 보증)을 통해 운영비를 대폭 줄이고 장비 수명을 극대화합니다.
+              다이즈하이미디어의 AMSIT 기술(Aero-Flex 35% 전력절감 + 안정적인 미디어 인프라 제어)을 통해 운영비를 대폭 줄이고 장비 수명을 극대화합니다.
             </p>
           </div>
         </div>
@@ -87,7 +87,7 @@ export const BusinessFeasibilitySection: React.FC<BusinessFeasibilitySectionProp
             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 shrink-0">
               <CheckCircle2 className="w-5 h-5 text-emerald-400" />
               <div className="text-left">
-                <span className="block text-xs font-semibold text-slate-200">16년 연속 무중단</span>
+                <span className="block text-xs font-semibold text-slate-200">축적된 기술과 운영 경험</span>
                 <span className="block text-sm font-bold text-white">ZERO Claim 운영 실적</span>
               </div>
             </div>
